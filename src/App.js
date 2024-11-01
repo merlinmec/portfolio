@@ -3,7 +3,6 @@ import React from 'react';
 import Banner from './components/Banner';
 import Header from './components/Header';
 import Nav from './components/Nav';
-import Sobre from './components/Sobre';
 import Experiencia from './components/Experiencia';
 import Projetos from './components/Projetos';
 import Contato from './components/Contato';
@@ -14,7 +13,6 @@ const App = () => {
       <Header />
       <Banner />
       <Nav />
-      <Sobre />
       <Experiencia />
       <Projetos />
       <Contato />

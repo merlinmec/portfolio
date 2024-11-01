@@ -1,6 +1,6 @@
 import React from 'react';
 // icons
-import { BiHomeAlt, BiUser } from 'react-icons/bi';
+import { BiHomeAlt} from 'react-icons/bi';
 import { BsClipboardData, BsBriefcase, BsChatSquareText } from 'react-icons/bs';
 
 // links
@@ -22,15 +22,6 @@ const Nav = () => {
             className="cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
           >
             <BiHomeAlt />
-          </Link>
-          <Link
-            to="sobre"
-            activeClass="active"
-            smooth={true}
-            spy={true}
-            className="cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
-          >
-            <BiUser />
           </Link>
           <Link
             to="experiencia"
