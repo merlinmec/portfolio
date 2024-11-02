@@ -1,4 +1,4 @@
-Português | [English version below](#english-version)
+[English version below](#english-version)
 
 # Portfólio Pessoal
 
@@ -29,9 +29,9 @@ Este é o repositório do meu portfólio pessoal, onde compartilho meus projetos
 - [Email](mailto:joaomanoel190701@gmail.com)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-## English Version
+## {#english-version}
 
-# Personal Portfolio {#english-version}
+# Personal Portfolio 
 
 This is the repository for my personal portfolio, where I share my projects, experiences, and skills. Feel free to explore the code and check out the live version to get to know my work.
 

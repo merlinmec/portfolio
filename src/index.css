@@ -5,21 +5,21 @@
 .btn {
   background: linear-gradient(
     92.23deg,
-    #ff56f6 21.43%,
-    #b936ee 50.63%,
-    #3bace2 100%,
-    #406aff 117.04%
+    #ca0025 21.43%,
+    #df2459 50.63%,
+    #85062c 100%,
+    #db0848 117.04%
   );
-  box-shadow: 0px 4.42184px 107.23px rgba(255, 86, 246, 0.51);
+  box-shadow: 0px 4.42184px 107.23px rgba(202, 1, 61, 0.966);
 }
 
 .btn:hover {
   background: linear-gradient(
     92.23deg,
-    #406aff 21.43%,
-    #3bace2 50.63%,
-    #b936ee 100%,
-    #ff56f6 117.04%
+    #db0848 21.43%,
+    #b4063a 50.63%,
+    #8b0c30 100%,
+    #ca0025 117.04%
   );
 }
 
@@ -27,10 +27,10 @@
 .active {
   background: linear-gradient(
     92.23deg,
-    #406aff 21.43%,
-    #3bace2 50.63%,
-    #b936ee 100%,
-    #ff56f6 117.04%
+    #f02360 21.43%,
+    #ad0638 50.63%,
+    #df2459 100%,
+    #ca0025 117.04%
   );
 }
 
@@ -63,7 +63,7 @@
     @apply text-base;
   }
   .text-gradient {
-    @apply bg-gradient-to-r text-transparent bg-clip-text from-[#42A6E3] to-[#FF56F6] font-bold font-primary hover:from-[#FF56F6] hover:to-[#42A6E3];
+    @apply bg-gradient-to-r text-transparent bg-clip-text from-[#AC1B44] to-[#E44A78] font-bold font-primary hover:from-[#E44A78] hover:to-[#AC1B44];
   }
   .section {
     @apply py-8 lg:py-24 lg:h-screen flex items-center;
