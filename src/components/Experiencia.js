@@ -29,13 +29,12 @@ const Experiencia = () => {
             initial="hidden" 
             whileInView={'show'}
             viewport={{once: false, amount: 0.3}}
-            className='flex-1 lg:bg-services lg:bg-bottom bg-no-repeat
+            className='flex-1 bg-no-repeat
           mix-blend-lighten mb-12 lg:mb-0'>
             <h2 className='h2 text-accent mb-6'>O que eu faço</h2>
             <h3 className='h3 max-w-[455px] mb-16'>
               Sou estudante de Ciências da Computação e Desenvolvedor Kotlin.
             </h3>
-            <button className='btn btn-sm'>Veja meus Projetos</button>
           </motion.div>
           {/* services */}
           <motion.div 
