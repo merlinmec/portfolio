@@ -5,10 +5,10 @@
       <stop offset="100%" stop-color="#FF56F6"/>
     </linearGradient>
   </defs>
-  <text x="10" y="35" font-family="Rajdhani" font-size="30">
+  <text x="10" y="35" font-family="Arial Black" font-size="30">
     <tspan fill="#FFFFFF">&lt;</tspan>
     <tspan fill="url(#gradienteMEC)">MEC</tspan>
-    <tspan fill="#FFFFFF" dy="1.2em" dx="-2.5em">DEV</tspan>
+    <tspan fill="#FFFFFF" dy="1.2em" dx="-2.8em">DEV</tspan>
     <tspan fill="#FFFFFF">&gt;/</tspan>
   </text>
 </svg>
