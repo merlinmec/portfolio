@@ -1,6 +1,6 @@
 import React from 'react';
 // images
-import Image from '../assets/avatar.svg';
+import Image from '../assets/jm.svg';
 // icons
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 // type animations
@@ -68,7 +68,11 @@ const Banner = () => {
               <a href="https://www.instagram.com/joao_carv19/" target="_blank" rel="noopener noreferrer">
                 <FaInstagram/>
               </a>
-              <a href='#' className='text-gradient btn-link'>
+              <a
+              href="/curriculo.pdf"
+              download="curriculo_Joao_Manoel.pdf"
+              className="text-gradient btn-link"
+              >
                 Meu Currículo
               </a>
             </motion.div>

@@ -1,3 +1,5 @@
+[![Preview do Portfólio](./public/preview_portifolio.jpeg)](./public/preview_portifolio.jpeg)
+
 [English version below](#english-version)
 
 # Portfólio Pessoal

@@ -23,7 +23,7 @@ const Projetos = () => {
             <div>
               <h2 className='h2 leading-tight text-accent'>
                 Projetos <br/>
-                Recentes.
+                Recentes
               </h2>
               <p className='max-w-sm mb-16'> 
                 Mollit minim culpa labore ad id. Nostrud magna dolore Lorem adipisicing. 
