@@ -49,8 +49,8 @@ const Banner = () => {
               viewport={{once: false, amount: 0.7}}
               className='mb-8 max-w-lg mx-auto lg:mx-0' 
             >
-              Id deserunt occaecat sunt ea adipisicing qui ut laborum occaecat. Nostrud ex veniam sit deserunt cillum.
-              Qui labore ex ea labore consequat duis nostrud. 
+              Sou desenvolvedor de software com experiência em <b>Kotlin</b>, <b>Java</b>, <b>React</b> e <b>Docker</b>. Estou focado em soluções back-end e sempre busco melhorar minhas habilidades.
+              Confira meus projetos e veja como posso agregar valor às suas ideias!
             </motion.p >
             <motion.div 
               variants={fadeIn('up', 0.6)} 
