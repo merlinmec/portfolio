@@ -26,8 +26,8 @@ const Projetos = () => {
                 Recentes
               </h2>
               <p className='max-w-sm mb-16'> 
-                Mollit minim culpa labore ad id. Nostrud magna dolore Lorem adipisicing. 
-                Lorem adipisicing. Ex ipsum esse dolore qui ex consectetur.
+                Aqui estão alguns dos meus projetos recentes que gostaria que você explorasse.
+                Para ver mais, basta acessar meu GitHub.
               </p>
               <button 
               className='btn btn-sm'

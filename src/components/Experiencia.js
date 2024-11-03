@@ -8,12 +8,12 @@ const services = [
   {
     name: 'Estagiário EDU3',
     description:
-    'Est eiusmod sint dolore sit fugiat laboris incididunt fugiat id Est eiusmod sint dolore sit fugiat laboris incididunt fugiat id Est eiusmod sint dolore sit fugiat laboris incididunt fugiat id',
+    'Na EDU3, uma empresa dedicada ao desenvolvimento de soluções de software para gestão de sistemas escolares. Meu papel envolve a criação e melhoria de funcionalidades que atendem às necessidades de instituições de ensino. Utilizo principalmente JAVA para o desenvolvimento back-end, mas tenho participação em todas as frentes de desenvolvimento.',
   },
   {
     name: 'Projetos Independentes',
     description:
-    'Est eiusmod sint dolore sit fugiat laboris incididunt fugiat id',
+    'Trabalhei com tecnologias como KOTLIN, JAVA e REACT, aplicando boas práticas de programação e princípios de design de software. Estou sempre em busca de novos desafios que me permitam expandir meu conhecimento e contribuir de forma significativa para projetos inovadores.',
   },
 ];
 
@@ -47,7 +47,7 @@ const Experiencia = () => {
               {services.map((service, index) => {
                 const {name, description} = service;
                 return (
-                  <div className='border-b border-white/20 h-[146px] mb-[38px]' key={index}>
+                  <div className='border-b border-white/20 h-[200px] mb-[38px]' key={index}>
                     <div className='max-w-[575px]'>
                       <h4 className='text-[20px] tracking-wider font-primary
                       font-semibold mb-6'>
