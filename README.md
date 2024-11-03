@@ -21,6 +21,8 @@ Este é o repositório do meu portfólio pessoal, onde compartilho meus projetos
 
 ## Rodando o Projeto Localmente
 
+=>Pré-requisitos: instalar Node.js (npm necessário)
+
 1. Clone o repositório: `git clone https://github.com/merlinmec/portfolio.git`
 2. Instale as dependências: `npm install`
 3. Inicie o servidor: `npm start`
@@ -51,6 +53,8 @@ This is the repository for my personal portfolio, where I share my projects, exp
 - Tailwind CSS
 
 ## Running the Project Locally
+
+=>Prerequisites: install Node.js (npm required)
 
 1. Clone the repository: `git clone https://github.com/merlinmec/portfolio.git`
 2. Install the dependencies: `npm install`
