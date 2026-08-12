@@ -5,6 +5,7 @@ import { FaGithub, FaExternalLinkAlt, FaJava, FaHtml5, FaCss3, FaPython, FaPhp }
 import { SiJavascript, SiTypescript, SiKotlin, SiCplusplus, SiSharp, SiGo, SiRust, SiDart } from 'react-icons/si';
 import { BsCodeSlash } from 'react-icons/bs';
 import SectionHeading from './SectionHeading';
+import { useLanguage } from '../context/LanguageContext';
 
 const GITHUB_USER = 'merlinmec';
 const FEATURED_TOPIC = 'portfolio';
@@ -35,15 +36,16 @@ const LANGUAGE_ICONS = {
 };
 const DEFAULT_LANGUAGE_ICON = { icon: BsCodeSlash, color: '#A78BFA' };
 
-const formatDate = (isoDate) => {
+const formatDate = (isoDate, locale) => {
   if (!isoDate) return null;
-  return new Intl.DateTimeFormat('pt-BR', { month: 'short', year: 'numeric' })
+  return new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric' })
     .format(new Date(isoDate))
     .replace('.', '')
     .toUpperCase();
 };
 
 const Projetos = () => {
+  const { t, language } = useLanguage();
   const [repos, setRepos] = useState(null);
   const [error, setError] = useState(false);
 
@@ -71,47 +73,32 @@ const Projetos = () => {
     };
   }, []);
 
+  const dateLocale = language === 'pt' ? 'pt-BR' : 'en-US';
+
   return (
     <section className="section border-b border-white/5" id="projetos">
       <div className="container mx-auto">
-        <SectionHeading eyebrow="Trabalho" title="Projetos Recentes" />
+        <SectionHeading eyebrow={t.projetos.eyebrow} title={t.projetos.title} />
 
         <button
           className="btn btn-sm mb-12"
           onClick={() => window.open(`https://github.com/${GITHUB_USER}?tab=repositories`, '_blank')}
         >
-          Ver todos os projetos no GitHub
+          {t.projetos.viewAllBtn}
         </button>
 
-        {error && (
-          <p className="text-white/70">
-            Não consegui carregar os projetos agora (API do GitHub indisponível ou limite de
-            requisições atingido). Veja todos direto no{' '}
-            <a
-              className="underline hover:text-accent transition-all"
-              href={`https://github.com/${GITHUB_USER}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-            .
-          </p>
-        )}
+        {error && <p className="text-white/70">{t.projetos.errorMsg(GITHUB_USER)}</p>}
 
-        {!error && repos === null && <p className="text-white/70">Carregando projetos…</p>}
+        {!error && repos === null && <p className="text-white/70">{t.projetos.loading}</p>}
 
         {!error && repos && repos.length === 0 && (
-          <p className="text-white/70">
-            Nenhum projeto marcado ainda. Adicione a topic <code>{FEATURED_TOPIC}</code> nos
-            repositórios que você quiser destacar aqui.
-          </p>
+          <p className="text-white/70">{t.projetos.emptyMsg(FEATURED_TOPIC)}</p>
         )}
 
         {!error && repos && repos.length > 0 && (
           <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
             {repos.map((repo, index) => {
-              const date = formatDate(repo.pushed_at);
+              const date = formatDate(repo.pushed_at, dateLocale);
               const { icon: LangIcon, color: langColor } =
                 LANGUAGE_ICONS[repo.language] || DEFAULT_LANGUAGE_ICON;
               return (
@@ -129,7 +116,7 @@ const Projetos = () => {
                   <div>
                     <div className="mb-5 flex items-center justify-between gap-2">
                       <span className="rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs uppercase tracking-wider text-white/80">
-                        {repo.language || 'Projeto'}
+                        {repo.language || t.projetos.defaultLanguage}
                       </span>
                       {date && (
                         <span className="text-xs uppercase tracking-wider text-white/50">
@@ -152,7 +139,7 @@ const Projetos = () => {
                     </div>
 
                     <p className="leading-relaxed text-white/70">
-                      {repo.description || 'Projeto em andamento — descrição em breve.'}
+                      {repo.description || t.projetos.defaultDescription}
                     </p>
                   </div>
 
@@ -162,20 +149,20 @@ const Projetos = () => {
                         href={repo.homepage}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Ver demo do projeto ${repo.name}`}
+                        aria-label={t.projetos.ariaDemo(repo.name)}
                         className="btn-outline flex items-center gap-x-2 rounded-full px-4 py-2 hover:text-accent"
                       >
-                        <FaExternalLinkAlt /> Ver demo
+                        <FaExternalLinkAlt /> {t.projetos.demo}
                       </a>
                     )}
                     <a
                       href={repo.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`Ver código do projeto ${repo.name} no GitHub`}
+                      aria-label={t.projetos.ariaGithub(repo.name)}
                       className="btn-outline flex items-center gap-x-2 rounded-full px-4 py-2 hover:text-accent"
                     >
-                      <FaGithub /> Ver no GitHub
+                      <FaGithub /> {t.projetos.github}
                     </a>
                   </div>
                 </motion.div>
