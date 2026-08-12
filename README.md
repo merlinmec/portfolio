@@ -6,18 +6,24 @@
 
 Este é o repositório do meu portfólio pessoal, onde compartilho meus projetos, experiências e habilidades. Sinta-se à vontade para explorar o código e acessar a versão ao vivo para conhecer meu trabalho.
 
-## Funcionalidades
+## Layout
 
-- **Banner**: Uma breve apresentação.
-- **Projetos**: Lista dos meus principais projetos com links para o GitHub.
-- **Experiência**: Experiências profissionais relevantes.
-- **Contato**: Meio de mandar email para mim, entrar em contato.
+Sidebar fixa (foto, nome, links) à esquerda e conteúdo rolável à direita, dividido nas seções:
+
+- **Sobre**: Breve apresentação.
+- **Experiência**: Timeline com experiências profissionais.
+- **Projetos**: Listagem automática dos meus repositórios públicos no GitHub — veja abaixo como adicionar um novo.
+- **Skills**: Tecnologias e ferramentas que utilizo.
+
+### Como adicionar um projeto à listagem
+
+A seção Projetos busca automaticamente, via API do GitHub, os repositórios públicos marcados com a topic `portfolio`. Para exibir um projeto no site, basta marcar essa topic no repositório correspondente no GitHub — não é necessário alterar nada no código.
 
 ## Tecnologias Utilizadas
 
 - React
-- TypeScript
 - Tailwind CSS
+- Framer Motion
 
 ## Rodando o Projeto Localmente
 
@@ -39,18 +45,24 @@ Este é o repositório do meu portfólio pessoal, onde compartilho meus projetos
 
 This is the repository for my personal portfolio, where I share my projects, experiences, and skills. Feel free to explore the code and check out the live version to get to know my work.
 
-## Features
+## Layout
 
-- **Banner**: A brief introduction.
-- **Projects**: A list of my main projects with links to GitHub.
-- **Experience**: Relevant professional experiences.
-- **Contact**: A way to send me an email and get in touch.
+A fixed sidebar (photo, name, links) on the left and scrollable content on the right, split into these sections:
+
+- **About**: A brief introduction.
+- **Experience**: Timeline of my professional experience.
+- **Projects**: Automatically lists my public GitHub repositories — see below how to add a new one.
+- **Skills**: Technologies and tools I use.
+
+### How to add a project to the list
+
+The Projects section automatically fetches, via the GitHub API, public repositories tagged with the `portfolio` topic. To show a project on the site, just add that topic to the repository on GitHub — no code changes needed.
 
 ## Technologies Used
 
 - React
-- TypeScript
 - Tailwind CSS
+- Framer Motion
 
 ## Running the Project Locally
 
