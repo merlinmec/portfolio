@@ -29,7 +29,7 @@ const Sidebar = () => {
       className="w-full border-b border-white/10 bg-primary lg:sticky lg:top-0 lg:h-screen
       lg:w-[420px] lg:shrink-0 lg:overflow-y-auto lg:border-b-0 lg:border-r lg:border-white/10"
     >
-      <div className="flex flex-col gap-y-8 px-6 py-8 lg:h-full lg:justify-between lg:px-12 lg:pb-14 lg:pt-8">
+      <div className="flex flex-col gap-y-8 px-6 py-8 lg:px-12 lg:pb-14 lg:pt-8">
         <div>
           <div className="flex items-center justify-between lg:mb-4">
             <Link to="home" smooth={true} className="cursor-pointer" aria-label={t.sidebar.homeAria}>
