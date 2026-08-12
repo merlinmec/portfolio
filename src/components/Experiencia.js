@@ -2,30 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
 import SectionHeading from './SectionHeading';
-
-const experiences = [
-  {
-    role: 'Estagiário — EDU3',
-    period: 'Atual',
-    description:
-      'Atuo no desenvolvimento back-end em Java na EDU3, empresa de software para gestão de sistemas escolares, criando e evoluindo funcionalidades usadas por instituições de ensino. Além do back-end, participo de outras frentes do desenvolvimento (como front-end e banco de dados) e já colaborei em decisões técnicas de features que passaram pela minha responsabilidade, do desenho da solução até a entrega.',
-  },
-  {
-    role: 'Projetos Independentes',
-    period: 'Contínuo',
-    description:
-      'Desenvolvo projetos próprios com Java, Spring e React, aplicando boas práticas de programação e princípios de design de software. Uso esses projetos para explorar tecnologias e problemas que não apareceriam no dia a dia do trabalho, e para consolidar decisões de arquitetura de ponta a ponta.',
-  },
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const Experiencia = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="section border-b border-white/5" id="experiencia">
       <div className="container mx-auto">
         <SectionHeading
-          eyebrow="Trajetória"
-          title="Experiência"
-          description="Estudante de Ciências do Computação e desenvolvedor Java — onde venho aplicando isso na prática."
+          eyebrow={t.experiencia.eyebrow}
+          title={t.experiencia.title}
+          description={t.experiencia.description}
         />
 
         <div className="relative">
@@ -34,7 +22,7 @@ const Experiencia = () => {
             aria-hidden="true"
           />
           <div className="space-y-10">
-            {experiences.map((exp, index) => (
+            {t.experiencia.items.map((exp, index) => (
               <motion.div
                 key={exp.role}
                 variants={fadeIn('up', 0.2 + index * 0.15)}

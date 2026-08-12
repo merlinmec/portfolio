@@ -3,10 +3,11 @@ import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { fadeIn } from '../variants';
-
-const focusAreas = ['Java', 'Spring', 'Estágio ativo — EDU3', 'React'];
+import { useLanguage } from '../context/LanguageContext';
 
 const Sobre = () => {
+  const { t, language } = useLanguage();
+
   return (
     <section
       className="relative min-h-[85vh] overflow-hidden flex items-center px-6 py-16 lg:py-0"
@@ -27,7 +28,7 @@ const Sobre = () => {
           viewport={{ once: true, amount: 0.7 }}
           className="eyebrow"
         >
-          Olá, eu sou o João
+          {t.sobre.eyebrow}
         </motion.span>
 
         <motion.h1
@@ -37,11 +38,12 @@ const Sobre = () => {
           viewport={{ once: true, amount: 0.7 }}
           className="font-primary font-black uppercase leading-[0.95] text-[48px] sm:text-[64px] lg:text-[88px]"
         >
-          <span className="block text-white">Desenvolvedor</span>
-          <span className="text-gradient block">Back-end</span>
+          <span className="block text-white">{t.sobre.headlineTop}</span>
+          <span className="text-gradient block">{t.sobre.headlineBottom}</span>
         </motion.h1>
 
         <motion.div
+          key={language}
           variants={fadeIn('up', 0.35)}
           initial="hidden"
           whileInView={'show'}
@@ -49,16 +51,7 @@ const Sobre = () => {
           className="mt-6 text-xl text-white/70 font-secondary lg:text-2xl"
         >
           <TypeAnimation
-            sequence={[
-              'Java & Spring no back-end',
-              2500,
-              'APIs, regras de negócio, banco de dados',
-              2200,
-              'Um pouco de React quando o projeto pede',
-              2200,
-              'Sempre aprendendo algo novo',
-              2000,
-            ]}
+            sequence={t.sobre.sequence}
             speed={50}
             className="text-accent-light"
             wrapper="span"
@@ -73,10 +66,7 @@ const Sobre = () => {
           viewport={{ once: true, amount: 0.7 }}
           className="mt-6 max-w-xl text-white/70"
         >
-          Sou desenvolvedor <b>back-end</b>, com experiência em <b>Java</b> e <b>Spring</b> —
-          construindo APIs, regras de negócio e integrações. Também transito pelo front-end com{' '}
-          <b>React</b> quando o projeto pede. Confira meus projetos e veja como posso agregar
-          valor às suas ideias!
+          {t.sobre.paragraph()}
         </motion.p>
 
         <motion.div
@@ -86,7 +76,7 @@ const Sobre = () => {
           viewport={{ once: true, amount: 0.7 }}
           className="mt-8 flex flex-wrap gap-2"
         >
-          {focusAreas.map((item) => (
+          {t.sobre.focusAreas.map((item) => (
             <span
               key={item}
               className="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/70"
@@ -110,7 +100,7 @@ const Sobre = () => {
             offset={-20}
             className="btn btn-sm cursor-pointer flex items-center justify-center"
           >
-            Ver projetos
+            {t.sobre.cta}
           </Link>
         </motion.div>
       </div>
