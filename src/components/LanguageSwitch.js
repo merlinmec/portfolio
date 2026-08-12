@@ -30,7 +30,7 @@ const LanguageSwitch = () => {
           prefersReducedMotion() ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 28 }
         }
         className="relative z-10 h-7 w-7 rounded-full bg-white/95 shadow-[0_2px_8px_rgba(0,0,0,0.5)]
-        ring-2 ring-white/40"
+        ring-2 ring-accent-light"
         style={{ marginLeft: isPt ? 0 : 'auto' }}
       />
     </button>
