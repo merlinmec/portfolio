@@ -14,7 +14,7 @@ const LanguageSwitch = () => {
       onClick={toggleLanguage}
       aria-label={t.sidebar.langSwitchAria}
       className="relative flex h-9 w-[72px] shrink-0 items-center overflow-hidden rounded-full
-      border border-white/20 p-1 transition-all duration-300 ease-out hover:brightness-110"
+      border-[3px] border-white/80 p-1 transition-all duration-300 ease-out hover:brightness-110"
     >
       <span className="absolute inset-0" aria-hidden="true">
         {isPt ? (
