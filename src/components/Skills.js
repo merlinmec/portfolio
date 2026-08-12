@@ -4,6 +4,7 @@ import { fadeIn, staggerContainer } from '../variants';
 import SectionHeading from './SectionHeading';
 import { FaJava, FaReact, FaHtml5, FaCss3, FaGitAlt, FaGithub } from 'react-icons/fa';
 import { SiSpring, SiJavascript, SiTailwindcss } from 'react-icons/si';
+import { useLanguage } from '../context/LanguageContext';
 
 const skills = [
   { name: 'Java', icon: FaJava, color: '#f89820' },
@@ -18,13 +19,15 @@ const skills = [
 ];
 
 const Skills = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="section min-h-screen flex flex-col justify-center" id="skills">
       <div className="container mx-auto">
         <SectionHeading
-          eyebrow="Ferramentas"
-          title="Skills"
-          description="Tecnologias que uso no dia a dia — no trabalho, nos projetos pessoais e na construção deste site."
+          eyebrow={t.skills.eyebrow}
+          title={t.skills.title}
+          description={t.skills.description}
         />
 
         <motion.div
