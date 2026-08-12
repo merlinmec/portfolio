@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
 import { FaGithub, FaExternalLinkAlt, FaJava, FaHtml5, FaCss3, FaPython, FaPhp } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import { SiJavascript, SiTypescript, SiKotlin, SiCplusplus, SiSharp, SiGo, SiRus
 import { BsCodeSlash } from 'react-icons/bs';
 import SectionHeading from './SectionHeading';
 import { useLanguage } from '../context/LanguageContext';
+import { translateText } from '../utils/translateText';
 
 const GITHUB_USER = 'merlinmec';
 const FEATURED_TOPIC = 'portfolio';
@@ -48,6 +49,8 @@ const Projetos = () => {
   const { t, language } = useLanguage();
   const [repos, setRepos] = useState(null);
   const [error, setError] = useState(false);
+  const [translatedDescriptions, setTranslatedDescriptions] = useState({});
+  const requestedTranslations = useRef(new Set());
 
   useEffect(() => {
     let cancelled = false;
@@ -72,6 +75,21 @@ const Projetos = () => {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (language !== 'en' || !repos) return;
+
+    repos.forEach((repo) => {
+      if (!repo.description || requestedTranslations.current.has(repo.id)) return;
+      requestedTranslations.current.add(repo.id);
+
+      translateText(repo.description, 'pt', 'en')
+        .then((text) => {
+          setTranslatedDescriptions((prev) => ({ ...prev, [repo.id]: text }));
+        })
+        .catch(() => {});
+    });
+  }, [language, repos]);
 
   const dateLocale = language === 'pt' ? 'pt-BR' : 'en-US';
 
@@ -101,6 +119,10 @@ const Projetos = () => {
               const date = formatDate(repo.pushed_at, dateLocale);
               const { icon: LangIcon, color: langColor } =
                 LANGUAGE_ICONS[repo.language] || DEFAULT_LANGUAGE_ICON;
+              const description =
+                language === 'en' && repo.description
+                  ? translatedDescriptions[repo.id] || repo.description
+                  : repo.description;
               return (
                 <motion.div
                   key={repo.id}
@@ -139,7 +161,7 @@ const Projetos = () => {
                     </div>
 
                     <p className="leading-relaxed text-white/70">
-                      {repo.description || t.projetos.defaultDescription}
+                      {description || t.projetos.defaultDescription}
                     </p>
                   </div>
 
