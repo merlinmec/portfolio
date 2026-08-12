@@ -1,20 +1,35 @@
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+export const staggerContainer = (staggerChildren = 0.15, delayChildren = 0) => {
+  const reduceMotion = prefersReducedMotion();
+  return {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: reduceMotion ? 0 : staggerChildren,
+        delayChildren: reduceMotion ? 0 : delayChildren,
+      },
+    },
+  };
+};
+
 export const fadeIn = (direction, delay) => {
+  const reduceMotion = prefersReducedMotion();
   return {
     hidden: {
-      y: direction === 'up' ? 80 : direction === 'down' ? -80 : 0,
+      y: reduceMotion ? 0 : direction === 'up' ? 50 : direction === 'down' ? -50 : 0,
       opacity: 0,
-      x: direction === 'left' ? 80 : direction === 'right' ? -80 : 0,
+      x: reduceMotion ? 0 : direction === 'left' ? 50 : direction === 'right' ? -50 : 0,
     },
     show: {
       y: 0,
       x: 0,
       opacity: 1,
-      transition: {
-        type: 'tween',
-        duration: 1.2,
-        delay: delay,
-        ease: [0.25, 0.25, 0.25, 0.75],
-      },
+      transition: reduceMotion
+        ? { type: 'tween', duration: 0.3, delay: 0 }
+        : { type: 'spring', stiffness: 100, damping: 18, mass: 0.6, delay },
     },
   };
 };

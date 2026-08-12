@@ -5,50 +5,53 @@
 .btn {
   background: linear-gradient(
     92.23deg,
-    #ca0025 21.43%,
-    #df2459 50.63%,
-    #85062c 100%,
-    #db0848 117.04%
+    #7c3aed 21.43%,
+    #8b5cf6 50.63%,
+    #6d28d9 100%,
+    #a78bfa 117.04%
   );
-  box-shadow: 0px 4.42184px 107.23px rgba(202, 1, 61, 0.966);
+  box-shadow: 0px 4.42184px 60px rgba(124, 58, 237, 0.45);
 }
 
 .btn:hover {
   background: linear-gradient(
     92.23deg,
-    #db0848 21.43%,
-    #b4063a 50.63%,
-    #8b0c30 100%,
-    #ca0025 117.04%
+    #a78bfa 21.43%,
+    #8b5cf6 50.63%,
+    #6d28d9 100%,
+    #7c3aed 117.04%
   );
 }
 
-.gradient,
-.active {
-  background: linear-gradient(
-    92.23deg,
-    #f02360 21.43%,
-    #ad0638 50.63%,
-    #df2459 100%,
-    #ca0025 117.04%
-  );
+.btn-outline {
+  @apply border border-accent/50 text-white transition-all duration-300 ease-out;
 }
 
-.active {
-  color: #fff;
-  padding: 1rem;
-  border-radius: 100%;
+.btn-outline:hover {
+  @apply border-accent bg-accent/10;
+}
+
+.side-nav-link.active {
+  @apply bg-accent/15 text-accent border-accent/40;
+}
+
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(139, 92, 246, 0.35) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
 @layer base {
   body {
-    @apply font-secondary text-lg leading-8 text-white;
+    @apply font-secondary text-lg leading-8 text-white bg-primary;
   }
   .h2 {
-    @apply font-primary text-[32px] mb-6 tracking-[10%] uppercase;
+    @apply font-primary text-[32px] mb-4 tracking-[0.08em] uppercase;
   }
   .h3 {
     @apply font-primary font-semibold text-[26px] mb-6 leading-[46px];
+  }
+  .eyebrow {
+    @apply font-primary text-sm tracking-[0.3em] uppercase text-accent mb-3 inline-block;
   }
   .btn {
     @apply rounded-full font-primary text-white font-medium;
@@ -63,9 +66,12 @@
     @apply text-base;
   }
   .text-gradient {
-    @apply bg-gradient-to-r text-transparent bg-clip-text from-[#AC1B44] to-[#E44A78] font-bold font-primary hover:from-[#E44A78] hover:to-[#AC1B44];
+    @apply bg-gradient-to-r text-transparent bg-clip-text from-accent-light to-accent font-bold font-primary hover:from-accent hover:to-accent-light;
   }
   .section {
-    @apply py-8 lg:py-24 lg:h-screen flex items-center;
+    @apply py-16 lg:py-24;
+  }
+  .card {
+    @apply rounded-2xl border border-white/10 bg-surface/60;
   }
 }
