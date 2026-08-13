@@ -1,23 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
-import { FaGithub, FaExternalLinkAlt, FaJava, FaHtml5, FaCss3, FaPython, FaPhp } from 'react-icons/fa';
-import { SiJavascript, SiTypescript, SiKotlin, SiCplusplus, SiSharp, SiGo, SiRust, SiDart } from 'react-icons/si';
-import { BsCodeSlash } from 'react-icons/bs';
+import { FaGithub, FaExternalLinkAlt, FaJava, FaHtml5, FaCss3 } from 'react-icons/fa';
+import { SiJavascript, SiTypescript } from 'react-icons/si';
+import { BsCodeSlash, BsLockFill } from 'react-icons/bs';
 import SectionHeading from './SectionHeading';
 import { useLanguage } from '../context/LanguageContext';
-import { translateText } from '../utils/translateText';
+import { projects } from '../data/projects';
 
 const GITHUB_USER = 'merlinmec';
-const FEATURED_TOPIC = 'portfolio';
 
 const CARD_GRADIENTS = [
   'from-accent/25 to-black/60',
   'from-indigo-500/25 to-black/60',
   'from-fuchsia-500/20 to-black/60',
   'from-violet-600/25 to-black/60',
-  'from-blue-500/20 to-black/60',
-  'from-purple-400/20 to-black/60',
 ];
 
 const LANGUAGE_ICONS = {
@@ -26,172 +23,117 @@ const LANGUAGE_ICONS = {
   TypeScript: { icon: SiTypescript, color: '#3178C6' },
   HTML: { icon: FaHtml5, color: '#E34F26' },
   CSS: { icon: FaCss3, color: '#1572B6' },
-  Python: { icon: FaPython, color: '#3776AB' },
-  Kotlin: { icon: SiKotlin, color: '#7F52FF' },
-  PHP: { icon: FaPhp, color: '#777BB4' },
-  'C++': { icon: SiCplusplus, color: '#00599C' },
-  'C#': { icon: SiSharp, color: '#68217A' },
-  Go: { icon: SiGo, color: '#00ADD8' },
-  Rust: { icon: SiRust, color: '#DEA584' },
-  Dart: { icon: SiDart, color: '#0175C2' },
 };
 const DEFAULT_LANGUAGE_ICON = { icon: BsCodeSlash, color: '#A78BFA' };
 
-const formatDate = (isoDate, locale) => {
-  if (!isoDate) return null;
-  return new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric' })
-    .format(new Date(isoDate))
-    .replace('.', '')
-    .toUpperCase();
-};
-
 const Projetos = () => {
-  const { t, language } = useLanguage();
-  const [repos, setRepos] = useState(null);
-  const [error, setError] = useState(false);
-  const [translatedDescriptions, setTranslatedDescriptions] = useState({});
-  const requestedTranslations = useRef(new Set());
-
-  useEffect(() => {
-    let cancelled = false;
-
-    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`)
-      .then((res) => {
-        if (!res.ok) throw new Error('GitHub API error');
-        return res.json();
-      })
-      .then((data) => {
-        if (cancelled) return;
-        const featured = data
-          .filter((repo) => !repo.fork && (repo.topics || []).includes(FEATURED_TOPIC))
-          .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
-        setRepos(featured);
-      })
-      .catch(() => {
-        if (!cancelled) setError(true);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (language !== 'en' || !repos) return;
-
-    repos.forEach((repo) => {
-      if (!repo.description || requestedTranslations.current.has(repo.id)) return;
-      requestedTranslations.current.add(repo.id);
-
-      translateText(repo.description, 'pt', 'en')
-        .then((text) => {
-          setTranslatedDescriptions((prev) => ({ ...prev, [repo.id]: text }));
-        })
-        .catch(() => {});
-    });
-  }, [language, repos]);
-
-  const dateLocale = language === 'pt' ? 'pt-BR' : 'en-US';
+  const { t } = useLanguage();
 
   return (
     <section className="section border-b border-white/5" id="projetos">
       <div className="container mx-auto">
         <SectionHeading eyebrow={t.projetos.eyebrow} title={t.projetos.title} />
 
-        <button
-          className="btn btn-sm mb-12"
-          onClick={() => window.open(`https://github.com/${GITHUB_USER}?tab=repositories`, '_blank')}
-        >
-          {t.projetos.viewAllBtn}
-        </button>
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          {projects.map((project, index) => {
+            const content = t.projetos.items[project.id];
+            const { icon: LangIcon, color: langColor } =
+              LANGUAGE_ICONS[project.language] || DEFAULT_LANGUAGE_ICON;
 
-        {error && <p className="text-white/70">{t.projetos.errorMsg(GITHUB_USER)}</p>}
-
-        {!error && repos === null && <p className="text-white/70">{t.projetos.loading}</p>}
-
-        {!error && repos && repos.length === 0 && (
-          <p className="text-white/70">{t.projetos.emptyMsg(FEATURED_TOPIC)}</p>
-        )}
-
-        {!error && repos && repos.length > 0 && (
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-            {repos.map((repo, index) => {
-              const date = formatDate(repo.pushed_at, dateLocale);
-              const { icon: LangIcon, color: langColor } =
-                LANGUAGE_ICONS[repo.language] || DEFAULT_LANGUAGE_ICON;
-              const description =
-                language === 'en' && repo.description
-                  ? translatedDescriptions[repo.id] || repo.description
-                  : repo.description;
-              return (
-                <motion.div
-                  key={repo.id}
-                  variants={fadeIn('up', 0.15 + index * 0.1)}
-                  initial="hidden"
-                  whileInView={'show'}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className={`group relative flex min-h-[300px] flex-col justify-between overflow-hidden
-                  rounded-2xl border border-white/10 bg-gradient-to-br p-8
-                  ${CARD_GRADIENTS[index % CARD_GRADIENTS.length]}
-                  transition-all duration-300 ease-out hover:border-accent/60 hover:-translate-y-1`}
-                >
-                  <div>
-                    <div className="mb-5 flex items-center justify-between gap-2">
-                      <span className="rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs uppercase tracking-wider text-white/80">
-                        {repo.language || t.projetos.defaultLanguage}
-                      </span>
-                      {date && (
-                        <span className="text-xs uppercase tracking-wider text-white/50">
-                          {date}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="mb-4 flex items-center gap-4">
-                      <span
-                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl
-                        border border-white/15 bg-black/30"
-                        aria-hidden="true"
-                      >
-                        <LangIcon className="text-2xl" style={{ color: langColor }} />
-                      </span>
-                      <h3 className="font-primary text-2xl font-bold leading-tight break-words">
-                        {repo.name}
-                      </h3>
-                    </div>
-
-                    <p className="leading-relaxed text-white/70">
-                      {description || t.projetos.defaultDescription}
-                    </p>
+            return (
+              <motion.div
+                key={project.id}
+                variants={fadeIn('up', 0.15 + index * 0.1)}
+                initial="hidden"
+                whileInView={'show'}
+                viewport={{ once: true, amount: 0.3 }}
+                className={`group relative flex flex-col justify-between overflow-hidden
+                rounded-2xl border border-white/10 bg-gradient-to-br p-6
+                ${CARD_GRADIENTS[index % CARD_GRADIENTS.length]}
+                transition-all duration-300 ease-out hover:border-accent/60 hover:-translate-y-1`}
+              >
+                <div>
+                  <div className="mb-3 flex items-center gap-3">
+                    <span
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl
+                      border border-white/15 bg-black/30"
+                      aria-hidden="true"
+                    >
+                      <LangIcon className="text-xl" style={{ color: langColor }} />
+                    </span>
+                    <h3 className="font-primary text-xl font-bold leading-tight break-words">
+                      {content.name}
+                    </h3>
                   </div>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-3 text-sm">
-                    {repo.homepage && (
-                      <a
-                        href={repo.homepage}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={t.projetos.ariaDemo(repo.name)}
-                        className="btn-outline flex items-center gap-x-2 rounded-full px-4 py-2 hover:text-accent"
+                  <p className="text-sm leading-relaxed text-white/70">{content.description}</p>
+
+                  <p className="mt-4 text-xs uppercase tracking-wider text-white/40">
+                    {t.projetos.featuresLabel}
+                  </p>
+                  <ul className="mt-2 space-y-1.5">
+                    {content.features.map((feature) => (
+                      <li key={feature} className="flex gap-x-2 text-sm text-white/60">
+                        <span
+                          className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                          aria-hidden="true"
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-full border border-white/15 bg-black/20 px-3 py-1 text-xs text-white/70"
                       >
-                        <FaExternalLinkAlt /> {t.projetos.demo}
-                      </a>
-                    )}
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
+                  {project.demoUrl && (
                     <a
-                      href={repo.html_url}
+                      href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={t.projetos.ariaGithub(repo.name)}
+                      aria-label={t.projetos.ariaDemo(content.name)}
+                      className="btn-outline flex items-center gap-x-2 rounded-full px-4 py-2 hover:text-accent"
+                    >
+                      <FaExternalLinkAlt /> {t.projetos.demo}
+                    </a>
+                  )}
+                  {project.private ? (
+                    <span className="flex items-center gap-x-2 rounded-full border border-white/10 px-4 py-2 text-white/40">
+                      <BsLockFill /> {t.projetos.privateLabel}
+                    </span>
+                  ) : (
+                    <a
+                      href={project.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={t.projetos.ariaGithub(content.name)}
                       className="btn-outline flex items-center gap-x-2 rounded-full px-4 py-2 hover:text-accent"
                     >
                       <FaGithub /> {t.projetos.github}
                     </a>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        )}
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <button
+          className="btn btn-sm mt-12"
+          onClick={() => window.open(`https://github.com/${GITHUB_USER}?tab=repositories`, '_blank')}
+        >
+          {t.projetos.viewAllBtn}
+        </button>
       </div>
     </section>
   );

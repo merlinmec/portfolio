@@ -31,10 +31,6 @@
   @apply border-accent bg-accent/10;
 }
 
-.side-nav-link.active {
-  @apply bg-accent/15 text-accent border-accent/40;
-}
-
 .bg-dot-grid {
   background-image: radial-gradient(rgba(139, 92, 246, 0.35) 1px, transparent 1px);
   background-size: 26px 26px;
@@ -45,7 +41,7 @@
     @apply font-secondary text-lg leading-8 text-white bg-primary;
   }
   p {
-    @apply text-justify hyphens-auto;
+    @apply text-left;
   }
   .h2 {
     @apply font-primary text-[32px] mb-4 tracking-[0.08em] uppercase;

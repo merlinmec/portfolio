@@ -2,12 +2,8 @@ import React from 'react';
 
 export const translations = {
   pt: {
-    sidebar: {
-      title: 'Desenvolvedor de Software Back-end',
-      bio: 'Foco em back-end com Java e Spring, também atuando com React no front-end. Sempre em busca de aprender e evoluir tecnicamente.',
-      cv: 'Meu currículo',
+    navbar: {
       logoAlt: 'Logo João Manoel — MEC DEV',
-      photoAlt: 'Ilustração de João Manoel',
       homeAria: 'Ir para o início',
       langSwitchAria: 'Mudar para inglês',
       nav: {
@@ -15,11 +11,7 @@ export const translations = {
         experiencia: 'Experiência',
         projetos: 'Projetos',
         skills: 'Skills',
-      },
-      social: {
-        github: 'Meu perfil no GitHub',
-        linkedin: 'Meu perfil no LinkedIn',
-        instagram: 'Meu perfil no Instagram',
+        contato: 'Contato',
       },
     },
     sobre: {
@@ -44,17 +36,26 @@ export const translations = {
           valor às suas ideias!
         </>
       ),
-      focusAreas: ['Java', 'Spring', 'Estágio ativo — EDU3', 'React'],
+      focusAreas: ['Java', 'Spring', 'Kotlin', 'TypeScript', 'React'],
       cta: 'Ver projetos',
+      cv: 'Meu currículo',
+    },
+    contato: {
+      eyebrow: 'Vamos conversar',
+      title: 'Contato',
+      description:
+        'Estou sempre aberto a oportunidades interessantes — seja uma vaga CLT, projetos freelance, colaborações técnicas ou até uma conversa despretensiosa. Vamos nos conectar!',
+      role: 'Desenvolvedor de Software Back-end',
+      linkedin: 'Me Encontre no LinkedIn',
+      ariaLinkedin: 'Meu perfil no LinkedIn',
     },
     experiencia: {
       eyebrow: 'Trajetória',
       title: 'Experiência',
-      description:
-        'Estudante de Ciências da Computação e desenvolvedor Java — onde venho aplicando isso na prática.',
+      description: 'Desenvolvedor back-end Java — aplicando isso na prática no dia a dia.',
       items: [
         {
-          role: 'Estagiário — EDU3',
+          role: 'Desenvolvedor Back-end — EDU3',
           period: 'Atual',
           description:
             'Atuo no desenvolvimento back-end em Java na EDU3, empresa de software para gestão de sistemas escolares, criando e evoluindo funcionalidades usadas por instituições de ensino. Além do back-end, participo de outras frentes do desenvolvimento (como front-end e banco de dados) e já colaborei em decisões técnicas de features que passaram pela minha responsabilidade, do desenho da solução até a entrega.',
@@ -69,52 +70,83 @@ export const translations = {
     },
     projetos: {
       eyebrow: 'Trabalho',
-      title: 'Projetos Recentes',
+      title: 'Projetos',
       viewAllBtn: 'Ver todos os projetos no GitHub',
-      loading: 'Carregando projetos…',
       demo: 'Ver demo',
       github: 'Ver no GitHub',
+      privateLabel: 'Repositório privado',
+      featuresLabel: 'Funcionalidades',
       ariaDemo: (name) => `Ver demo do projeto ${name}`,
       ariaGithub: (name) => `Ver código do projeto ${name} no GitHub`,
-      defaultDescription: 'Projeto em andamento — descrição em breve.',
-      defaultLanguage: 'Projeto',
-      errorMsg: (githubUser) => (
-        <>
-          Não consegui carregar os projetos agora (API do GitHub indisponível ou limite de
-          requisições atingido). Veja todos direto no{' '}
-          <a
-            className="underline hover:text-accent transition-all"
-            href={`https://github.com/${githubUser}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          .
-        </>
-      ),
-      emptyMsg: (topic) => (
-        <>
-          Nenhum projeto marcado ainda. Adicione a topic <code>{topic}</code> nos repositórios que
-          você quiser destacar aqui.
-        </>
-      ),
+      items: {
+        'fin-mec': {
+          name: 'fin-mec',
+          description:
+            'API de controle financeiro pessoal em Spring Boot — hoje com a base de autenticação pronta: sessão por cookie, hash de senha com Argon2, rate limiter próprio contra brute-force e testes de integração reais contra Postgres.',
+          features: [
+            'Hash de senha com Argon2 em vez do bcrypt padrão',
+            'Rate limiter próprio contra tentativas de login/registro em excesso',
+            'Testes de integração reais com Testcontainers + PostgreSQL, não só mock',
+          ],
+        },
+        'instagram-tracker': {
+          name: 'Instagram Tracker Pro',
+          description:
+            'Sistema automatizado que monitora seguidores e deixar-de-seguir em perfis do Instagram, rodando na nuvem via GitHub Actions e notificando por Telegram.',
+          features: [
+            'Anti-banimento: sessão persistida, intervalos randômicos, backoff exponencial, user-agent camuflado',
+            'Intercepta o tráfego GraphQL/API diretamente (Network Interception) em vez de raspar o DOM',
+            'Execução agendada gratuita 2x ao dia via GitHub Actions',
+          ],
+        },
+        'pixel-type': {
+          name: 'Textura',
+          description:
+            'Converte uma imagem em arte de caracteres — texto de verdade, selecionável e colável — rodando inteiro no navegador, sem backend.',
+          features: [
+            'Algoritmo próprio: luminância, grade com correção de proporção, dithering Floyd–Steinberg, rampa de densidade, codificação em Braille',
+            'Núcleo em TypeScript puro, sem dependência de DOM — testável isoladamente',
+            'Preview em tempo real, copiar e baixar como .txt',
+          ],
+        },
+      },
     },
     skills: {
       eyebrow: 'Ferramentas',
       title: 'Skills',
       description:
         'Tecnologias que uso no dia a dia — no trabalho, nos projetos pessoais e na construção deste site.',
+      categories: {
+        all: 'Todas',
+        languages: 'Linguagens',
+        backend: 'Back-end',
+        frontend: 'Front-end',
+        tools: 'Ferramentas',
+      },
+    },
+    footer: {
+      bio: 'Desenvolvedor back-end apaixonado por construir sistemas robustos e bem testados. Aberto a vagas CLT, freelas e colaborações.',
+      linksTitle: 'Links Rápidos',
+      projectsTitle: 'Projetos em Destaque',
+      viewAll: 'Ver todos os projetos',
+      projectBlurbs: {
+        'fin-mec': 'API de controle financeiro',
+        'instagram-tracker': 'Monitor de seguidores automatizado',
+        'pixel-type': 'Conversor de imagem em ASCII art',
+      },
+      ariaGithub: 'Meu perfil no GitHub',
+      ariaLinkedin: 'Meu perfil no LinkedIn',
+      ariaEmail: 'Me mandar um e-mail',
+      email: 'joaomanoel190701@gmail.com',
+      location: 'Teresina, PI',
+      tagline: 'Desenvolvedor Back-end · Java & Spring · React',
+      copyright: (year) => `© ${year} João Manoel Carvalho — feito com React & Tailwind CSS.`,
     },
   },
 
   en: {
-    sidebar: {
-      title: 'Back-end Software Developer',
-      bio: 'Focused on back-end development with Java and Spring, also working with React on the front-end. Always looking to learn and grow as a developer.',
-      cv: 'My resume',
+    navbar: {
       logoAlt: 'João Manoel logo — MEC DEV',
-      photoAlt: 'Illustration of João Manoel',
       homeAria: 'Go to homepage',
       langSwitchAria: 'Mudar para português',
       nav: {
@@ -122,11 +154,7 @@ export const translations = {
         experiencia: 'Experience',
         projetos: 'Projects',
         skills: 'Skills',
-      },
-      social: {
-        github: 'My GitHub profile',
-        linkedin: 'My LinkedIn profile',
-        instagram: 'My Instagram profile',
+        contato: 'Contact',
       },
     },
     sobre: {
@@ -151,17 +179,26 @@ export const translations = {
           value to your ideas!
         </>
       ),
-      focusAreas: ['Java', 'Spring', 'Active internship — EDU3', 'React'],
+      focusAreas: ['Java', 'Spring', 'Kotlin', 'TypeScript', 'React'],
       cta: 'View projects',
+      cv: 'My resume',
+    },
+    contato: {
+      eyebrow: "Let's talk",
+      title: 'Contact',
+      description:
+        "I'm always open to exciting opportunities — whether it's full-time roles, freelance projects, tech collaborations, or even a friendly conversation. Let's connect!",
+      role: 'Back-end Software Developer',
+      linkedin: 'Reach Me on LinkedIn',
+      ariaLinkedin: 'My LinkedIn profile',
     },
     experiencia: {
       eyebrow: 'Journey',
       title: 'Experience',
-      description:
-        "Computer Science student and Java developer — where I've been applying it in practice.",
+      description: 'Back-end Java developer — applying it in practice, day to day.',
       items: [
         {
-          role: 'Intern — EDU3',
+          role: 'Back-end Developer — EDU3',
           period: 'Current',
           description:
             'I work on back-end development in Java at EDU3, a software company for school management systems, building and evolving features used by educational institutions. Besides back-end, I take part in other fronts of development (like front-end and databases) and have already contributed to technical decisions on features under my responsibility, from design to delivery.',
@@ -176,41 +213,76 @@ export const translations = {
     },
     projetos: {
       eyebrow: 'Work',
-      title: 'Recent Projects',
+      title: 'Projects',
       viewAllBtn: 'View all projects on GitHub',
-      loading: 'Loading projects…',
       demo: 'View demo',
       github: 'View on GitHub',
+      privateLabel: 'Private repository',
+      featuresLabel: 'Key features',
       ariaDemo: (name) => `View demo of project ${name}`,
       ariaGithub: (name) => `View ${name} project's code on GitHub`,
-      defaultDescription: 'Project in progress — description coming soon.',
-      defaultLanguage: 'Project',
-      errorMsg: (githubUser) => (
-        <>
-          Couldn't load the projects right now (GitHub API unavailable or rate limit reached).
-          See them all directly on{' '}
-          <a
-            className="underline hover:text-accent transition-all"
-            href={`https://github.com/${githubUser}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          .
-        </>
-      ),
-      emptyMsg: (topic) => (
-        <>
-          No projects tagged yet. Add the <code>{topic}</code> topic to the repositories you want
-          to feature here.
-        </>
-      ),
+      items: {
+        'fin-mec': {
+          name: 'fin-mec',
+          description:
+            "A personal finance API in Spring Boot — currently with the auth foundation in place: cookie-based sessions, Argon2 password hashing, a custom rate limiter against brute-force, and real integration tests against Postgres.",
+          features: [
+            'Argon2 password hashing instead of plain bcrypt',
+            'Custom rate limiter against excessive login/register attempts',
+            'Real integration tests with Testcontainers + PostgreSQL, not just mocks',
+          ],
+        },
+        'instagram-tracker': {
+          name: 'Instagram Tracker Pro',
+          description:
+            'An automated system that tracks follows/unfollows on Instagram profiles, running in the cloud via GitHub Actions and notifying through Telegram.',
+          features: [
+            'Anti-ban: persisted session, randomized intervals, exponential backoff, disguised user-agent',
+            'Intercepts GraphQL/API traffic directly (network interception) instead of scraping the DOM',
+            'Free scheduled runs twice a day via GitHub Actions',
+          ],
+        },
+        'pixel-type': {
+          name: 'Textura',
+          description:
+            'Converts an image into character art — real, selectable, copy-pasteable text — running entirely in the browser, no backend.',
+          features: [
+            'Own algorithm: luminance, aspect-corrected grid, Floyd–Steinberg dithering, density ramp, Braille encoding',
+            'Core written in plain TypeScript with no DOM dependency — independently testable',
+            'Real-time preview, copy and download as .txt',
+          ],
+        },
+      },
     },
     skills: {
       eyebrow: 'Tools',
       title: 'Skills',
       description: 'Technologies I use day to day — at work, in personal projects, and building this site.',
+      categories: {
+        all: 'All',
+        languages: 'Languages',
+        backend: 'Backend',
+        frontend: 'Frontend',
+        tools: 'Tools',
+      },
+    },
+    footer: {
+      bio: 'Back-end developer passionate about building robust, well-tested systems. Open to full-time roles, freelance work, and collaborations.',
+      linksTitle: 'Quick Links',
+      projectsTitle: 'Featured Projects',
+      viewAll: 'View all projects',
+      projectBlurbs: {
+        'fin-mec': 'Personal finance API',
+        'instagram-tracker': 'Automated follower tracker',
+        'pixel-type': 'Image-to-ASCII-art converter',
+      },
+      ariaGithub: 'My GitHub profile',
+      ariaLinkedin: 'My LinkedIn profile',
+      ariaEmail: 'Send me an email',
+      email: 'joaomanoel190701@gmail.com',
+      location: 'Teresina, PI',
+      tagline: 'Back-end Developer · Java & Spring · React',
+      copyright: (year) => `© ${year} João Manoel Carvalho — built with React & Tailwind CSS.`,
     },
   },
 };
