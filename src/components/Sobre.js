@@ -2,6 +2,7 @@ import React from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
+import { FaDownload } from 'react-icons/fa';
 import { fadeIn } from '../variants';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -64,7 +65,7 @@ const Sobre = () => {
           initial="hidden"
           whileInView={'show'}
           viewport={{ once: true, amount: 0.7 }}
-          className="mt-6 max-w-xl text-white/70"
+          className="mt-6 text-white/70"
         >
           {t.sobre.paragraph()}
         </motion.p>
@@ -102,6 +103,13 @@ const Sobre = () => {
           >
             {t.sobre.cta}
           </Link>
+          <a
+            href="/curriculo.pdf"
+            download="curriculo_Joao_Manoel.pdf"
+            className="btn-outline flex h-[48px] items-center justify-center gap-x-2 rounded-full px-6 text-sm font-primary"
+          >
+            <FaDownload /> {t.sobre.cv}
+          </a>
         </motion.div>
       </div>
     </section>
