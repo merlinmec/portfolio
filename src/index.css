@@ -41,7 +41,7 @@
     @apply font-secondary text-lg leading-8 text-white bg-primary;
   }
   p {
-    @apply text-justify hyphens-auto;
+    @apply text-left;
   }
   .h2 {
     @apply font-primary text-[32px] mb-4 tracking-[0.08em] uppercase;
