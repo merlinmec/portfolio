@@ -9,6 +9,6 @@
     <tspan fill="#FFFFFF">&lt;</tspan>
     <tspan fill="url(#gradienteMEC)">MEC</tspan>
     <tspan fill="#FFFFFF" dy="1.2em" dx="-2.8em">DEV</tspan>
-    <tspan fill="#FFFFFF">&gt;/</tspan>
+    <tspan fill="#FFFFFF">/&gt;</tspan>
   </text>
 </svg>

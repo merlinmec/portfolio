@@ -31,10 +31,6 @@
   @apply border-accent bg-accent/10;
 }
 
-.side-nav-link.active {
-  @apply bg-accent/15 text-accent border-accent/40;
-}
-
 .bg-dot-grid {
   background-image: radial-gradient(rgba(139, 92, 246, 0.35) 1px, transparent 1px);
   background-size: 26px 26px;
