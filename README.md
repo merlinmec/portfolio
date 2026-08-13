@@ -1,4 +1,3 @@
-[![Preview do Portfólio](./public/preview_portfolio.jpeg)](./public/preview_portfolio.jpeg)
 
 [English version below](#english-version)
 
