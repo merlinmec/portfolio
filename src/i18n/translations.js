@@ -100,13 +100,13 @@ export const translations = {
           ],
         },
         'pixel-type': {
-          name: 'Textura',
+          name: 'Text-Art',
           description:
-            'Converte uma imagem em arte de caracteres — texto de verdade, selecionável e colável — rodando inteiro no navegador, sem backend.',
+            'Converte uma imagem em arte de caracteres — texto de verdade, selecionável e colável — rodando inteiro no navegador, sem backend. Detecção de borda própria roda na resolução original da imagem, preservando traço fino de line art/anime.',
           features: [
-            'Algoritmo próprio: luminância, grade com correção de proporção, dithering Floyd–Steinberg, rampa de densidade, codificação em Braille',
-            'Núcleo em TypeScript puro, sem dependência de DOM — testável isoladamente',
-            'Preview em tempo real, copiar e baixar como .txt',
+            'Detecção de borda (Sobel) pixel a pixel na imagem original + max-pooling por célula — mantém line art fino legível sem exigir larguras absurdas',
+            'Núcleo de conversão em TypeScript puro, sem dependência de DOM — testável isoladamente (grade, luminância, dithering Floyd–Steinberg, Braille)',
+            'Preview em tempo real, colar imagem da área de transferência (Ctrl+V), copiar e baixar como .txt',
           ],
         },
       },
@@ -132,7 +132,7 @@ export const translations = {
       projectBlurbs: {
         'fin-mec': 'API de controle financeiro',
         'instagram-tracker': 'Monitor de seguidores automatizado',
-        'pixel-type': 'Conversor de imagem em ASCII art',
+        'pixel-type': 'Conversor de imagem em arte de texto',
       },
       ariaGithub: 'Meu perfil no GitHub',
       ariaLinkedin: 'Meu perfil no LinkedIn',
@@ -243,13 +243,13 @@ export const translations = {
           ],
         },
         'pixel-type': {
-          name: 'Textura',
+          name: 'Text-Art',
           description:
-            'Converts an image into character art — real, selectable, copy-pasteable text — running entirely in the browser, no backend.',
+            "Converts an image into character art — real, selectable, copy-pasteable text — running entirely in the browser, no backend. Custom edge detection runs at the image's original resolution, preserving thin line-art/anime strokes.",
           features: [
-            'Own algorithm: luminance, aspect-corrected grid, Floyd–Steinberg dithering, density ramp, Braille encoding',
-            'Core written in plain TypeScript with no DOM dependency — independently testable',
-            'Real-time preview, copy and download as .txt',
+            'Sobel edge detection runs pixel-by-pixel on the original image and max-pools per cell — keeps thin line art legible without absurd column widths',
+            'Conversion core in plain TypeScript, no DOM dependency — independently testable (grid, luminance, Floyd–Steinberg dithering, Braille encoding)',
+            'Real-time preview, paste image from clipboard (Ctrl+V), copy and download as .txt',
           ],
         },
       },
@@ -274,7 +274,7 @@ export const translations = {
       projectBlurbs: {
         'fin-mec': 'Personal finance API',
         'instagram-tracker': 'Automated follower tracker',
-        'pixel-type': 'Image-to-ASCII-art converter',
+        'pixel-type': 'Image-to-text-art converter',
       },
       ariaGithub: 'My GitHub profile',
       ariaLinkedin: 'My LinkedIn profile',

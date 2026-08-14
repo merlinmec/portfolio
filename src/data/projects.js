@@ -31,6 +31,6 @@ export const projects = [
     tech: ['TypeScript', 'React', 'Vite', 'Canvas API'],
     repoUrl: 'https://github.com/merlinmec/pixel-type',
     demoUrl: null,
-    private: true,
+    private: false,
   },
 ];
