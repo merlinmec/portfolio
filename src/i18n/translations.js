@@ -109,6 +109,16 @@ export const translations = {
             'Preview em tempo real, colar imagem da área de transferência (Ctrl+V), copiar e baixar como .txt',
           ],
         },
+        'mec-lineup': {
+          name: 'MEC Lineup',
+          description:
+            'App local pra consultar lineups de Valorant no meio da partida: minimapa tático com os pontos onde cada habilidade cai, as posições de lançamento e o print de onde mirar. Sem login e sem nuvem: tudo fica no navegador, com backup automático em disco.',
+          features: [
+            'Habilidades desenhadas no tamanho real do jogo: medidas em metros convertidas pela escala de cada mapa, em coordenadas normalizadas independentes de zoom',
+            'Dados 100% no IndexedDB (Dexie) com migrações versionadas que nunca perdem dados, testadas inclusive na importação de backups antigos',
+            'Backup automático via plugin do Vite, com cabeçalho próprio que força o preflight de CORS e impede outro site de sobrescrever os dados',
+          ],
+        },
       },
     },
     skills: {
@@ -133,6 +143,7 @@ export const translations = {
         'fin-mec': 'API de controle financeiro',
         'instagram-tracker': 'Monitor de seguidores automatizado',
         'pixel-type': 'Conversor de imagem em arte de texto',
+        'mec-lineup': 'Lineups de Valorant no minimapa',
       },
       ariaGithub: 'Meu perfil no GitHub',
       ariaLinkedin: 'Meu perfil no LinkedIn',
@@ -252,6 +263,16 @@ export const translations = {
             'Real-time preview, paste image from clipboard (Ctrl+V), copy and download as .txt',
           ],
         },
+        'mec-lineup': {
+          name: 'MEC Lineup',
+          description:
+            'Local app for looking up Valorant lineups mid-match: a tactical minimap with where each ability lands, the throw positions and a screenshot of where to aim. No login, no cloud: everything lives in the browser, with automatic backups to disk.',
+          features: [
+            'Abilities drawn at true in-game size: meter measurements converted through each map’s scale, using normalized coordinates independent of zoom',
+            'All data in IndexedDB (Dexie) with versioned migrations that never lose data, tested even when importing old backups',
+            'Automatic backup through a Vite plugin, with a custom header that forces a CORS preflight so no other site can overwrite the data',
+          ],
+        },
       },
     },
     skills: {
@@ -275,6 +296,7 @@ export const translations = {
         'fin-mec': 'Personal finance API',
         'instagram-tracker': 'Automated follower tracker',
         'pixel-type': 'Image-to-text-art converter',
+        'mec-lineup': 'Valorant lineups on the minimap',
       },
       ariaGithub: 'My GitHub profile',
       ariaLinkedin: 'My LinkedIn profile',
