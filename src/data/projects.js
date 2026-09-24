@@ -33,4 +33,12 @@ export const projects = [
     demoUrl: null,
     private: false,
   },
+  {
+    id: 'mec-lineup',
+    language: 'TypeScript',
+    tech: ['TypeScript', 'React', 'Vite', 'Tailwind CSS', 'IndexedDB (Dexie)', 'Vitest'],
+    repoUrl: 'https://github.com/merlinmec/mec-lineup',
+    demoUrl: null,
+    private: false,
+  },
 ];
