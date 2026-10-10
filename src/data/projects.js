@@ -12,10 +12,11 @@ export const projects = [
   {
     id: 'fin-mec',
     language: 'Java',
-    tech: ['Java', 'Spring Boot', 'Spring Security', 'PostgreSQL', 'Flyway', 'Testcontainers', 'Docker'],
+    tech: ['Java', 'Spring Boot', 'Spring Security', 'PostgreSQL', 'React', 'TypeScript', 'Testcontainers', 'Docker'],
     repoUrl: 'https://github.com/merlinmec/fin-mec',
-    demoUrl: null,
-    private: true,
+    // /demo cria uma conta de visitante temporária, já com dados fictícios (docs/DEMO.md no repo).
+    demoUrl: 'https://fin-mec-demo.onrender.com/demo',
+    private: false,
   },
   {
     id: 'instagram-tracker',
