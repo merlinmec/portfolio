@@ -82,11 +82,12 @@ export const translations = {
         'fin-mec': {
           name: 'fin-mec',
           description:
-            'API de controle financeiro pessoal em Spring Boot — hoje com a base de autenticação pronta: sessão por cookie, hash de senha com Argon2, rate limiter próprio contra brute-force e testes de integração reais contra Postgres.',
+            'Gerenciador de finanças pessoais full-stack, no modelo do Organizze: contas, cartão de crédito com fatura e parcelas, orçamento, contas a pagar, metas, relatórios, importação de extrato (OFX/CSV) e Open Finance. Monólito modular em Spring Boot com toda regra financeira no backend e front em React instalável como app (PWA).',
           features: [
-            'Hash de senha com Argon2 em vez do bcrypt padrão',
-            'Rate limiter próprio contra tentativas de login/registro em excesso',
-            'Testes de integração reais com Testcontainers + PostgreSQL, não só mock',
+            'Mais de 300 testes de backend contra PostgreSQL real (Testcontainers) e CI que impede merge com teste quebrado',
+            'Segurança de conta: 2FA (TOTP, RFC 6238), hash Argon2, bloqueio por tentativas, revogação de sessões e exclusão de dados (LGPD)',
+            'Lançamentos fixos e importação de extrato idempotentes: rodar de novo nunca duplica',
+            'Demo pública de custo zero: cada visitante ganha uma conta temporária com dados fictícios',
           ],
         },
         'instagram-tracker': {
@@ -140,7 +141,7 @@ export const translations = {
       projectsTitle: 'Projetos em Destaque',
       viewAll: 'Ver todos os projetos',
       projectBlurbs: {
-        'fin-mec': 'API de controle financeiro',
+        'fin-mec': 'Gestão financeira pessoal full-stack',
         'instagram-tracker': 'Monitor de seguidores automatizado',
         'pixel-type': 'Conversor de imagem em arte de texto',
         'mec-lineup': 'Lineups de Valorant no minimapa',
@@ -236,11 +237,12 @@ export const translations = {
         'fin-mec': {
           name: 'fin-mec',
           description:
-            "A personal finance API in Spring Boot — currently with the auth foundation in place: cookie-based sessions, Argon2 password hashing, a custom rate limiter against brute-force, and real integration tests against Postgres.",
+            'A full-stack personal finance manager modeled on Organizze: accounts, credit cards with statements and installments, budgets, bills, savings goals, reports, bank statement import (OFX/CSV) and Open Finance. A Spring Boot modular monolith with every financial rule in the backend, and a React front end installable as an app (PWA).',
           features: [
-            'Argon2 password hashing instead of plain bcrypt',
-            'Custom rate limiter against excessive login/register attempts',
-            'Real integration tests with Testcontainers + PostgreSQL, not just mocks',
+            'Over 300 backend tests against a real PostgreSQL (Testcontainers), and CI that blocks merging broken code',
+            'Account security: 2FA (TOTP, RFC 6238), Argon2 hashing, lockout after failed attempts, session revocation and data erasure (LGPD)',
+            'Idempotent recurring transactions and statement import: running again never duplicates',
+            'Zero-cost public demo: each visitor gets a temporary account with sample data',
           ],
         },
         'instagram-tracker': {
@@ -293,7 +295,7 @@ export const translations = {
       projectsTitle: 'Featured Projects',
       viewAll: 'View all projects',
       projectBlurbs: {
-        'fin-mec': 'Personal finance API',
+        'fin-mec': 'Full-stack personal finance app',
         'instagram-tracker': 'Automated follower tracker',
         'pixel-type': 'Image-to-text-art converter',
         'mec-lineup': 'Valorant lineups on the minimap',
