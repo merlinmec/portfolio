@@ -19,14 +19,6 @@ export const projects = [
     private: false,
   },
   {
-    id: 'instagram-tracker',
-    language: 'TypeScript',
-    tech: ['Node.js', 'TypeScript', 'Playwright', 'GitHub Actions'],
-    repoUrl: 'https://github.com/merlinmec/instagram-tracker',
-    demoUrl: null,
-    private: true,
-  },
-  {
     id: 'pixel-type',
     language: 'TypeScript',
     tech: ['TypeScript', 'React', 'Vite', 'Canvas API'],

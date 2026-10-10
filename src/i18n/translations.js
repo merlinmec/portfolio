@@ -90,16 +90,6 @@ export const translations = {
             'Demo pública de custo zero: cada visitante ganha uma conta temporária com dados fictícios',
           ],
         },
-        'instagram-tracker': {
-          name: 'Instagram Tracker Pro',
-          description:
-            'Sistema automatizado que monitora seguidores e deixar-de-seguir em perfis do Instagram, rodando na nuvem via GitHub Actions e notificando por Telegram.',
-          features: [
-            'Anti-banimento: sessão persistida, intervalos randômicos, backoff exponencial, user-agent camuflado',
-            'Intercepta o tráfego GraphQL/API diretamente (Network Interception) em vez de raspar o DOM',
-            'Execução agendada gratuita 2x ao dia via GitHub Actions',
-          ],
-        },
         'pixel-type': {
           name: 'Text-Art',
           description:
@@ -142,7 +132,6 @@ export const translations = {
       viewAll: 'Ver todos os projetos',
       projectBlurbs: {
         'fin-mec': 'Gestão financeira pessoal full-stack',
-        'instagram-tracker': 'Monitor de seguidores automatizado',
         'pixel-type': 'Conversor de imagem em arte de texto',
         'mec-lineup': 'Lineups de Valorant no minimapa',
       },
@@ -245,16 +234,6 @@ export const translations = {
             'Zero-cost public demo: each visitor gets a temporary account with sample data',
           ],
         },
-        'instagram-tracker': {
-          name: 'Instagram Tracker Pro',
-          description:
-            'An automated system that tracks follows/unfollows on Instagram profiles, running in the cloud via GitHub Actions and notifying through Telegram.',
-          features: [
-            'Anti-ban: persisted session, randomized intervals, exponential backoff, disguised user-agent',
-            'Intercepts GraphQL/API traffic directly (network interception) instead of scraping the DOM',
-            'Free scheduled runs twice a day via GitHub Actions',
-          ],
-        },
         'pixel-type': {
           name: 'Text-Art',
           description:
@@ -296,7 +275,6 @@ export const translations = {
       viewAll: 'View all projects',
       projectBlurbs: {
         'fin-mec': 'Full-stack personal finance app',
-        'instagram-tracker': 'Automated follower tracker',
         'pixel-type': 'Image-to-text-art converter',
         'mec-lineup': 'Valorant lineups on the minimap',
       },
