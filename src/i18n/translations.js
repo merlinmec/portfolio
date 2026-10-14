@@ -75,51 +75,67 @@ export const translations = {
       demo: 'Ver demo',
       github: 'Ver no GitHub',
       privateLabel: 'Repositório privado',
-      featuresLabel: 'Funcionalidades',
+      problemLabel: 'O problema.',
+      techLabel: 'Tecnologias',
+      solutionLabel: 'A solução.',
+      gallery: {
+        open: (caption) => `Ampliar: ${caption}`,
+        show: (n, caption) => `Mostrar imagem ${n}: ${caption}`,
+        dialog: (name) => `Imagens do projeto ${name}`,
+        close: 'Fechar',
+        previous: 'Imagem anterior',
+        next: 'Próxima imagem',
+        counter: (n, total) => `${n} de ${total}`,
+      },
       ariaDemo: (name) => `Ver demo do projeto ${name}`,
       ariaGithub: (name) => `Ver código do projeto ${name} no GitHub`,
       items: {
         'fin-mec': {
           name: 'fin-mec',
-          description:
-            'Gerenciador de finanças pessoais full-stack, no modelo do Organizze: contas, cartão de crédito com fatura e parcelas, orçamento, contas a pagar, metas, relatórios, importação de extrato (OFX/CSV) e Open Finance. Monólito modular em Spring Boot com toda regra financeira no backend e front em React instalável como app (PWA).',
-          features: [
-            'Mais de 300 testes de backend contra PostgreSQL real (Testcontainers) e CI que impede merge com teste quebrado',
-            'Segurança de conta: 2FA (TOTP, RFC 6238), hash Argon2, bloqueio por tentativas, revogação de sessões e exclusão de dados (LGPD)',
-            'Lançamentos fixos e importação de extrato idempotentes: rodar de novo nunca duplica',
-            'Demo pública de custo zero: cada visitante ganha uma conta temporária com dados fictícios',
-          ],
+          problem:
+            'Planilha de gastos só mostra o passado: não avisa que a fatura vai estourar nem quanto vai sobrar no fim do mês.',
+          solution:
+            'Um app de finanças pessoais que junta contas, cartão, orçamento e metas e projeta o saldo dia a dia, com toda a regra financeira testada no backend.',
+          shots: {
+            dashboard: 'Visão geral do mês, com a previsão de saldo',
+            relatorios: 'Relatórios de receitas e despesas',
+            lancamentos: 'Lançamentos, com parcelas e transferências',
+            metas: 'Metas de economia',
+          },
         },
         arvore: {
           name: 'Árvore',
-          description:
-            'App de acompanhamento pessoal organizado em árvore: áreas e subáreas, objetivos com metas quantitativas, hábitos (inclusive negativos) numa grade semanal, diário, revisão semanal e temporizador de foco. Spring Boot + PostgreSQL no backend e React + TypeScript no front, instalável como app.',
-          features: [
-            'Grade semanal versionada: mudar a agenda hoje não reescreve a consistência dos dias passados',
-            'Painel com heatmap anual, força do hábito com decaimento e o diário (humor e energia) cruzado com a taxa de conclusão',
-            'Demo isolada por schema do PostgreSQL: cada visitante ganha dez semanas de dados fictícios sem o app virar multiusuário',
-            'PWA com a tela Hoje offline (service worker escrito à mão) e quase 150 testes de backend contra PostgreSQL real',
-          ],
+          problem:
+            'Apps de hábito contam sequências, mas não mostram em que área da vida você está avançando e qual está largando.',
+          solution:
+            'Hábitos e metas organizados numa árvore de áreas, com a consistência de cada galho ao longo das semanas, diário e revisão semanal.',
+          shots: {
+            painel: 'Painel: consistência por área e o ano em heatmap',
+            hoje: 'Hoje: o plano do dia, agrupado por área',
+            areas: 'Áreas e subáreas, com o progresso da semana',
+            revisao: 'Revisão semanal guiada',
+          },
         },
         'pixel-type': {
           name: 'Text-Art',
-          description:
-            'Converte uma imagem em arte de caracteres — texto de verdade, selecionável e colável — rodando inteiro no navegador, sem backend. Detecção de borda própria roda na resolução original da imagem, preservando traço fino de line art/anime.',
-          features: [
-            'Detecção de borda (Sobel) pixel a pixel na imagem original + max-pooling por célula — mantém line art fino legível sem exigir larguras absurdas',
-            'Núcleo de conversão em TypeScript puro, sem dependência de DOM — testável isoladamente (grade, luminância, dithering Floyd–Steinberg, Braille)',
-            'Preview em tempo real, colar imagem da área de transferência (Ctrl+V), copiar e baixar como .txt',
-          ],
+          problem: 'Conversores de ASCII art borram os traços finos e deixam desenho e anime irreconhecíveis.',
+          solution:
+            'Converte a imagem em texto direto no navegador, com detecção de borda própria que preserva o line art, pronto pra copiar e colar.',
+          shots: {
+            conversor: 'Conversão em Braille, com os controles ao lado',
+          },
         },
         'mec-lineup': {
           name: 'MEC Lineup',
-          description:
-            'App local pra consultar lineups de Valorant no meio da partida: minimapa tático com os pontos onde cada habilidade cai, as posições de lançamento e o print de onde mirar. Sem login e sem nuvem: tudo fica no navegador, com backup automático em disco.',
-          features: [
-            'Habilidades desenhadas no tamanho real do jogo: medidas em metros convertidas pela escala de cada mapa, em coordenadas normalizadas independentes de zoom',
-            'Dados 100% no IndexedDB (Dexie) com migrações versionadas que nunca perdem dados, testadas inclusive na importação de backups antigos',
-            'Backup automático via plugin do Vite, com cabeçalho próprio que força o preflight de CORS e impede outro site de sobrescrever os dados',
-          ],
+          problem: 'No meio da partida não dá tempo de procurar vídeo de lineup no YouTube.',
+          solution:
+            'Um minimapa com cada habilidade no tamanho real do jogo e o print de onde mirar, a um clique e sem internet.',
+          shots: {
+            'preview-posicao': 'Passe o mouse na posição e veja onde mirar',
+            'formas-reais': 'Habilidade desenhada no tamanho real do jogo',
+            'marcar-referencia': 'Marcando no print a referência de mira',
+            menu: 'Escolha do mapa',
+          },
         },
       },
     },
@@ -231,51 +247,67 @@ export const translations = {
       demo: 'View demo',
       github: 'View on GitHub',
       privateLabel: 'Private repository',
-      featuresLabel: 'Key features',
+      problemLabel: 'The problem.',
+      techLabel: 'Technologies',
+      solutionLabel: 'The solution.',
+      gallery: {
+        open: (caption) => `Enlarge: ${caption}`,
+        show: (n, caption) => `Show image ${n}: ${caption}`,
+        dialog: (name) => `${name} project images`,
+        close: 'Close',
+        previous: 'Previous image',
+        next: 'Next image',
+        counter: (n, total) => `${n} of ${total}`,
+      },
       ariaDemo: (name) => `View demo of project ${name}`,
       ariaGithub: (name) => `View ${name} project's code on GitHub`,
       items: {
         'fin-mec': {
           name: 'fin-mec',
-          description:
-            'A full-stack personal finance manager modeled on Organizze: accounts, credit cards with statements and installments, budgets, bills, savings goals, reports, bank statement import (OFX/CSV) and Open Finance. A Spring Boot modular monolith with every financial rule in the backend, and a React front end installable as an app (PWA).',
-          features: [
-            'Over 300 backend tests against a real PostgreSQL (Testcontainers), and CI that blocks merging broken code',
-            'Account security: 2FA (TOTP, RFC 6238), Argon2 hashing, lockout after failed attempts, session revocation and data erasure (LGPD)',
-            'Idempotent recurring transactions and statement import: running again never duplicates',
-            'Zero-cost public demo: each visitor gets a temporary account with sample data',
-          ],
+          problem:
+            "A spending spreadsheet only shows the past: it won't warn you that the card bill is about to blow up, or how much will be left at the end of the month.",
+          solution:
+            'A personal finance app that brings accounts, credit cards, budgets and goals together and forecasts the balance day by day, with every financial rule tested on the backend.',
+          shots: {
+            dashboard: 'Monthly overview with the balance forecast',
+            relatorios: 'Income and expense reports',
+            lancamentos: 'Transactions, with installments and transfers',
+            metas: 'Savings goals',
+          },
         },
         arvore: {
           name: 'Árvore',
-          description:
-            'A personal tracking app organized as a tree: areas and sub-areas, goals with numeric targets, habits (negative ones included) on a weekly grid, a daily journal, a weekly review and a focus timer. Spring Boot + PostgreSQL on the backend and React + TypeScript on the front end, installable as an app.',
-          features: [
-            'Versioned weekly schedule: changing it today never rewrites the consistency of past days',
-            'Dashboard with a yearly heatmap, habit strength with decay, and the journal (mood and energy) crossed with completion rate',
-            'Demo isolated by PostgreSQL schema: each visitor gets ten weeks of sample data without the app becoming multi-user',
-            'PWA with the Today screen offline (hand-written service worker) and nearly 150 backend tests against a real PostgreSQL',
-          ],
+          problem:
+            "Habit apps count streaks, but they don't show which area of your life is moving forward and which one you're letting slide.",
+          solution:
+            'Habits and goals organized as a tree of life areas, with the consistency of each branch over the weeks, a daily journal and a weekly review.',
+          shots: {
+            painel: 'Dashboard: consistency by area and the year as a heatmap',
+            hoje: 'Today: the day plan, grouped by area',
+            areas: "Areas and sub-areas, with this week's progress",
+            revisao: 'Guided weekly review',
+          },
         },
         'pixel-type': {
           name: 'Text-Art',
-          description:
-            "Converts an image into character art — real, selectable, copy-pasteable text — running entirely in the browser, no backend. Custom edge detection runs at the image's original resolution, preserving thin line-art/anime strokes.",
-          features: [
-            'Sobel edge detection runs pixel-by-pixel on the original image and max-pools per cell — keeps thin line art legible without absurd column widths',
-            'Conversion core in plain TypeScript, no DOM dependency — independently testable (grid, luminance, Floyd–Steinberg dithering, Braille encoding)',
-            'Real-time preview, paste image from clipboard (Ctrl+V), copy and download as .txt',
-          ],
+          problem: 'ASCII art converters smear thin strokes and leave drawings and anime unrecognizable.',
+          solution:
+            'Turns an image into text right in the browser, with custom edge detection that keeps line art intact, ready to copy and paste.',
+          shots: {
+            conversor: 'Braille output, with the controls on the side',
+          },
         },
         'mec-lineup': {
           name: 'MEC Lineup',
-          description:
-            'Local app for looking up Valorant lineups mid-match: a tactical minimap with where each ability lands, the throw positions and a screenshot of where to aim. No login, no cloud: everything lives in the browser, with automatic backups to disk.',
-          features: [
-            'Abilities drawn at true in-game size: meter measurements converted through each map’s scale, using normalized coordinates independent of zoom',
-            'All data in IndexedDB (Dexie) with versioned migrations that never lose data, tested even when importing old backups',
-            'Automatic backup through a Vite plugin, with a custom header that forces a CORS preflight so no other site can overwrite the data',
-          ],
+          problem: "Mid-match, there's no time to look up a Valorant lineup video on YouTube.",
+          solution:
+            'A minimap with every ability at its real in-game size and a screenshot of where to aim, one click away and offline.',
+          shots: {
+            'preview-posicao': 'Hover a position to see where to aim',
+            'formas-reais': 'Ability drawn at its real in-game size',
+            'marcar-referencia': 'Marking the aim reference on the screenshot',
+            menu: 'Map selection',
+          },
         },
       },
     },
