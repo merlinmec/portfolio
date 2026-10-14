@@ -34,7 +34,7 @@ export const projects = [
   },
   {
     id: 'pixel-type',
-    images: ['conversor'],
+    images: ['bordas', 'braille', 'blocos'],
     language: 'TypeScript',
     tech: ['TypeScript', 'React', 'Vite', 'Canvas API'],
     repoUrl: 'https://github.com/merlinmec/pixel-type',
