@@ -23,8 +23,8 @@ export const projects = [
     language: 'Java',
     tech: ['Java', 'Spring Boot', 'PostgreSQL', 'Flyway', 'React', 'TypeScript', 'PWA', 'Testcontainers'],
     repoUrl: 'https://github.com/merlinmec/arvore',
-    // preencher com https://<endereço no Render>/demo depois do deploy (docs/DEMO.md no repo)
-    demoUrl: null,
+    // /demo cria um visitante com dez semanas de dados fictícios, num schema próprio (docs/DEMO.md no repo).
+    demoUrl: 'https://arvore-demo.onrender.com/demo',
     private: false,
   },
   {
