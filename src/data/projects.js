@@ -19,6 +19,15 @@ export const projects = [
     private: false,
   },
   {
+    id: 'arvore',
+    language: 'Java',
+    tech: ['Java', 'Spring Boot', 'PostgreSQL', 'Flyway', 'React', 'TypeScript', 'PWA', 'Testcontainers'],
+    repoUrl: 'https://github.com/merlinmec/arvore',
+    // preencher com https://<endereço no Render>/demo depois do deploy (docs/DEMO.md no repo)
+    demoUrl: null,
+    private: false,
+  },
+  {
     id: 'pixel-type',
     language: 'TypeScript',
     tech: ['TypeScript', 'React', 'Vite', 'Canvas API'],

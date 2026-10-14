@@ -90,6 +90,17 @@ export const translations = {
             'Demo pública de custo zero: cada visitante ganha uma conta temporária com dados fictícios',
           ],
         },
+        arvore: {
+          name: 'Árvore',
+          description:
+            'App de acompanhamento pessoal organizado em árvore: áreas e subáreas, objetivos com metas quantitativas, hábitos (inclusive negativos) numa grade semanal, diário, revisão semanal e temporizador de foco. Spring Boot + PostgreSQL no backend e React + TypeScript no front, instalável como app.',
+          features: [
+            'Grade semanal versionada: mudar a agenda hoje não reescreve a consistência dos dias passados',
+            'Painel com heatmap anual, força do hábito com decaimento e o diário (humor e energia) cruzado com a taxa de conclusão',
+            'Demo isolada por schema do PostgreSQL: cada visitante ganha dez semanas de dados fictícios sem o app virar multiusuário',
+            'PWA com a tela Hoje offline (service worker escrito à mão) e quase 150 testes de backend contra PostgreSQL real',
+          ],
+        },
         'pixel-type': {
           name: 'Text-Art',
           description:
@@ -132,6 +143,7 @@ export const translations = {
       viewAll: 'Ver todos os projetos',
       projectBlurbs: {
         'fin-mec': 'Gestão financeira pessoal full-stack',
+        arvore: 'Hábitos, metas e progresso por área',
         'pixel-type': 'Conversor de imagem em arte de texto',
         'mec-lineup': 'Lineups de Valorant no minimapa',
       },
@@ -234,6 +246,17 @@ export const translations = {
             'Zero-cost public demo: each visitor gets a temporary account with sample data',
           ],
         },
+        arvore: {
+          name: 'Árvore',
+          description:
+            'A personal tracking app organized as a tree: areas and sub-areas, goals with numeric targets, habits (negative ones included) on a weekly grid, a daily journal, a weekly review and a focus timer. Spring Boot + PostgreSQL on the backend and React + TypeScript on the front end, installable as an app.',
+          features: [
+            'Versioned weekly schedule: changing it today never rewrites the consistency of past days',
+            'Dashboard with a yearly heatmap, habit strength with decay, and the journal (mood and energy) crossed with completion rate',
+            'Demo isolated by PostgreSQL schema: each visitor gets ten weeks of sample data without the app becoming multi-user',
+            'PWA with the Today screen offline (hand-written service worker) and nearly 150 backend tests against a real PostgreSQL',
+          ],
+        },
         'pixel-type': {
           name: 'Text-Art',
           description:
@@ -275,6 +298,7 @@ export const translations = {
       viewAll: 'View all projects',
       projectBlurbs: {
         'fin-mec': 'Full-stack personal finance app',
+        arvore: 'Habits, goals and progress by area',
         'pixel-type': 'Image-to-text-art converter',
         'mec-lineup': 'Valorant lineups on the minimap',
       },
