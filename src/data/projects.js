@@ -25,7 +25,7 @@ export const projects = [
     repoUrl: 'https://github.com/merlinmec/arvore',
     // preencher com https://<endereço no Render>/demo depois do deploy (docs/DEMO.md no repo)
     demoUrl: null,
-    private: true,
+    private: false,
   },
   {
     id: 'pixel-type',
