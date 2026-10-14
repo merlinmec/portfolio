@@ -122,7 +122,9 @@ export const translations = {
           solution:
             'Converte a imagem em texto direto no navegador, com detecção de borda própria que preserva o line art, pronto pra copiar e colar.',
           shots: {
-            conversor: 'Conversão em Braille, com os controles ao lado',
+            bordas: 'Bordas: a Grande Onda desenhada só com traços',
+            braille: 'Braille: alta resolução para tons contínuos',
+            blocos: 'Blocos: poucos níveis, legível até de longe',
           },
         },
         'mec-lineup': {
@@ -294,7 +296,9 @@ export const translations = {
           solution:
             'Turns an image into text right in the browser, with custom edge detection that keeps line art intact, ready to copy and paste.',
           shots: {
-            conversor: 'Braille output, with the controls on the side',
+            bordas: 'Edges: The Great Wave drawn with strokes only',
+            braille: 'Braille: high resolution for continuous tones',
+            blocos: 'Blocks: few levels, readable even from afar',
           },
         },
         'mec-lineup': {
