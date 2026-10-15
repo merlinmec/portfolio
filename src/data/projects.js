@@ -23,6 +23,16 @@ export const projects = [
     private: false,
   },
   {
+    id: 'mec-qrsafe',
+    images: ['editor', 'raio-x', 'estrutura', 'bloqueio'],
+    language: 'Kotlin',
+    tech: ['Kotlin', 'Spring Boot', 'Reed-Solomon', 'React', 'TypeScript', 'Canvas API', 'ZXing (testes)', 'Docker'],
+    repoUrl: 'https://github.com/merlinmec/mec-qrsafe',
+    // Preencher com o endereço do Render quando o serviço existir (docs/DEMO.md no repo).
+    demoUrl: null,
+    private: false,
+  },
+  {
     id: 'arvore',
     images: ['painel', 'hoje', 'areas', 'revisao'],
     language: 'Java',

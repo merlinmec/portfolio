@@ -103,6 +103,19 @@ export const translations = {
             metas: 'Metas de economia',
           },
         },
+        'mec-qrsafe': {
+          name: 'mec-qrsafe',
+          problem:
+            'Geradores de QR deixam pôr cor e logo à vontade e só depois de impresso você descobre que o código não lê.',
+          solution:
+            'Um encoder de QR escrito do zero em Kotlin que valida cada ajuste pela conta real da correção de erro, conferida contra um leitor de verdade, e não deixa exportar o que não lê.',
+          shots: {
+            editor: 'Editor: o logo sobe a correção de erro sozinho',
+            'raio-x': 'Raio-X: codewords por bloco e os que o logo destrói',
+            estrutura: 'Raio-X: os padrões fixos que o leitor usa primeiro',
+            bloqueio: 'Logo grande demais: exportar fica travado',
+          },
+        },
         arvore: {
           name: 'Árvore',
           problem:
@@ -161,6 +174,7 @@ export const translations = {
       viewAll: 'Ver todos os projetos',
       projectBlurbs: {
         'fin-mec': 'Gestão financeira pessoal full-stack',
+        'mec-qrsafe': 'QR code que confere se ainda lê',
         arvore: 'Hábitos, metas e progresso por área',
         'pixel-type': 'Conversor de imagem em arte de texto',
         'mec-lineup': 'Lineups de Valorant no minimapa',
@@ -277,6 +291,19 @@ export const translations = {
             metas: 'Savings goals',
           },
         },
+        'mec-qrsafe': {
+          name: 'mec-qrsafe',
+          problem:
+            "QR generators let you add colors and a logo freely, and you only find out the code doesn't scan after it's printed.",
+          solution:
+            'A QR encoder written from scratch in Kotlin that checks every tweak against the real error-correction math, verified with an actual reader, and refuses to export what won’t scan.',
+          shots: {
+            editor: 'Editor: the logo raises error correction on its own',
+            'raio-x': 'X-ray: codewords by block, and the ones the logo destroys',
+            estrutura: 'X-ray: the fixed patterns a reader looks for first',
+            bloqueio: 'Logo too big: export stays locked',
+          },
+        },
         arvore: {
           name: 'Árvore',
           problem:
@@ -334,6 +361,7 @@ export const translations = {
       viewAll: 'View all projects',
       projectBlurbs: {
         'fin-mec': 'Full-stack personal finance app',
+        'mec-qrsafe': "QR codes that check they still scan",
         arvore: 'Habits, goals and progress by area',
         'pixel-type': 'Image-to-text-art converter',
         'mec-lineup': 'Valorant lineups on the minimap',
