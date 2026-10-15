@@ -110,7 +110,7 @@ export const translations = {
           solution:
             'Um encoder de QR escrito do zero em Kotlin que valida cada ajuste pela conta real da correção de erro, conferida contra um leitor de verdade, e não deixa exportar o que não lê.',
           shots: {
-            editor: 'Editor: o logo sobe a correção de erro sozinho',
+            editor: 'Pontos, cantos em círculo e degradê, validados ao vivo',
             'raio-x': 'Raio-X: codewords por bloco e os que o logo destrói',
             estrutura: 'Raio-X: os padrões fixos que o leitor usa primeiro',
             bloqueio: 'Logo grande demais: exportar fica travado',
@@ -298,7 +298,7 @@ export const translations = {
           solution:
             'A QR encoder written from scratch in Kotlin that checks every tweak against the real error-correction math, verified with an actual reader, and refuses to export what won’t scan.',
           shots: {
-            editor: 'Editor: the logo raises error correction on its own',
+            editor: 'Dots, circular corners and a gradient, checked live',
             'raio-x': 'X-ray: codewords by block, and the ones the logo destroys',
             estrutura: 'X-ray: the fixed patterns a reader looks for first',
             bloqueio: 'Logo too big: export stays locked',
