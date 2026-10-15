@@ -28,8 +28,8 @@ export const projects = [
     language: 'Kotlin',
     tech: ['Kotlin', 'Spring Boot', 'Reed-Solomon', 'React', 'TypeScript', 'Canvas API', 'ZXing (testes)', 'Docker'],
     repoUrl: 'https://github.com/merlinmec/mec-qrsafe',
-    // Preencher com o endereço do Render quando o serviço existir (docs/DEMO.md no repo).
-    demoUrl: null,
+    // O editor inteiro, sem conta nem dados guardados (docs/DEMO.md no repo).
+    demoUrl: 'https://mec-qrsafe.onrender.com',
     private: false,
   },
   {
