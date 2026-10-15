@@ -23,16 +23,6 @@ export const projects = [
     private: false,
   },
   {
-    id: 'mec-qrsafe',
-    images: ['editor', 'raio-x', 'estrutura', 'bloqueio'],
-    language: 'Kotlin',
-    tech: ['Kotlin', 'Spring Boot', 'Reed-Solomon', 'React', 'TypeScript', 'Canvas API', 'ZXing (testes)', 'Docker'],
-    repoUrl: 'https://github.com/merlinmec/mec-qrsafe',
-    // O editor inteiro, sem conta nem dados guardados (docs/DEMO.md no repo).
-    demoUrl: 'https://mec-qrsafe.onrender.com',
-    private: false,
-  },
-  {
     id: 'arvore',
     images: ['painel', 'hoje', 'areas', 'revisao'],
     language: 'Java',
@@ -58,6 +48,16 @@ export const projects = [
     tech: ['TypeScript', 'React', 'Vite', 'Tailwind CSS', 'IndexedDB (Dexie)', 'Vitest'],
     repoUrl: 'https://github.com/merlinmec/mec-lineup',
     demoUrl: null,
+    private: false,
+  },
+  {
+    id: 'mec-qrsafe',
+    images: ['editor', 'raio-x', 'estrutura', 'bloqueio'],
+    language: 'Kotlin',
+    tech: ['Kotlin', 'Spring Boot', 'Reed-Solomon', 'React', 'TypeScript', 'Canvas API', 'ZXing (testes)', 'Docker'],
+    repoUrl: 'https://github.com/merlinmec/mec-qrsafe',
+    // O editor inteiro, sem conta nem dados guardados (docs/DEMO.md no repo).
+    demoUrl: 'https://mec-qrsafe.onrender.com',
     private: false,
   },
 ];
