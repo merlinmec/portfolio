@@ -1,0 +1,18 @@
+---
+import Contato from './Contato.astro';
+import Hero from './Hero.astro';
+import Projetos from './Projetos.astro';
+import Trajetoria from './Trajetoria.astro';
+import type { Idioma } from '@/i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+---
+
+<Hero idioma={idioma} />
+<Projetos idioma={idioma} />
+<Trajetoria idioma={idioma} />
+<Contato idioma={idioma} />

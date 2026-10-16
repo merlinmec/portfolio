@@ -1,0 +1,9 @@
+---
+import PaginaInicial from '@/components/home/PaginaInicial.astro';
+import Base from '@/layouts/Base.astro';
+import { rotas } from '@/i18n/ui';
+---
+
+<Base idioma="pt" alternativo={rotas.inicio('en')}>
+  <PaginaInicial idioma="pt" />
+</Base>

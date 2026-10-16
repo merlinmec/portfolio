@@ -1,0 +1,53 @@
+---
+import Botao from '@/components/ui/Botao.astro';
+import qr from '@/assets/qr-linkedin.svg?raw';
+import { rotas, t, type Idioma } from '@/i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const { contato } = t(idioma);
+
+// O SVG do mec-qrsafe vem com 1024px fixos; aqui ele ocupa a largura do bloco.
+const qrResponsivo = qr.replace(/ width="\d+" height="\d+"/, ' width="100%" height="100%"');
+---
+
+<section id="contato" class="border-t border-line py-24 lg:py-32" aria-labelledby="contato-titulo">
+  <div class="shell grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-x-6">
+    <div class="lg:col-span-8" data-reveal>
+      <h2 id="contato-titulo" class="font-display text-title font-bold text-bone">
+        {contato.titulo}
+      </h2>
+      <p class="mt-6 max-w-[44ch] text-lead text-mute">{contato.texto}</p>
+      <a
+        href={`mailto:${contato.email}`}
+        class="mt-10 inline-block font-display text-[clamp(1.5rem,4.2vw,3.75rem)] leading-[1.05] font-bold tracking-[-0.03em] break-all text-bone underline decoration-signal decoration-2 underline-offset-[0.18em] transition-colors hover:text-signal"
+      >
+        {contato.email}
+      </a>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <Botao rotulo="LinkedIn" href={contato.linkedin} variante="contorno" target="_blank" rel="noopener" />
+        <Botao rotulo="GitHub" href={contato.github} variante="contorno" target="_blank" rel="noopener" />
+      </div>
+    </div>
+
+    <figure class="max-w-[22rem] lg:col-span-4 lg:max-w-none" data-reveal style="--d:1">
+      <div
+        class="aspect-square overflow-hidden rounded-lg"
+        role="img"
+        aria-label={contato.qrAlt}
+        set:html={qrResponsivo}
+      />
+      <figcaption class="mt-5 font-mono text-label text-mute">
+        <a
+          href={rotas.projeto(idioma, 'mec-qrsafe')}
+          class="underline decoration-line-strong underline-offset-4 transition-colors hover:text-bone hover:decoration-signal"
+        >
+          {contato.qrLegenda}
+        </a>
+      </figcaption>
+    </figure>
+  </div>
+</section>

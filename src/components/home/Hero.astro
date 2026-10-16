@@ -1,0 +1,60 @@
+---
+import Botao from '@/components/ui/Botao.astro';
+import braille from '@/data/hero-braille.txt?raw';
+import { rotas, t, type Idioma } from '@/i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const { hero } = t(idioma);
+const arte = braille.trimEnd();
+const colunas = Math.max(...arte.split('\n').map((linha) => Array.from(linha).length));
+---
+
+<section class="relative flex min-h-[100dvh] items-center pt-24 pb-14" aria-labelledby="hero-titulo">
+  <div class="shell grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-x-6">
+    <div class="lg:col-span-7">
+      <h1 id="hero-titulo" class="font-display text-hero font-extrabold text-bone">
+        {hero.nome.map((linha, i) => (
+          <span class="block" data-reveal style={`--d:${i}`}>
+            {linha}
+          </span>
+        ))}
+      </h1>
+      <p class="mt-8 max-w-[38ch] text-lead text-mute" data-reveal style="--d:2">
+        {hero.lead}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3" data-reveal style="--d:3">
+        <Botao rotulo={hero.verProjetos} href="#projetos" icone="arrow-down" direcao="down" />
+        <Botao
+          rotulo={hero.curriculo}
+          href="/curriculo.pdf"
+          variante="contorno"
+          download="curriculo-joao-manoel-carvalho.pdf"
+        />
+      </div>
+    </div>
+
+    <figure class="lg:col-span-5" data-reveal style="--d:2">
+      <div class="@container">
+        <pre
+          class="overflow-hidden font-mono leading-[1.1] text-signal select-all"
+          style={`font-size: calc(100cqi / ${colunas} / 0.75)`}
+          role="img"
+          aria-label={hero.arteAlt}
+          data-braille
+        >{arte}</pre>
+      </div>
+      <figcaption class="mt-5 max-w-[42ch] font-mono text-label text-mute">
+        <a
+          href={rotas.projeto(idioma, 'pixel-type')}
+          class="underline decoration-line-strong underline-offset-4 transition-colors hover:text-bone hover:decoration-signal"
+        >
+          {hero.legenda}
+        </a>
+      </figcaption>
+    </figure>
+  </div>
+</section>

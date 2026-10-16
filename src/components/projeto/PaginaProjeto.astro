@@ -1,0 +1,179 @@
+---
+import { getImage, Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Botao from '@/components/ui/Botao.astro';
+import Icone from '@/components/ui/Icone.astro';
+import TextoRolante from '@/components/ui/TextoRolante.astro';
+import { formatarMes, rotas, t, type Idioma } from '@/i18n/ui';
+import { nomeTransicao, type Projeto } from '@/utils/projetos';
+
+interface Props {
+  idioma: Idioma;
+  projeto: Projeto;
+  proximo: Projeto;
+}
+
+const { idioma, projeto, proximo } = Astro.props;
+const { projeto: textos, projetos } = t(idioma);
+const { data } = projeto;
+const { Content } = await render(projeto);
+const [capa] = data.imagens;
+
+// Versão grande de cada tela pro PhotoSwipe, já otimizada pelo Astro.
+const ampliadas = await Promise.all(
+  data.imagens.map((imagem) => getImage({ src: imagem.src, width: Math.min(imagem.src.width, 2000) }))
+);
+
+const meta = [
+  { rotulo: textos.inicio, valor: formatarMes(idioma, data.inicio) },
+  { rotulo: textos.linguagem, valor: data.linguagem },
+];
+---
+
+<article>
+  <header class="shell pt-32 lg:pt-40">
+    <a
+      href={`${rotas.inicio(idioma)}#projetos`}
+      class="group inline-flex items-center gap-2 text-sm text-mute transition-colors hover:text-bone"
+    >
+      <span class="btn-icon" data-dir="left">
+        <Icone nome="arrow-left" />
+        <Icone nome="arrow-left" />
+      </span>
+      <TextoRolante texto={textos.voltar} />
+    </a>
+
+    <h1 class="mt-10 font-display text-display font-extrabold text-bone" data-reveal>
+      {data.nome}
+    </h1>
+    <p class="mt-5 text-subtitle font-medium text-mute" data-reveal style="--d:1">
+      {data.resumo}
+    </p>
+
+    <dl
+      class="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-6 md:grid-cols-12"
+      data-reveal
+      style="--d:2"
+    >
+      {meta.map((item) => (
+        <div class="md:col-span-2">
+          <dt class="font-mono text-label text-mute uppercase">{item.rotulo}</dt>
+          <dd class="mt-2 text-bone">{item.valor}</dd>
+        </div>
+      ))}
+      <div class="col-span-2 md:col-span-4">
+        <dt class="font-mono text-label text-mute uppercase">{textos.stack}</dt>
+        <dd class="mt-2">
+          <ul class="flex flex-wrap gap-x-3 gap-y-1 text-bone">
+            {data.stack.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+      <div class="col-span-2 md:col-span-4">
+        <dt class="sr-only">{textos.links}</dt>
+        <dd class="flex flex-wrap gap-3 md:justify-end">
+          {data.demo && (
+            <Botao rotulo={textos.demo} href={data.demo} target="_blank" rel="noopener" class="h-11" />
+          )}
+          <Botao
+            rotulo={textos.codigo}
+            href={data.repo}
+            variante={data.demo ? 'contorno' : 'signal'}
+            target="_blank"
+            rel="noopener"
+            class="h-11"
+          />
+        </dd>
+      </div>
+    </dl>
+  </header>
+
+  <div class="shell mt-12">
+    <div
+      class="overflow-hidden rounded-lg border border-line"
+      style={`view-transition-name: ${nomeTransicao(projeto.slug)}`}
+    >
+      <Image
+        src={capa.src}
+        alt={capa.legenda}
+        widths={[800, 1400, 2000]}
+        sizes="(min-width: 1440px) 1376px, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="w-full"
+      />
+    </div>
+  </div>
+
+  <section class="shell grid grid-cols-1 gap-14 py-20 lg:grid-cols-12 lg:gap-x-6 lg:py-28">
+    <aside class="lg:col-span-4">
+      <dl class="flex flex-col gap-8 lg:sticky lg:top-28" data-reveal>
+        <div class="border-l-2 border-signal pl-5">
+          <dt class="font-mono text-label text-signal uppercase">{projetos.problema}</dt>
+          <dd class="mt-3 text-bone">{data.problema}</dd>
+        </div>
+        <div class="border-l-2 border-line-strong pl-5">
+          <dt class="font-mono text-label text-mute uppercase">{projetos.solucao}</dt>
+          <dd class="mt-3 text-mute">{data.solucao}</dd>
+        </div>
+      </dl>
+    </aside>
+    <div class="prose-projeto lg:col-span-7 lg:col-start-6" data-reveal>
+      <Content />
+    </div>
+  </section>
+
+  <section class="shell border-t border-line py-20 lg:py-28" aria-labelledby="telas-titulo">
+    <h2 id="telas-titulo" class="font-display text-subtitle font-bold text-bone">
+      {textos.telas}
+    </h2>
+    <ul class="mt-10 grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2" data-galeria>
+      {data.imagens.map((imagem, i) => (
+        <li data-reveal style={`--d:${i % 2}`}>
+          <figure>
+            <a
+              href={ampliadas[i].src}
+              data-pswp-width={ampliadas[i].attributes.width}
+              data-pswp-height={ampliadas[i].attributes.height}
+              class="group block overflow-hidden rounded-lg border border-line"
+              aria-label={`${textos.ampliar}: ${imagem.legenda}`}
+            >
+              <span class="media-zoom block">
+                <Image
+                  src={imagem.src}
+                  alt={imagem.legenda}
+                  widths={[480, 800, 1100]}
+                  sizes="(min-width: 768px) 46vw, 100vw"
+                  class="aspect-[16/10] w-full object-cover object-top"
+                />
+              </span>
+            </a>
+            <figcaption class="mt-4 text-sm text-mute">{imagem.legenda}</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <a
+    href={rotas.projeto(idioma, proximo.slug)}
+    class="group block border-t border-line transition-colors hover:bg-ink-2"
+  >
+    <div class="shell flex items-end justify-between gap-6 py-16 lg:py-24">
+      <div>
+        <p class="font-mono text-label text-mute uppercase">{textos.proximo}</p>
+        <p class="mt-4 font-display text-display font-extrabold text-bone">{proximo.data.nome}</p>
+      </div>
+      <span class="btn-icon mb-3 size-10 text-signal lg:size-14">
+        <Icone nome="arrow-up-right" class="size-full" />
+        <Icone nome="arrow-up-right" class="size-full" />
+      </span>
+    </div>
+  </a>
+</article>
+
+<script>
+  import '@/scripts/galeria';
+</script>
