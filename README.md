@@ -1,81 +1,94 @@
-
 [English version below](#english-version)
 
 # Portfólio Pessoal
 
-Este é o repositório do meu portfólio pessoal, onde compartilho meus projetos, experiências e habilidades. Sinta-se à vontade para explorar o código e acessar a versão ao vivo para conhecer meu trabalho.
+Meu portfólio: os projetos que construí, com a página de cada um explicando o problema, a solução e as decisões técnicas. Feito em [Astro](https://astro.build), em português e inglês.
 
-## Layout
+**No ar:** https://portfolio-lac-mu-52.vercel.app
 
-Sidebar fixa (foto, nome, links) à esquerda e conteúdo rolável à direita, dividido nas seções:
+## Feito com as próprias ferramentas
 
-- **Sobre**: Breve apresentação.
-- **Experiência**: Timeline com experiências profissionais.
-- **Projetos**: Listagem curada manualmente, com destaque de features e stack por projeto — veja abaixo como adicionar um novo.
-- **Skills**: Tecnologias e ferramentas que utilizo, filtráveis por categoria (Linguagens, Back-end, Front-end, Ferramentas).
+Duas peças do site saem de outros projetos meus, rodados de verdade:
 
-### Como adicionar um projeto à listagem
+- **O desenho em braille do topo** é gerado pelo [Text-Art](https://github.com/merlinmec/pixel-type): `scripts/gerar-hero.ts` renderiza a marca "mec", passa a imagem pelo `convertToText` do projeto e grava o texto em `src/data/hero-braille.txt`.
+- **O QR da seção de contato** vem da API do [mec-qrsafe](https://github.com/merlinmec/mec-qrsafe): `scripts/gerar-qr.mjs` pede o SVG ao endpoint de export, que só devolve o arquivo se o QR passar na validação de leitura.
 
-A seção Projetos é curada manualmente (não busca mais via API do GitHub, pra permitir descrição e features reais por projeto). Para adicionar um projeto:
+Os dois resultados ficam versionados, então o build não depende desses projetos estarem no ar.
 
-1. Adicione uma entrada em `src/data/projects.js` com os dados técnicos (`id`, `language`, `tech`, `repoUrl`, `demoUrl`, `private`).
-2. Adicione o conteúdo textual correspondente (`name`, `description`, `features`) em `src/i18n/translations.js`, dentro de `projetos.items.<id>`, nos dois idiomas (`pt` e `en`).
+## Stack e decisões
 
-## Tecnologias Utilizadas
+- **Astro 7**, gerando HTML estático. Não há React no site: o JS da home é um script pequeno de interface (entrada ao rolar, tema, seção ativa no menu), e a galeria usa o PhotoSwipe, que só carrega nas páginas de projeto.
+- **Tailwind CSS 4**, com tokens de cor que trocam entre tema escuro e claro sem mudar nenhum componente.
+- **Content collections**: cada projeto é um Markdown por idioma em `src/content/projetos/<pt|en>/`, com o frontmatter validado por schema.
+- **Rotas por idioma**: português na raiz, inglês em `/en`, com `hreflang` e sitemap.
+- **Transições entre páginas** pela View Transitions API do navegador, sem JS.
+- O sistema visual parte do tema [Kairo](https://github.com/Pixels71/kairo-astro) (MIT): escala tipográfica, fontes e estrutura de tokens. A paleta e os componentes foram refeitos. Ver `THIRD_PARTY_NOTICES.md`.
 
-- React
-- Tailwind CSS
-- Framer Motion
+### Como adicionar um projeto
 
-## Rodando o Projeto Localmente
+1. Coloque as telas em `src/assets/projetos/<slug>/` (a primeira da lista vira a capa).
+2. Crie `src/content/projetos/pt/<slug>.md` e `src/content/projetos/en/<slug>.md` com o frontmatter dos outros projetos. O corpo do Markdown é a seção de decisões técnicas.
 
-=>Pré-requisitos: instalar Node.js (npm necessário)
+## Rodando localmente
 
-1. Clone o repositório: `git clone https://github.com/merlinmec/portfolio.git`
-2. Instale as dependências: `npm install`
-3. Inicie o servidor: `npm start`
+Pré-requisito: Node.js 24.
+
+```bash
+npm install
+npm run dev        # http://localhost:4321
+npm run build      # astro check + build em dist/
+```
+
+Para regenerar as peças geradas (precisa do Playwright: `npx playwright install chromium-headless-shell`):
+
+```bash
+npm run gerar:hero -- ../pixel-type   # desenho em braille, com o Text-Art
+npm run gerar:qr                      # QR do contato, pela API do mec-qrsafe
+npm run gerar:og                      # imagem de prévia dos links
+```
 
 ## Contato
 
 - [LinkedIn](https://www.linkedin.com/in/joao-manoel-carvalho/)
-- [Email](mailto:joaomanoel190701@gmail.com)
+- [E-mail](mailto:joaomanoel190701@gmail.com)
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-## {#english-version}
+---
 
-# Personal Portfolio 
+## English version
 
-This is the repository for my personal portfolio, where I share my projects, experiences, and skills. Feel free to explore the code and check out the live version to get to know my work.
+# Personal Portfolio
 
-## Layout
+My portfolio: the projects I've built, with a page for each one explaining the problem, the solution and the technical decisions. Built with [Astro](https://astro.build), in Portuguese and English.
 
-A fixed sidebar (photo, name, links) on the left and scrollable content on the right, split into these sections:
+**Live:** https://portfolio-lac-mu-52.vercel.app/en/
 
-- **About**: A brief introduction.
-- **Experience**: Timeline of my professional experience.
-- **Projects**: Manually curated listing, with per-project features and stack highlights — see below how to add a new one.
-- **Skills**: Technologies and tools I use, filterable by category (Languages, Backend, Frontend, Tools).
+## Built with my own tools
 
-### How to add a project to the list
+Two pieces of the site come out of other projects of mine, actually run:
 
-The Projects section is manually curated (no longer fetched via the GitHub API, to allow a real description and features per project). To add a project:
+- **The braille drawing at the top** is generated by [Text-Art](https://github.com/merlinmec/pixel-type): `scripts/gerar-hero.ts` renders the "mec" mark, runs the image through the project's `convertToText` and writes the text to `src/data/hero-braille.txt`.
+- **The QR code in the contact section** comes from the [mec-qrsafe](https://github.com/merlinmec/mec-qrsafe) API: `scripts/gerar-qr.mjs` asks the export endpoint for the SVG, which only returns the file if the QR passes the scan validation.
 
-1. Add an entry to `src/data/projects.js` with the technical data (`id`, `language`, `tech`, `repoUrl`, `demoUrl`, `private`).
-2. Add the matching text content (`name`, `description`, `features`) to `src/i18n/translations.js`, under `projetos.items.<id>`, in both languages (`pt` and `en`).
+Both results are committed, so the build doesn't depend on those projects being online.
 
-## Technologies Used
+## Stack and decisions
 
-- React
-- Tailwind CSS
-- Framer Motion
+- **Astro 7**, generating static HTML. There's no React on the site: the home page's JS is a small interface script (scroll reveal, theme, active section in the menu), and the gallery uses PhotoSwipe, loaded only on project pages.
+- **Tailwind CSS 4**, with color tokens that switch between dark and light themes without changing any component.
+- **Content collections**: each project is one Markdown file per language in `src/content/projetos/<pt|en>/`, with schema-validated frontmatter.
+- **Per-language routes**: Portuguese at the root, English under `/en`, with `hreflang` and a sitemap.
+- **Page transitions** through the browser's View Transitions API, with no JS.
+- The visual system starts from the [Kairo](https://github.com/Pixels71/kairo-astro) theme (MIT): type scale, fonts and token structure. The palette and components were rebuilt. See `THIRD_PARTY_NOTICES.md`.
 
-## Running the Project Locally
+## Running locally
 
-=>Prerequisites: install Node.js (npm required)
+Requires Node.js 24.
 
-1. Clone the repository: `git clone https://github.com/merlinmec/portfolio.git`
-2. Install the dependencies: `npm install`
-3. Start the server: `npm start`
+```bash
+npm install
+npm run dev        # http://localhost:4321
+npm run build      # astro check + build into dist/
+```
 
 ## Contact
 
