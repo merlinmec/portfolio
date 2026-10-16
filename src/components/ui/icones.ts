@@ -8,7 +8,6 @@ import linkedinLogo from '@phosphor-icons/core/regular/linkedin-logo.svg?raw';
 import list from '@phosphor-icons/core/regular/list.svg?raw';
 import moon from '@phosphor-icons/core/regular/moon.svg?raw';
 import sun from '@phosphor-icons/core/regular/sun.svg?raw';
-import x from '@phosphor-icons/core/regular/x.svg?raw';
 
 // Phosphor (família única, peso regular): o SVG entra inline no HTML,
 // sem fonte de ícones nem JS.
@@ -23,7 +22,6 @@ export const icones = {
   menu: list,
   lua: moon,
   sol: sun,
-  fechar: x,
 };
 
 export type NomeIcone = keyof typeof icones;

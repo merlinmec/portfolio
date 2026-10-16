@@ -3,7 +3,7 @@ import '@/styles/global.css';
 import { Font } from 'astro:assets';
 import Nav from '@/components/layout/Nav.astro';
 import Rodape from '@/components/layout/Rodape.astro';
-import { t, type Idioma } from '@/i18n/ui';
+import { outroIdioma, t, type Idioma } from '@/i18n/ui';
 
 interface Props {
   idioma: Idioma;
@@ -11,11 +11,13 @@ interface Props {
   alternativo: string;
   titulo?: string;
   descricao?: string;
+  /** Páginas que não devem ser indexadas nem ter canonical (a 404). */
+  semIndice?: boolean;
 }
 
-const { idioma, alternativo, titulo, descricao } = Astro.props;
+const { idioma, alternativo, titulo, descricao, semIndice = false } = Astro.props;
 const textos = t(idioma);
-const outro: Idioma = idioma === 'pt' ? 'en' : 'pt';
+const outro = outroIdioma(idioma);
 
 const tituloFinal = titulo ? `${titulo} | João Manoel Carvalho` : textos.meta.titulo;
 const descricaoFinal = descricao ?? textos.meta.descricao;
@@ -32,16 +34,22 @@ const imagemOg = new URL('/og.png', Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{tituloFinal}</title>
     <meta name="description" content={descricaoFinal} />
-    <link rel="canonical" href={canonico} />
-    <link rel="alternate" hreflang={textos.htmlLang} href={canonico} />
-    <link rel="alternate" hreflang={t(outro).htmlLang} href={urlAlternativa} />
-    <link rel="alternate" hreflang="x-default" href={urlPt} />
+    {semIndice ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonico} />
+        <link rel="alternate" hreflang={textos.htmlLang} href={canonico} />
+        <link rel="alternate" hreflang={t(outro).htmlLang} href={urlAlternativa} />
+        <link rel="alternate" hreflang="x-default" href={urlPt} />
+      </>
+    )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#0e0f0d" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="João Manoel Carvalho" />
-    <meta property="og:locale" content={textos.htmlLang.replace('-', '_')} />
+    <meta property="og:locale" content={textos.ogLocale} />
     <meta property="og:url" content={canonico} />
     <meta property="og:title" content={tituloFinal} />
     <meta property="og:description" content={descricaoFinal} />
@@ -56,6 +64,8 @@ const imagemOg = new URL('/og.png', Astro.site);
     <script is:inline>
       // Antes da primeira pintura: tema salvo (ou o do sistema) e a classe
       // `js`, que liga as animações de entrada só pra quem não pediu menos movimento.
+      // Se o script de interface não marcar `pronto` em 3 s (falhou ou foi
+      // bloqueado), a classe sai e o conteúdo escondido pra animar aparece.
       (function () {
         var raiz = document.documentElement;
         var tema = null;
@@ -66,7 +76,21 @@ const imagemOg = new URL('/og.png', Astro.site);
           tema = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
         raiz.dataset.theme = tema;
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) raiz.classList.add('js');
+        document.querySelector('meta[name="theme-color"]').content = tema === 'light' ? '#f3f3ef' : '#0e0f0d';
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          raiz.classList.add('js');
+          setTimeout(function () {
+            if (!('pronto' in raiz.dataset)) raiz.classList.remove('js');
+          }, 3000);
+          // Chegando por transição entre páginas, a capa do projeto voa até
+          // o lugar dela: ela precisa já estar revelada, não recortada.
+          addEventListener('pagereveal', function (evento) {
+            if (!evento.viewTransition) return;
+            document.querySelectorAll('[data-reveal-media]').forEach(function (el) {
+              el.classList.add('is-in');
+            });
+          });
+        }
       })();
     </script>
   </head>

@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import Icone from './Icone.astro';
+import Seta from './Seta.astro';
 import TextoRolante from './TextoRolante.astro';
 import type { NomeIcone } from './icones';
 
@@ -34,10 +34,5 @@ const estilos: Record<Variante, { base: string; preenchimento: string }> = {
 <a href={href} class:list={['btn group', estilos[variante].base, classe]} data-btn {...resto}>
   <span class:list={['btn-fill', estilos[variante].preenchimento]} aria-hidden="true"></span>
   <TextoRolante texto={rotulo} />
-  {icone && (
-    <span class="btn-icon" data-dir={direcao === 'diagonal' ? undefined : direcao}>
-      <Icone nome={icone} />
-      <Icone nome={icone} />
-    </span>
-  )}
+  {icone && <Seta nome={icone} direcao={direcao} />}
 </a>

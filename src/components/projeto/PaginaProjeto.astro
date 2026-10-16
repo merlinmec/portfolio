@@ -2,7 +2,7 @@
 import { getImage, Image } from 'astro:assets';
 import { render } from 'astro:content';
 import Botao from '@/components/ui/Botao.astro';
-import Icone from '@/components/ui/Icone.astro';
+import Seta from '@/components/ui/Seta.astro';
 import TextoRolante from '@/components/ui/TextoRolante.astro';
 import { formatarMes, rotas, t, type Idioma } from '@/i18n/ui';
 import { nomeTransicao, type Projeto } from '@/utils/projetos';
@@ -36,10 +36,7 @@ const meta = [
       href={`${rotas.inicio(idioma)}#projetos`}
       class="group inline-flex items-center gap-2 text-sm text-mute transition-colors hover:text-bone"
     >
-      <span class="btn-icon" data-dir="left">
-        <Icone nome="arrow-left" />
-        <Icone nome="arrow-left" />
-      </span>
+      <Seta nome="arrow-left" direcao="left" />
       <TextoRolante texto={textos.voltar} />
     </a>
 
@@ -166,10 +163,7 @@ const meta = [
         <p class="font-mono text-label text-mute uppercase">{textos.proximo}</p>
         <p class="mt-4 font-display text-display font-extrabold text-bone">{proximo.data.nome}</p>
       </div>
-      <span class="btn-icon mb-3 size-10 text-signal lg:size-14">
-        <Icone nome="arrow-up-right" class="size-full" />
-        <Icone nome="arrow-up-right" class="size-full" />
-      </span>
+      <Seta class="mb-3 size-10 text-signal lg:size-14" classeIcone="size-full" />
     </div>
   </a>
 </article>

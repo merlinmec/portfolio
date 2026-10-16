@@ -1,10 +1,11 @@
-import { rotas, type Idioma } from '@/i18n/ui';
-import { getProjetos } from '@/utils/projetos';
+import { outroIdioma, rotas, type Idioma } from '@/i18n/ui';
+import { getProjetos, validarIdiomas } from '@/utils/projetos';
 
 /** getStaticPaths das páginas de projeto, compartilhado entre /projetos e /en/projects. */
 export const caminhosProjeto = async (idioma: Idioma) => {
+  await validarIdiomas();
   const projetos = await getProjetos(idioma);
-  const outro: Idioma = idioma === 'pt' ? 'en' : 'pt';
+  const outro = outroIdioma(idioma);
   return projetos.map((projeto, i) => ({
     params: { slug: projeto.slug },
     props: {

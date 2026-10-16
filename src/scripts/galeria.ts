@@ -19,6 +19,7 @@ lightbox.on('uiRegister', () => {
     appendTo: 'root',
     onInit: (el, pswp) => {
       el.className = 'pswp__legenda';
+      el.setAttribute('aria-live', 'polite');
       pswp.on('change', () => {
         const atual = pswp.currSlide?.data.element;
         el.textContent = atual?.querySelector('img')?.getAttribute('alt') ?? '';

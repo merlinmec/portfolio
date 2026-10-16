@@ -1,11 +1,15 @@
 // Todo o JS do site fora da galeria. Sem framework: cada bloco liga um
 // comportamento a atributos `data-*` do HTML, que já chega pronto do build.
 
+const raiz = document.documentElement;
+// Avisa o fallback do <head> (Base.astro) que o script carregou.
+raiz.dataset.pronto = '';
+
 const reduzMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Entrada ao rolar: o CSS esconde [data-reveal] só quando <html> tem `.js`. */
 const revelaveis = document.querySelectorAll<HTMLElement>('[data-reveal], [data-reveal-media]');
-if (document.documentElement.classList.contains('js')) {
+if (raiz.classList.contains('js')) {
   const observador = new IntersectionObserver(
     (entradas) => {
       for (const entrada of entradas) {
@@ -19,8 +23,7 @@ if (document.documentElement.classList.contains('js')) {
   revelaveis.forEach((el) => observador.observe(el));
 }
 
-/* Hero: o braille se resolve da esquerda pra direita, a partir de células
-   aleatórias. O texto final já está no HTML; isto só anima a chegada. */
+/* Hero: desenho em braille gerado pelo Text-Art. */
 const braille = document.querySelector<HTMLElement>('[data-braille]');
 
 /* A largura do glifo braille depende da fonte que cada sistema usa pra esse
@@ -56,11 +59,14 @@ if (braille) {
   });
   // Só a largura importa: a altura muda com o próprio ajuste.
   new ResizeObserver(ajustar).observe(braille);
+
+  /* O braille se resolve da esquerda pra direita, a partir de células
+     aleatórias, quando aparece na tela. O texto final já está no HTML. */
+  if (!reduzMovimento) animarBraille(braille, textoFinal, Number(braille.dataset.colunas));
 }
 
-if (braille && !reduzMovimento) {
-  const final = Array.from(braille.textContent ?? '');
-  const largura = Math.max(...(braille.textContent ?? '').split('\n').map((l) => Array.from(l).length));
+function animarBraille(braille: HTMLElement, textoFinal: string, largura: number) {
+  const final = Array.from(textoFinal);
   const coluna: number[] = [];
   let c = 0;
   for (const ch of final) {
@@ -69,9 +75,10 @@ if (braille && !reduzMovimento) {
   }
   const VAZIO = 0x2800;
   const duracao = 1400;
-  const inicio = performance.now();
+  let inicio = 0;
 
   const quadro = (agora: number) => {
+    inicio ||= agora;
     const progresso = Math.min(1, (agora - inicio) / duracao);
     let saida = '';
     for (let i = 0; i < final.length; i++) {
@@ -85,7 +92,13 @@ if (braille && !reduzMovimento) {
     braille.textContent = saida;
     if (progresso < 1) requestAnimationFrame(quadro);
   };
-  requestAnimationFrame(quadro);
+
+  const quandoVisivel = new IntersectionObserver(([entrada]) => {
+    if (!entrada.isIntersecting) return;
+    quandoVisivel.disconnect();
+    requestAnimationFrame(quadro);
+  });
+  quandoVisivel.observe(braille);
 }
 
 /* Botões: o preenchimento do hover nasce de onde o cursor entrou. */
@@ -109,7 +122,8 @@ if (secoes.length) {
         const id = entrada.target.id;
         linksSecao.forEach((link) => {
           if (link.dataset.secao !== id) return;
-          link.toggleAttribute('data-ativo', entrada.isIntersecting);
+          if (entrada.isIntersecting) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
         });
       }
     },
@@ -126,7 +140,7 @@ document.querySelectorAll('[data-fechar-menu]').forEach((link) => {
 /* Tema: alterna e lembra. O valor inicial é aplicado no <head>, antes da pintura. */
 const botaoTema = document.querySelector<HTMLButtonElement>('[data-alternar-tema]');
 if (botaoTema) {
-  const raiz = document.documentElement;
+  const corBarra = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   const rotular = () => {
     const claro = raiz.dataset.theme === 'light';
     botaoTema.setAttribute(
@@ -142,6 +156,7 @@ if (botaoTema) {
     } catch {
       // Sem armazenamento (aba anônima, bloqueio): o tema vale só nesta página.
     }
+    if (corBarra) corBarra.content = raiz.dataset.theme === 'light' ? '#f3f3ef' : '#0e0f0d';
     rotular();
   });
 }

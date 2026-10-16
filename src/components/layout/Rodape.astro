@@ -1,5 +1,6 @@
 ---
 import Icone from '@/components/ui/Icone.astro';
+import Seta from '@/components/ui/Seta.astro';
 import TextoRolante from '@/components/ui/TextoRolante.astro';
 import { t, type Idioma } from '@/i18n/ui';
 
@@ -52,10 +53,7 @@ const redes = [
         class="group grid size-11 shrink-0 place-items-center rounded-full border border-line-strong text-bone"
       >
         <span class="sr-only">{rodape.voltarTopo}</span>
-        <span class="btn-icon" data-dir="down" style="rotate: 180deg">
-          <Icone nome="arrow-down" />
-          <Icone nome="arrow-down" />
-        </span>
+        <Seta nome="arrow-up" direcao="up" />
       </a>
     </div>
   </div>

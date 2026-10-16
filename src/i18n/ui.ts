@@ -12,6 +12,7 @@ const contato = {
 
 const pt = {
   htmlLang: 'pt-BR',
+  ogLocale: 'pt_BR',
   meta: {
     titulo: 'João Manoel Carvalho | Desenvolvedor back-end',
     descricao:
@@ -117,6 +118,7 @@ const pt = {
 
 const en: typeof pt = {
   htmlLang: 'en',
+  ogLocale: 'en_US',
   meta: {
     titulo: 'João Manoel Carvalho | Back-end developer',
     descricao:
@@ -221,6 +223,8 @@ const en: typeof pt = {
 export const ui = { pt, en };
 
 export const t = (idioma: Idioma) => ui[idioma];
+
+export const outroIdioma = (idioma: Idioma): Idioma => (idioma === 'pt' ? 'en' : 'pt');
 
 /** Rotas por idioma: o português fica na raiz, o inglês em /en. */
 export const rotas = {

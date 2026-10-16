@@ -1,7 +1,7 @@
 ---
 import Icone from '@/components/ui/Icone.astro';
 import TextoRolante from '@/components/ui/TextoRolante.astro';
-import { rotas, t, type Idioma } from '@/i18n/ui';
+import { outroIdioma, rotas, t, type Idioma } from '@/i18n/ui';
 
 interface Props {
   idioma: Idioma;
@@ -11,7 +11,7 @@ interface Props {
 const { idioma, alternativo } = Astro.props;
 const { nav } = t(idioma);
 const inicio = rotas.inicio(idioma);
-const outro: Idioma = idioma === 'pt' ? 'en' : 'pt';
+const outro = outroIdioma(idioma);
 
 const links = [
   { id: 'projetos', rotulo: nav.projetos },
@@ -40,7 +40,7 @@ const pilula = 'rounded-full border border-line bg-ink-2/75 backdrop-blur-xl';
           <li>
             <a
               href={`${inicio}#${link.id}`}
-              class="group flex h-9 items-center rounded-full px-4 text-sm font-medium text-mute transition-colors duration-300 hover:text-bone data-[ativo]:bg-bone/10 data-[ativo]:text-bone"
+              class="group flex h-9 items-center rounded-full px-4 text-sm font-medium text-mute transition-colors duration-300 hover:text-bone aria-[current=location]:bg-bone/10 aria-[current=location]:text-bone"
               data-secao={link.id}
             >
               <TextoRolante texto={link.rotulo} />

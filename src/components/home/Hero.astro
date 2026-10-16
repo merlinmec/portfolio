@@ -1,7 +1,8 @@
 ---
 import Botao from '@/components/ui/Botao.astro';
 import braille from '@/data/hero-braille.txt?raw';
-import { rotas, t, type Idioma } from '@/i18n/ui';
+import { t, type Idioma } from '@/i18n/ui';
+import { linkProjeto } from '@/utils/projetos';
 
 interface Props {
   idioma: Idioma;
@@ -37,7 +38,7 @@ const colunas = Math.max(...arte.split('\n').map((linha) => Array.from(linha).le
       </div>
     </div>
 
-    <figure class="lg:col-span-5" data-reveal style="--d:2">
+    <figure class="lg:col-span-5">
       <div class="@container">
         <pre
           class="overflow-hidden font-mono leading-[1.1] text-signal select-all"
@@ -45,11 +46,12 @@ const colunas = Math.max(...arte.split('\n').map((linha) => Array.from(linha).le
           role="img"
           aria-label={hero.arteAlt}
           data-braille
+          data-colunas={colunas}
         >{arte}</pre>
       </div>
       <figcaption class="mt-5 max-w-[42ch] font-mono text-label text-mute">
         <a
-          href={rotas.projeto(idioma, 'pixel-type')}
+          href={await linkProjeto(idioma, 'pixel-type')}
           class="underline decoration-line-strong underline-offset-4 transition-colors hover:text-bone hover:decoration-signal"
         >
           {hero.legenda}
