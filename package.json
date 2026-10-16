@@ -9,8 +9,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "gerar:hero": "tsx scripts/gerar-hero.ts",
-    "gerar:qr": "node scripts/gerar-qr.mjs",
-    "gerar:og": "node scripts/gerar-og.mjs"
+    "gerar:qr": "node scripts/gerar-qr.mjs"
   },
   "engines": {
     "node": "24.x"
@@ -22,6 +21,7 @@
     "astro": "^7.4.0",
     "photoswipe": "^5.4.4",
     "sharp": "^0.35.5",
+    "simple-icons": "^16.35.0",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {

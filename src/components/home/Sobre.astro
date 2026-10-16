@@ -1,0 +1,89 @@
+---
+import Icone from '@/components/ui/Icone.astro';
+import braille from '@/data/hero-braille.txt?raw';
+import { t, type Idioma } from '@/i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const { sobre } = t(idioma);
+const arte = braille.trimEnd();
+const colunas = Math.max(...arte.split('\n').map((linha) => Array.from(linha).length));
+---
+
+<section class="relative flex min-h-[85vh] items-center overflow-hidden px-6 py-16 lg:py-0" id="home">
+  <div class="bg-dot-grid absolute inset-0 opacity-30" aria-hidden="true"></div>
+  <div
+    class="pointer-events-none absolute -top-32 right-0 h-[420px] w-[420px] rounded-full bg-accent/20 blur-[120px]"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative container grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+    <div class="lg:col-span-7">
+      <span class="eyebrow" data-reveal style="--d:1">
+        {sobre.eyebrow}
+      </span>
+
+      <h1
+        class="font-primary text-[40px] leading-[0.95] font-black uppercase min-[400px]:text-[46px] sm:text-[64px] lg:text-[80px]"
+        data-reveal
+        style="--d:2"
+      >
+        <span class="block text-white">{sobre.headlineTop}</span>
+        <span class="text-gradient block">{sobre.headlineBottom}</span>
+      </h1>
+
+      <!-- Frases que se digitam sozinhas; sem JS (ou com menos movimento)
+           fica a primeira frase parada. -->
+      <div class="mt-6 font-secondary text-xl text-white/70 lg:text-2xl" data-reveal style="--d:3">
+        <span class="text-accent-light" data-digitar={JSON.stringify(sobre.frases)} aria-live="off">
+          {sobre.frases[0][0]}
+        </span>
+      </div>
+
+      <p class="mt-6 text-white/70" data-reveal style="--d:4" set:html={sobre.paragrafo} />
+
+      <div class="mt-8 flex flex-wrap gap-2" data-reveal style="--d:5">
+        {sobre.focusAreas.map((item) => (
+          <span class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm text-white/70">
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--d:6">
+        <a href="#projetos" class="btn btn-sm flex items-center justify-center">
+          {sobre.cta}
+        </a>
+        <a
+          href="/curriculo.pdf"
+          download="curriculo_Joao_Manoel.pdf"
+          class="btn-outline flex h-[48px] items-center justify-center gap-x-2 rounded-full px-6 font-primary text-sm"
+        >
+          <Icone nome="download" />
+          {sobre.cv}
+        </a>
+      </div>
+    </div>
+
+    <figure class="lg:col-span-5" data-reveal style="--d:4">
+      <pre
+        class="overflow-hidden font-mono leading-[1.1] text-accent-light select-all"
+        style={`font-size: calc(100cqi / ${colunas} / 0.75)`}
+        role="img"
+        aria-label={sobre.arteAlt}
+        data-braille
+        data-colunas={colunas}
+      >{arte}</pre>
+      <figcaption class="mt-4 font-mono text-xs leading-5 text-white/50">{sobre.legenda}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  figure {
+    container-type: inline-size;
+  }
+</style>

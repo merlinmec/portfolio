@@ -1,8 +1,8 @@
 ---
-import Botao from '@/components/ui/Botao.astro';
 import qr from '@/assets/qr-linkedin.svg?raw';
+import Icone from '@/components/ui/Icone.astro';
+import TituloSecao from '@/components/ui/TituloSecao.astro';
 import { t, type Idioma } from '@/i18n/ui';
-import { linkProjeto } from '@/utils/projetos';
 
 interface Props {
   idioma: Idioma;
@@ -12,40 +12,42 @@ const { idioma } = Astro.props;
 const { contato } = t(idioma);
 ---
 
-<section id="contato" class="border-t border-line py-24 lg:py-32" aria-labelledby="contato-titulo">
-  <div class="shell grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-x-6">
-    <div class="lg:col-span-8" data-reveal>
-      <h2 id="contato-titulo" class="font-display text-title font-bold text-bone">
-        {contato.titulo}
-      </h2>
-      <p class="mt-6 max-w-[44ch] text-lead text-mute">{contato.texto}</p>
-      <a
-        href={`mailto:${contato.email}`}
-        class="mt-10 inline-block font-display text-[clamp(1.5rem,4.2vw,3.75rem)] leading-[1.05] font-bold tracking-[-0.03em] break-all text-bone underline decoration-signal decoration-2 underline-offset-[0.18em] transition-colors hover:text-signal"
-      >
-        {contato.email}
-      </a>
-      <div class="mt-10 flex flex-wrap gap-3">
-        <Botao rotulo="LinkedIn" href={contato.linkedin} variante="contorno" target="_blank" rel="noopener" />
-        <Botao rotulo="GitHub" href={contato.github} variante="contorno" target="_blank" rel="noopener" />
-      </div>
-    </div>
+<!-- GitHub já fica acessível em cada projeto e no rodapé: aqui o LinkedIn é o
+     único botão, e o QR leva pro mesmo lugar. -->
+<section class="section" id="contato" aria-labelledby="contato-titulo">
+  <div class="container">
+    <TituloSecao
+      id="contato-titulo"
+      eyebrow={contato.eyebrow}
+      titulo={contato.title}
+      descricao={contato.description}
+    />
 
-    <figure class="max-w-[22rem] lg:col-span-4 lg:max-w-none" data-reveal style="--d:1">
-      <div
-        class="aspect-square overflow-hidden rounded-lg [&>svg]:size-full"
-        role="img"
-        aria-label={contato.qrAlt}
-        set:html={qr}
-      />
-      <figcaption class="mt-5 font-mono text-label text-mute">
+    <div class="card flex flex-col gap-8 p-8 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+      <div>
+        <p class="font-primary text-lg font-semibold tracking-wide uppercase">João Manoel Carvalho</p>
+        <p class="mt-1 text-sm text-white/60">{contato.role}</p>
         <a
-          href={await linkProjeto(idioma, 'mec-qrsafe')}
-          class="underline decoration-line-strong underline-offset-4 transition-colors hover:text-bone hover:decoration-signal"
+          href={contato.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={contato.ariaLinkedin}
+          class="btn btn-sm mt-6 inline-flex items-center gap-x-2"
         >
-          {contato.qrLegenda}
+          <Icone nome="linkedin" />
+          {contato.linkedinBtn}
         </a>
-      </figcaption>
-    </figure>
+      </div>
+
+      <figure class="flex items-center gap-5 sm:max-w-sm">
+        <div
+          class="size-32 shrink-0 overflow-hidden rounded-xl sm:size-36 [&>svg]:size-full"
+          role="img"
+          aria-label={contato.qrAlt}
+          set:html={qr}
+        />
+        <figcaption class="text-sm leading-6 text-white/55">{contato.qrLegenda}</figcaption>
+      </figure>
+    </div>
   </div>
 </section>

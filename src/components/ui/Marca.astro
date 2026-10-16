@@ -1,0 +1,16 @@
+---
+// Logo de tecnologia (simple-icons), desenhado como SVG inline na cor dada.
+import type { SimpleIcon } from 'simple-icons';
+
+interface Props {
+  icone: SimpleIcon;
+  cor: string;
+  class?: string;
+}
+
+const { icone, cor, class: classe } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" class={classe} fill={cor} aria-hidden="true">
+  <path d={icone.path} />
+</svg>

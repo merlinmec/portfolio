@@ -12,8 +12,8 @@ const destino = 'https://www.linkedin.com/in/joao-manoel-carvalho/';
 const pedido = {
   content: { type: 'STATIC', value: destino },
   style: {
-    darkColor: '#0E0F0D',
-    lightColor: '#C6F04F',
+    darkColor: '#0A0A0A',
+    lightColor: '#C4B5FD',
     quietZoneModules: 4,
     moduleShape: 'DOTS',
     eyeShape: 'ROUNDED',

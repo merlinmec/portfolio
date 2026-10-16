@@ -1,0 +1,88 @@
+---
+import {
+  siCss,
+  siDocker,
+  siGit,
+  siGithub,
+  siHtml5,
+  siJavascript,
+  siKotlin,
+  siOpenjdk,
+  siReact,
+  siSpring,
+  siTailwindcss,
+  siTypescript,
+} from 'simple-icons';
+import Marca from '@/components/ui/Marca.astro';
+import TituloSecao from '@/components/ui/TituloSecao.astro';
+import { t, type Idioma } from '@/i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const { skills: textos } = t(idioma);
+
+// Mesmas skills, cores e categorias da versão antiga.
+const skills = [
+  { nome: 'Java', icone: siOpenjdk, cor: '#f89820', categoria: 'languages' },
+  { nome: 'Kotlin', icone: siKotlin, cor: '#7F52FF', categoria: 'languages' },
+  { nome: 'TypeScript', icone: siTypescript, cor: '#3178C6', categoria: 'languages' },
+  { nome: 'JavaScript', icone: siJavascript, cor: '#F7DF1E', categoria: 'languages' },
+  { nome: 'Spring', icone: siSpring, cor: '#6DB33F', categoria: 'backend' },
+  { nome: 'React', icone: siReact, cor: '#61DAFB', categoria: 'frontend' },
+  { nome: 'HTML5', icone: siHtml5, cor: '#E34F26', categoria: 'frontend' },
+  { nome: 'CSS3', icone: siCss, cor: '#1572B6', categoria: 'frontend' },
+  { nome: 'Tailwind CSS', icone: siTailwindcss, cor: '#38BDF8', categoria: 'frontend' },
+  { nome: 'Git', icone: siGit, cor: '#F05032', categoria: 'tools' },
+  { nome: 'GitHub', icone: siGithub, cor: '#ffffff', categoria: 'tools' },
+  { nome: 'Docker', icone: siDocker, cor: '#2496ED', categoria: 'tools' },
+];
+
+const categorias = ['all', 'languages', 'backend', 'frontend', 'tools'] as const;
+---
+
+<section
+  class="section flex min-h-screen flex-col justify-center"
+  id="skills"
+  aria-labelledby="skills-titulo"
+>
+  <div class="container">
+    <TituloSecao
+      id="skills-titulo"
+      eyebrow={textos.eyebrow}
+      titulo={textos.title}
+      descricao={textos.description}
+    />
+
+    <!-- Os filtros só aparecem com JS (o script tira o `hidden`); sem JS,
+         todas as skills ficam visíveis. -->
+    <div class="mb-8 flex flex-wrap gap-2" role="toolbar" aria-label={textos.title} data-filtros hidden>
+      {categorias.map((categoria) => (
+        <button
+          type="button"
+          data-filtro={categoria}
+          aria-pressed={categoria === 'all' ? 'true' : 'false'}
+          class="rounded-full border border-white/15 px-4 py-1.5 font-primary text-sm text-white/60 transition-all duration-300 ease-out hover:border-white/30 hover:text-white aria-pressed:border-accent aria-pressed:bg-accent/15 aria-pressed:text-accent"
+        >
+          {textos.categories[categoria]}
+        </button>
+      ))}
+    </div>
+
+    <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+      {skills.map((skill, i) => (
+        <li
+          class="card flex flex-col items-center gap-y-3 px-4 py-6 text-center transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/25"
+          data-categoria={skill.categoria}
+          data-reveal
+          style={`--d:${i % 3}`}
+        >
+          <Marca icone={skill.icone} cor={skill.cor} class="size-[30px]" />
+          <span class="font-secondary text-sm text-white/80">{skill.nome}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

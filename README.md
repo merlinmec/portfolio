@@ -2,7 +2,7 @@
 
 # Portfólio Pessoal
 
-Meu portfólio: os projetos que construí, com a página de cada um explicando o problema, a solução e as decisões técnicas. Feito em [Astro](https://astro.build), em português e inglês.
+Meu portfólio: experiência, projetos (com o problema, a solução e as telas de cada um), skills e contato. Feito em [Astro](https://astro.build), em português e inglês.
 
 **No ar:** https://portfolio-lac-mu-52.vercel.app
 
@@ -17,17 +17,15 @@ Os dois resultados ficam versionados, então o build não depende desses projeto
 
 ## Stack e decisões
 
-- **Astro 7**, gerando HTML estático. Não há React no site: o JS da home é um script pequeno de interface (entrada ao rolar, tema, seção ativa no menu), e a galeria usa o PhotoSwipe, que só carrega nas páginas de projeto.
-- **Tailwind CSS 4**, com tokens de cor que trocam entre tema escuro e claro sem mudar nenhum componente.
-- **Content collections**: cada projeto é um Markdown por idioma em `src/content/projetos/<pt|en>/`, com o frontmatter validado por schema.
-- **Rotas por idioma**: português na raiz, inglês em `/en`, com `hreflang` e sitemap.
-- **Transições entre páginas** pela View Transitions API do navegador, sem JS.
-- O sistema visual parte do tema [Kairo](https://github.com/Pixels71/kairo-astro) (MIT): escala tipográfica, fontes e estrutura de tokens. A paleta e os componentes foram refeitos. Ver `THIRD_PARTY_NOTICES.md`.
+- **Astro 7**, gerando HTML estático. Não há React no site: um script pequeno faz a entrada ao rolar, o texto que se digita no topo, a seção ativa no menu e o filtro de skills. A tela cheia das galerias usa o PhotoSwipe, baixado só na primeira ampliação.
+- **Tailwind CSS 4**, com a paleta roxa e as fontes (Space Grotesk e Inter) da versão anterior em React.
+- **Content collections**: cada projeto é um arquivo por idioma em `src/content/projetos/<pt|en>/`, com os dados validados por schema. O build falha se os dois idiomas tiverem projetos diferentes.
+- **Rotas por idioma**: português na raiz, inglês em `/en`, com `hreflang` e sitemap. Trocar de idioma mantém o ponto da página em que você estava.
 
 ### Como adicionar um projeto
 
 1. Coloque as telas em `src/assets/projetos/<slug>/` (a primeira da lista vira a capa).
-2. Crie `src/content/projetos/pt/<slug>.md` e `src/content/projetos/en/<slug>.md` com o frontmatter dos outros projetos. O corpo do Markdown é a seção de decisões técnicas.
+2. Crie `src/content/projetos/pt/<slug>.md` e `src/content/projetos/en/<slug>.md` com o frontmatter dos outros projetos.
 
 ## Rodando localmente
 
@@ -39,12 +37,11 @@ npm run dev        # http://localhost:4321
 npm run build      # astro check + build em dist/
 ```
 
-Para regenerar as peças geradas (precisa do Playwright: `npx playwright install chromium-headless-shell`):
+Para regenerar as peças geradas (o hero precisa do Playwright: `npx playwright install chromium-headless-shell`):
 
 ```bash
 npm run gerar:hero -- ../pixel-type   # desenho em braille, com o Text-Art
 npm run gerar:qr                      # QR do contato, pela API do mec-qrsafe
-npm run gerar:og                      # imagem de prévia dos links
 ```
 
 ## Contato
@@ -58,7 +55,7 @@ npm run gerar:og                      # imagem de prévia dos links
 
 # Personal Portfolio
 
-My portfolio: the projects I've built, with a page for each one explaining the problem, the solution and the technical decisions. Built with [Astro](https://astro.build), in Portuguese and English.
+My portfolio: experience, projects (with the problem, the solution and screenshots of each), skills and contact. Built with [Astro](https://astro.build), in Portuguese and English.
 
 **Live:** https://portfolio-lac-mu-52.vercel.app/en/
 
@@ -73,12 +70,10 @@ Both results are committed, so the build doesn't depend on those projects being 
 
 ## Stack and decisions
 
-- **Astro 7**, generating static HTML. There's no React on the site: the home page's JS is a small interface script (scroll reveal, theme, active section in the menu), and the gallery uses PhotoSwipe, loaded only on project pages.
-- **Tailwind CSS 4**, with color tokens that switch between dark and light themes without changing any component.
-- **Content collections**: each project is one Markdown file per language in `src/content/projetos/<pt|en>/`, with schema-validated frontmatter.
-- **Per-language routes**: Portuguese at the root, English under `/en`, with `hreflang` and a sitemap.
-- **Page transitions** through the browser's View Transitions API, with no JS.
-- The visual system starts from the [Kairo](https://github.com/Pixels71/kairo-astro) theme (MIT): type scale, fonts and token structure. The palette and components were rebuilt. See `THIRD_PARTY_NOTICES.md`.
+- **Astro 7**, generating static HTML. There's no React on the site: a small script handles scroll reveal, the typing text at the top, the active section in the menu and the skills filter. Gallery fullscreen uses PhotoSwipe, downloaded only on first use.
+- **Tailwind CSS 4**, with the purple palette and fonts (Space Grotesk and Inter) from the previous React version.
+- **Content collections**: each project is one file per language in `src/content/projetos/<pt|en>/`, with schema-validated data. The build fails if the two languages have different projects.
+- **Per-language routes**: Portuguese at the root, English under `/en`, with `hreflang` and a sitemap. Switching languages keeps you at the same spot on the page.
 
 ## Running locally
 
