@@ -1,86 +1,49 @@
 @import 'tailwindcss';
 
-/*
- * Sistema visual derivado do tema Kairo (MIT, ver THIRD_PARTY_NOTICES.md):
- * a escala tipográfica, os easings e a estrutura de tokens vêm de lá. A paleta
- * é própria: um único acento (verde-limão no escuro, oliva no claro) sobre
- * neutros quase-preto e osso.
- */
-
+/* Paleta e tipografia da versão em React: roxo sobre quase-preto,
+   Space Grotesk nos títulos e Inter no texto. */
 @theme {
-  --color-ink: #0e0f0d;
-  --color-ink-2: #141512;
-  --color-line: rgb(236 235 228 / 0.12);
-  --color-line-strong: rgb(236 235 228 / 0.26);
-  --color-bone: #ecebe4;
-  --color-mute: #a4a39b;
-  --color-signal: #c6f04f;
+  --color-primary: #0a0a0a;
+  --color-surface: #131118;
+  --color-accent: #8b5cf6;
+  --color-accent-light: #c4b5fd;
+  --color-accent-dark: #6d28d9;
 
-  --font-display: var(--font-display-face), sans-serif;
-  --font-body: var(--font-body-face), sans-serif;
-  --font-mono: var(--font-mono-face), monospace;
+  --font-primary: var(--font-space-grotesk), sans-serif;
+  --font-secondary: var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
 
-  --text-hero: clamp(3rem, 8.6vw, 9.5rem);
-  --text-hero--line-height: 0.9;
-  --text-hero--letter-spacing: -0.045em;
-  --text-display: clamp(2.5rem, 6vw, 6.5rem);
-  --text-display--line-height: 0.92;
-  --text-display--letter-spacing: -0.04em;
-  --text-title: clamp(2.25rem, 4.4vw, 4.5rem);
-  --text-title--line-height: 0.98;
-  --text-title--letter-spacing: -0.035em;
-  --text-subtitle: clamp(1.5rem, 2.2vw, 2.25rem);
-  --text-subtitle--line-height: 1.08;
-  --text-subtitle--letter-spacing: -0.02em;
-  --text-lead: clamp(1.0625rem, 1.2vw, 1.25rem);
-  --text-lead--line-height: 1.5;
-  --text-label: 0.75rem;
-  --text-label--line-height: 1.2;
-  --text-label--letter-spacing: 0.06em;
-
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.35, 0.64, 1);
-
-  --breakpoint-xs: 30rem;
+  --breakpoint-lg: 60rem;
+  --breakpoint-xl: 75rem;
+  --breakpoint-2xl: 75rem;
 }
 
-/* Tema claro: os mesmos nomes de token, então nenhum componente muda. */
-:root[data-theme='light'] {
-  --color-ink: #f3f3ef;
-  --color-ink-2: #e9e9e3;
-  --color-line: rgb(21 22 20 / 0.12);
-  --color-line-strong: rgb(21 22 20 / 0.26);
-  --color-bone: #151614;
-  --color-mute: #55554f;
-  --color-signal: #476600;
-}
-
-@utility shell {
+@utility container {
   margin-inline: auto;
-  width: 100%;
-  max-width: 1440px;
-  padding-inline: 1rem;
+  padding-inline: 15px;
+}
 
-  @media (width >= 48rem) {
-    padding-inline: 2rem;
-  }
+/* Fora de @layer de propósito: no Tailwind 4 isso vence os utilitários,
+   como o gradiente do .btn vencia na versão antiga. */
+.btn {
+  background: linear-gradient(92.23deg, #7c3aed 21.43%, #8b5cf6 50.63%, #6d28d9 100%, #a78bfa 117.04%);
+  box-shadow: 0px 4.42184px 60px rgba(124, 58, 237, 0.45);
+}
 
-  @media (width >= 100rem) {
-    padding-inline: 3rem;
-  }
+.btn:hover {
+  background: linear-gradient(92.23deg, #a78bfa 21.43%, #8b5cf6 50.63%, #6d28d9 100%, #7c3aed 117.04%);
+}
+
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(139, 92, 246, 0.35) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
 @layer base {
   html {
     color-scheme: dark;
-    background-color: var(--color-ink);
-    -webkit-text-size-adjust: 100%;
+    background-color: var(--color-primary);
     scroll-behavior: smooth;
-  }
-
-  html[data-theme='light'] {
-    color-scheme: light;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -90,248 +53,77 @@
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-bone);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-family: var(--font-display);
-    font-weight: 700;
-    text-wrap: balance;
+    @apply bg-primary font-secondary text-lg leading-8 text-white;
   }
 
   p {
-    text-wrap: pretty;
+    @apply text-left;
   }
 
-  /* A navbar é fixa: âncoras param abaixo dela. */
+  /* A navbar é sticky: âncoras param abaixo dela. */
   [id] {
-    scroll-margin-top: 6rem;
-  }
-
-  ::selection {
-    background-color: var(--color-signal);
-    color: var(--color-ink);
+    scroll-margin-top: 6.5rem;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-signal);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
 }
 
-/* Navegação entre páginas com transição nativa do navegador, sem JS. */
-@view-transition {
-  navigation: auto;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  @view-transition {
-    navigation: none;
-  }
-}
-
 @layer components {
-  .prose-projeto {
-    max-width: 68ch;
-    color: var(--color-mute);
-    font-size: 1.0625rem;
-    line-height: 1.7;
+  .h2 {
+    @apply mb-4 font-primary text-[32px] tracking-[0.08em] uppercase;
   }
 
-  .prose-projeto > * + * {
-    margin-top: 1.25em;
-  }
-
-  .prose-projeto h2 {
-    margin-top: 2em;
-    color: var(--color-bone);
-    font-size: 1.5rem;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-  }
-
-  .prose-projeto h2:first-child {
-    margin-top: 0;
-  }
-
-  .prose-projeto strong {
-    color: var(--color-bone);
-    font-weight: 500;
-  }
-
-  .prose-projeto a {
-    color: var(--color-bone);
-    text-decoration: underline;
-    text-decoration-color: var(--color-signal);
-    text-underline-offset: 0.2em;
-  }
-
-  .prose-projeto code {
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    color: var(--color-bone);
-  }
-
-  .prose-projeto ul {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .prose-projeto li {
-    position: relative;
-    padding-left: 1.5em;
-  }
-
-  .prose-projeto li + li {
-    margin-top: 0.75em;
-  }
-
-  .prose-projeto li::before {
-    content: '';
-    position: absolute;
-    top: 0.8em;
-    left: 0;
-    width: 0.75em;
-    height: 1px;
-    background-color: var(--color-signal);
-  }
-
-  /* Texto que rola pra cima no hover (do Kairo). */
-  .roll {
-    display: inline-flex;
-    height: 1.2em;
-    overflow: hidden;
-    line-height: 1.2em;
-    vertical-align: top;
-  }
-
-  .roll-char {
-    position: relative;
-    display: inline-block;
-    white-space: pre;
-    transition: translate 0.55s var(--ease-out-expo);
-    transition-delay: calc(var(--i, 0) * 16ms);
-  }
-
-  .roll-char::after {
-    content: attr(data-c);
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-
-  @media (hover: hover) {
-    .group:hover .roll-char {
-      translate: 0 -100%;
-    }
-  }
-
-  .group:focus-visible .roll-char {
-    translate: 0 -100%;
+  .eyebrow {
+    @apply mb-3 inline-block font-primary text-sm tracking-[0.3em] text-accent uppercase;
   }
 
   .btn {
-    position: relative;
-    isolation: isolate;
-    display: inline-flex;
-    height: 3rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    overflow: hidden;
-    border-radius: 999px;
-    padding-inline: 1.375rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    white-space: nowrap;
+    @apply rounded-full font-primary font-medium text-white;
+  }
+
+  .btn-sm {
+    @apply h-[48px] px-6 text-sm;
+  }
+
+  .btn-outline {
+    @apply border border-accent/50 text-white transition-all duration-300 ease-out hover:border-accent hover:bg-accent/10;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent-light to-accent bg-clip-text font-primary font-bold text-transparent hover:from-accent hover:to-accent-light;
+  }
+
+  .section {
+    @apply py-16 lg:py-24;
+  }
+
+  .card {
+    @apply rounded-2xl border border-white/10 bg-surface/60;
+  }
+
+  /* Entrada ao rolar (o "fadeIn up" da versão com framer-motion). Só com JS
+     e sem preferência por menos movimento; senão o conteúdo nasce visível. */
+  .js [data-reveal] {
+    opacity: 0;
+    translate: 0 50px;
     transition:
-      scale 0.35s var(--ease-spring),
-      color 0.5s var(--ease-out-expo),
-      border-color 0.5s var(--ease-out-expo);
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      translate 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--d, 0) * 100ms);
   }
 
-  .btn:active {
-    scale: 0.96;
+  .js [data-reveal].is-in {
+    opacity: 1;
+    translate: 0 0;
   }
 
-  .btn-fill {
-    position: absolute;
-    top: var(--y, 50%);
-    left: var(--x, 50%);
-    z-index: -1;
-    width: 260%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    translate: -50% -50%;
-    scale: 0;
-    pointer-events: none;
-    transition: scale 0.65s var(--ease-out-expo);
-  }
-
-  @media (hover: hover) {
-    .btn:hover .btn-fill {
-      scale: 1;
-    }
-  }
-
-  .btn-icon {
-    position: relative;
-    display: inline-grid;
-    width: 1rem;
-    height: 1rem;
-    overflow: hidden;
-  }
-
-  .btn-icon > * {
-    grid-area: 1 / 1;
-    transition: translate 0.55s var(--ease-out-expo);
-  }
-
-  .btn-icon > :last-child {
-    translate: -110% 110%;
-  }
-
-  .btn-icon[data-dir='down'] > :last-child {
-    translate: 0 -110%;
-  }
-
-  .btn-icon[data-dir='up'] > :last-child {
-    translate: 0 110%;
-  }
-
-  .btn-icon[data-dir='left'] > :last-child {
-    translate: 110% 0;
-  }
-
-  @media (hover: hover) {
-    .group:hover .btn-icon > :first-child {
-      translate: 110% -110%;
-    }
-
-    .group:hover .btn-icon[data-dir='down'] > :first-child {
-      translate: 0 110%;
-    }
-
-    .group:hover .btn-icon[data-dir='up'] > :first-child {
-      translate: 0 -110%;
-    }
-
-    .group:hover .btn-icon[data-dir='left'] > :first-child {
-      translate: -110% 0;
-    }
-
-    .group:hover .btn-icon > :last-child {
-      translate: 0 0;
+  @media print {
+    .js [data-reveal] {
+      opacity: 1;
+      translate: none;
     }
   }
 
@@ -341,83 +133,29 @@
     fill: currentColor;
   }
 
-  .media-zoom img {
-    transition: scale 1.1s var(--ease-out-expo);
+  /* Cursor piscando do texto que se digita sozinho no hero. */
+  .digitando::after {
+    content: '|';
+    margin-left: 2px;
+    animation: piscar 1s steps(1) infinite;
   }
 
-  @media (hover: hover) {
-    .group:hover .media-zoom img {
-      scale: 1.04;
-    }
-  }
-
-  /* Entrada ao rolar: só com JS e sem preferência por menos movimento
-     (a classe `js` só é posta nesse caso), senão o conteúdo já nasce visível. */
-  .js [data-reveal] {
-    opacity: 0;
-    translate: 0 2rem;
-    transition:
-      opacity 0.9s var(--ease-out-expo),
-      translate 0.9s var(--ease-out-expo);
-    transition-delay: calc(var(--d, 0) * 90ms);
-  }
-
-  /* O recorte vai no filho: o IntersectionObserver leva em conta o clip-path
-     do próprio alvo, e um alvo recortado a 100% nunca "entra" na tela. */
-  .js [data-reveal-media] > * {
-    clip-path: inset(100% 0 0 0);
-    transition: clip-path 1.2s var(--ease-out-expo);
-    transition-delay: calc(var(--d, 0) * 90ms);
-  }
-
-  .js [data-reveal].is-in {
-    opacity: 1;
-    translate: 0 0;
-  }
-
-  .js [data-reveal-media].is-in > * {
-    clip-path: inset(0 0 0 0);
-  }
-
-  /* Na impressão não há rolagem pra disparar a entrada. */
-  @media print {
-    .js [data-reveal],
-    .js [data-reveal-media] > * {
-      opacity: 1;
-      translate: none;
-      clip-path: none;
+  @keyframes piscar {
+    50% {
+      opacity: 0;
     }
   }
 }
 
-/* Ícone do botão de tema: mostra o tema para o qual o clique leva. */
-:root[data-theme='light'] .tema-escuro,
-:root:not([data-theme='light']) .tema-claro {
-  display: none;
-}
-
-/* Legenda da tela ampliada na galeria (elemento registrado em scripts/galeria.ts). */
+/* Legenda da tela ampliada na galeria (registrada em scripts/galeria.ts). */
 .pswp__legenda {
   position: absolute;
   inset-inline: 0;
   bottom: 1.25rem;
   padding-inline: 1rem;
   text-align: center;
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  letter-spacing: var(--text-label--letter-spacing);
-  color: #ecebe4;
-}
-
-/* Grão sutil por cima de tudo, só no tema escuro (fixo, sem repintar no scroll). */
-:root:not([data-theme='light']) body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.75);
 }
 
 @media (prefers-reduced-motion: reduce) {

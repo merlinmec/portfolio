@@ -1,5 +1,5 @@
-// Textos da interface nos dois idiomas. O conteúdo de cada projeto não
-// mora aqui: fica em src/content/projetos/<idioma>/<projeto>.md.
+// Textos da interface nos dois idiomas (os mesmos da versão em React).
+// Os dados de cada projeto ficam em src/content/projetos/<idioma>/<projeto>.md.
 
 export const idiomas = ['pt', 'en'] as const;
 export type Idioma = (typeof idiomas)[number];
@@ -14,210 +14,228 @@ const pt = {
   htmlLang: 'pt-BR',
   ogLocale: 'pt_BR',
   meta: {
-    titulo: 'João Manoel Carvalho | Desenvolvedor back-end',
+    titulo: 'João Manoel Carvalho | Desenvolvedor de Software',
     descricao:
-      'Portfólio de João Manoel Carvalho, desenvolvedor back-end em Java e Kotlin. Projetos com código aberto, demos e as decisões técnicas por trás de cada um.',
+      'Portfólio de João Manoel Carvalho, desenvolvedor de software com foco em back-end (Java, Spring) e React.',
   },
   pularConteudo: 'Pular para o conteúdo',
-  nav: {
-    inicio: 'Início',
-    projetos: 'Projetos',
-    trajetoria: 'Trajetória',
-    contato: 'Contato',
-    menu: 'Menu',
+  navbar: {
+    logoAlt: 'Logo João Manoel — MEC DEV',
+    homeAria: 'Ir para o início',
+    langSwitchAria: 'Mudar para inglês',
     principal: 'Navegação principal',
-    trocarIdioma: 'Read in English',
-    idiomaCurto: 'EN',
-    temaClaro: 'Usar tema claro',
-    temaEscuro: 'Usar tema escuro',
+    nav: {
+      sobre: 'Sobre',
+      experiencia: 'Experiência',
+      projetos: 'Projetos',
+      skills: 'Skills',
+      contato: 'Contato',
+    },
   },
-  hero: {
-    nome: ['João Manoel', 'Carvalho'],
-    lead: 'Desenvolvedor back-end. Java e Kotlin no servidor, com a regra de negócio testada antes de chegar na tela.',
-    verProjetos: 'Ver projetos',
-    curriculo: 'Currículo',
+  sobre: {
+    eyebrow: 'Olá, eu sou o João',
+    headlineTop: 'Desenvolvedor',
+    headlineBottom: 'Back-end',
+    // [frase, quanto tempo ela fica na tela em ms]
+    frases: [
+      ['Java & Spring no back-end', 2500],
+      ['APIs, regras de negócio, banco de dados', 2200],
+      ['Um pouco de React quando o projeto pede', 2200],
+      ['Sempre aprendendo algo novo', 2000],
+    ] as [string, number][],
+    paragrafo:
+      'Sou desenvolvedor <b>back-end</b>, com experiência em <b>Java</b> e <b>Spring</b> — construindo APIs, regras de negócio e integrações. Também transito pelo front-end com <b>React</b> quando o projeto pede. Confira meus projetos e veja como posso agregar valor às suas ideias!',
+    focusAreas: ['Java', 'Spring', 'Kotlin', 'TypeScript', 'React'],
+    cta: 'Ver projetos',
+    cv: 'Meu currículo',
     arteAlt: 'A marca mec desenhada em pontos de braille',
-    legenda: 'Desenhado em braille pelo Text-Art, um dos projetos abaixo.',
+    legenda: 'Desenhado em braille pelo Text-Art, um dos meus projetos.',
   },
-  projetos: {
-    titulo: 'Projetos',
-    intro: 'Projetos pessoais, cada um nascido de um problema concreto. Todos com código aberto.',
-    problema: 'O problema',
-    solucao: 'A solução',
-    verCaso: 'Ver o projeto',
-    todosRepos: 'Todos os repositórios no GitHub',
-  },
-  trajetoria: {
-    titulo: 'Trajetória',
-    texto:
-      'Trabalho com back-end em Java na EDU3, que faz software de gestão escolar. Fora do trabalho, construo o que não caberia no dia a dia: um encoder de QR escrito do zero, um app de finanças com mais de 300 testes no backend, um conversor de imagem em texto.',
-    itens: [
+  experiencia: {
+    eyebrow: 'Trajetória',
+    title: 'Experiência',
+    description: 'Desenvolvedor back-end Java — aplicando isso na prática no dia a dia.',
+    items: [
       {
-        quando: 'Hoje',
-        titulo: 'Desenvolvedor back-end na EDU3',
-        texto:
-          'Crio e evoluo funcionalidades em Java usadas por instituições de ensino. Também passo por front-end e banco de dados, e participo das decisões técnicas das features sob minha responsabilidade, do desenho da solução até a entrega.',
-      },
-      {
-        quando: 'Out 2026',
-        titulo: 'mec-qrsafe chega à v1.0',
-        texto: 'Encoder completo nas 40 versões do QR, conferido módulo a módulo contra o ZXing.',
-        projeto: 'mec-qrsafe',
-      },
-      {
-        quando: 'Set 2026',
-        titulo: 'Árvore e MEC Lineup',
-        texto:
-          'Um app de hábitos organizado por áreas da vida e um minimapa de lineups de Valorant que roda offline.',
-        projeto: 'arvore',
-      },
-      {
-        quando: 'Ago 2026',
-        titulo: 'fin-mec, Text-Art e mec-qrsafe começam',
-        texto: 'Três projetos no mesmo mês: finanças pessoais, arte de texto e QR codes que não quebram.',
-        projeto: 'fin-mec',
-      },
-      {
-        quando: 'Nov 2024',
-        titulo: 'Primeira versão deste portfólio',
-        texto: 'Em React com Create React App. Esta versão foi refeita em Astro.',
+        quando: 'Atual',
+        role: 'Desenvolvedor Back-end — EDU3',
+        description:
+          'Atuo no desenvolvimento back-end em Java na EDU3, empresa de software para gestão de sistemas escolares, criando e evoluindo funcionalidades usadas por instituições de ensino. Além do back-end, participo de outras frentes do desenvolvimento (como front-end e banco de dados) e já colaborei em decisões técnicas de features que passaram pela minha responsabilidade, do desenho da solução até a entrega.',
       },
     ],
   },
+  projetos: {
+    eyebrow: 'Trabalho',
+    title: 'Projetos',
+    viewAllBtn: 'Ver todos os projetos no GitHub',
+    demo: 'Ver demo',
+    github: 'Ver no GitHub',
+    problemLabel: 'O problema.',
+    solutionLabel: 'A solução.',
+    techLabel: 'Tecnologias',
+    galeria: {
+      ampliar: (legenda: string) => `Ampliar: ${legenda}`,
+      mostrar: (n: number, legenda: string) => `Mostrar imagem ${n}: ${legenda}`,
+    },
+    ariaDemo: (nome: string) => `Ver demo do projeto ${nome}`,
+    ariaGithub: (nome: string) => `Ver código do projeto ${nome} no GitHub`,
+  },
+  skills: {
+    eyebrow: 'Ferramentas',
+    title: 'Skills',
+    description:
+      'Tecnologias que uso no dia a dia — no trabalho, nos projetos pessoais e na construção deste site.',
+    categories: {
+      all: 'Todas',
+      languages: 'Linguagens',
+      backend: 'Back-end',
+      frontend: 'Front-end',
+      tools: 'Ferramentas',
+    },
+  },
   contato: {
-    titulo: 'Contato',
-    texto:
-      'Aberto a vagas de desenvolvimento back-end e a projetos freelance. O jeito mais rápido é por e-mail.',
-    qrLegenda: 'Aponte a câmera para abrir meu LinkedIn. QR gerado e validado pelo mec-qrsafe.',
+    eyebrow: 'Vamos conversar',
+    title: 'Contato',
+    description:
+      'Estou sempre aberto a oportunidades interessantes — seja uma vaga CLT, projetos freelance, colaborações técnicas ou até uma conversa despretensiosa. Vamos nos conectar!',
+    role: 'Desenvolvedor de Software Back-end',
+    linkedinBtn: 'Me Encontre no LinkedIn',
+    ariaLinkedin: 'Meu perfil no LinkedIn',
+    qrLegenda:
+      'Aponte a câmera para abrir meu LinkedIn. QR gerado e validado pelo mec-qrsafe, um dos meus projetos.',
     qrAlt: 'QR code que abre o perfil de João Manoel Carvalho no LinkedIn',
     ...contato,
   },
-  rodape: {
-    feitoCom: 'Feito com Astro. Código no GitHub.',
-    voltarTopo: 'Voltar ao topo',
-  },
-  projeto: {
-    voltar: 'Todos os projetos',
-    inicio: 'Início',
-    linguagem: 'Linguagem',
-    stack: 'Stack',
-    links: 'Links',
-    demo: 'Abrir a demo',
-    codigo: 'Ver o código',
-    telas: 'Telas',
-    ampliar: 'Ampliar',
-    proximo: 'Próximo projeto',
+  footer: {
+    bio: 'Desenvolvedor back-end apaixonado por construir sistemas robustos e bem testados. Aberto a vagas CLT, freelas e colaborações.',
+    linksTitle: 'Links Rápidos',
+    projectsTitle: 'Projetos em Destaque',
+    viewAll: 'Ver todos os projetos',
+    ariaGithub: 'Meu perfil no GitHub',
+    ariaLinkedin: 'Meu perfil no LinkedIn',
+    ariaEmail: 'Me mandar um e-mail',
+    location: 'Teresina, PI',
+    tagline: 'Desenvolvedor Back-end · Java & Spring · React',
+    copyright: (ano: number) => `© ${ano} João Manoel Carvalho — feito com Astro & Tailwind CSS.`,
   },
   naoEncontrado: {
     titulo: 'Página não encontrada',
     texto: 'O endereço pode ter mudado com a nova versão do site.',
     voltar: 'Voltar ao início',
   },
-  meses: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'],
 };
 
 const en: typeof pt = {
   htmlLang: 'en',
   ogLocale: 'en_US',
   meta: {
-    titulo: 'João Manoel Carvalho | Back-end developer',
+    titulo: 'João Manoel Carvalho | Software Developer',
     descricao:
-      'Portfolio of João Manoel Carvalho, a back-end developer working in Java and Kotlin. Open-source projects, live demos and the technical decisions behind each one.',
+      'Portfolio of João Manoel Carvalho, a software developer focused on back-end (Java, Spring) and React.',
   },
   pularConteudo: 'Skip to content',
-  nav: {
-    inicio: 'Home',
-    projetos: 'Projects',
-    trajetoria: 'Journey',
-    contato: 'Contact',
-    menu: 'Menu',
+  navbar: {
+    logoAlt: 'João Manoel logo — MEC DEV',
+    homeAria: 'Go to homepage',
+    langSwitchAria: 'Mudar para português',
     principal: 'Main navigation',
-    trocarIdioma: 'Ler em português',
-    idiomaCurto: 'PT',
-    temaClaro: 'Switch to light theme',
-    temaEscuro: 'Switch to dark theme',
+    nav: {
+      sobre: 'About',
+      experiencia: 'Experience',
+      projetos: 'Projects',
+      skills: 'Skills',
+      contato: 'Contact',
+    },
   },
-  hero: {
-    nome: ['João Manoel', 'Carvalho'],
-    lead: 'Back-end developer. Java and Kotlin on the server, with the business rules tested before they reach the screen.',
-    verProjetos: 'See projects',
-    curriculo: 'Résumé',
+  sobre: {
+    eyebrow: "Hi, I'm João",
+    headlineTop: 'Developer',
+    headlineBottom: 'Back-end',
+    frases: [
+      ['Java & Spring on the back-end', 2500],
+      ['APIs, business logic, databases', 2200],
+      ['A bit of React when the project needs it', 2200],
+      ['Always learning something new', 2000],
+    ],
+    paragrafo:
+      "I'm a <b>back-end</b> developer, experienced in <b>Java</b> and <b>Spring</b> — building APIs, business logic and integrations. I also work on the front-end with <b>React</b> when the project calls for it. Check out my projects and see how I can add value to your ideas!",
+    focusAreas: ['Java', 'Spring', 'Kotlin', 'TypeScript', 'React'],
+    cta: 'View projects',
+    cv: 'My resume',
     arteAlt: 'The mec mark drawn in braille dots',
-    legenda: 'Drawn in braille by Text-Art, one of the projects below.',
+    legenda: 'Drawn in braille by Text-Art, one of my projects.',
   },
-  projetos: {
-    titulo: 'Projects',
-    intro: 'Personal projects, each one born from a concrete problem. All of them open source.',
-    problema: 'The problem',
-    solucao: 'The solution',
-    verCaso: 'See the project',
-    todosRepos: 'All repositories on GitHub',
-  },
-  trajetoria: {
-    titulo: 'Journey',
-    texto:
-      "I work on the back-end in Java at EDU3, a company that builds school management software. Outside work, I build what wouldn't fit in my day job: a QR encoder written from scratch, a finance app with over 300 back-end tests, an image-to-text converter.",
-    itens: [
+  experiencia: {
+    eyebrow: 'Journey',
+    title: 'Experience',
+    description: 'Back-end Java developer — applying it in practice, day to day.',
+    items: [
       {
-        quando: 'Now',
-        titulo: 'Back-end developer at EDU3',
-        texto:
-          'I build and evolve Java features used by schools. I also work on the front-end and the database, and I take part in the technical decisions on the features I own, from solution design to delivery.',
-      },
-      {
-        quando: 'Oct 2026',
-        titulo: 'mec-qrsafe reaches v1.0',
-        texto: 'A complete encoder across all 40 QR versions, checked module by module against ZXing.',
-        projeto: 'mec-qrsafe',
-      },
-      {
-        quando: 'Sep 2026',
-        titulo: 'Árvore and MEC Lineup',
-        texto: 'A habit app organized by areas of life, and a Valorant lineup minimap that works offline.',
-        projeto: 'arvore',
-      },
-      {
-        quando: 'Aug 2026',
-        titulo: 'fin-mec, Text-Art and mec-qrsafe begin',
-        texto: "Three projects in the same month: personal finance, text art and QR codes that don't break.",
-        projeto: 'fin-mec',
-      },
-      {
-        quando: 'Nov 2024',
-        titulo: 'First version of this portfolio',
-        texto: 'Built in React with Create React App. This version was rebuilt in Astro.',
+        quando: 'Current',
+        role: 'Back-end Developer — EDU3',
+        description:
+          'I work on back-end development in Java at EDU3, a software company for school management systems, building and evolving features used by educational institutions. Besides back-end, I take part in other fronts of development (like front-end and databases) and have already contributed to technical decisions on features under my responsibility, from design to delivery.',
       },
     ],
   },
+  projetos: {
+    eyebrow: 'Work',
+    title: 'Projects',
+    viewAllBtn: 'View all projects on GitHub',
+    demo: 'View demo',
+    github: 'View on GitHub',
+    problemLabel: 'The problem.',
+    solutionLabel: 'The solution.',
+    techLabel: 'Technologies',
+    galeria: {
+      ampliar: (legenda) => `Enlarge: ${legenda}`,
+      mostrar: (n, legenda) => `Show image ${n}: ${legenda}`,
+    },
+    ariaDemo: (nome) => `View demo of project ${nome}`,
+    ariaGithub: (nome) => `View ${nome} project's code on GitHub`,
+  },
+  skills: {
+    eyebrow: 'Tools',
+    title: 'Skills',
+    description: 'Technologies I use day to day — at work, in personal projects, and building this site.',
+    categories: {
+      all: 'All',
+      languages: 'Languages',
+      backend: 'Backend',
+      frontend: 'Frontend',
+      tools: 'Tools',
+    },
+  },
   contato: {
-    titulo: 'Contact',
-    texto: 'Open to back-end development roles and freelance projects. Email is the fastest way to reach me.',
-    qrLegenda: 'Point your camera here to open my LinkedIn. QR generated and validated by mec-qrsafe.',
+    eyebrow: "Let's talk",
+    title: 'Contact',
+    description:
+      "I'm always open to exciting opportunities — whether it's full-time roles, freelance projects, tech collaborations, or even a friendly conversation. Let's connect!",
+    role: 'Back-end Software Developer',
+    linkedinBtn: 'Reach Me on LinkedIn',
+    ariaLinkedin: 'My LinkedIn profile',
+    qrLegenda:
+      'Point your camera here to open my LinkedIn. QR generated and validated by mec-qrsafe, one of my projects.',
     qrAlt: "QR code that opens João Manoel Carvalho's LinkedIn profile",
     ...contato,
   },
-  rodape: {
-    feitoCom: 'Built with Astro. Source on GitHub.',
-    voltarTopo: 'Back to top',
-  },
-  projeto: {
-    voltar: 'All projects',
-    inicio: 'Started',
-    linguagem: 'Language',
-    stack: 'Stack',
-    links: 'Links',
-    demo: 'Open the demo',
-    codigo: 'View the code',
-    telas: 'Screens',
-    ampliar: 'Enlarge',
-    proximo: 'Next project',
+  footer: {
+    bio: 'Back-end developer passionate about building robust, well-tested systems. Open to full-time roles, freelance work, and collaborations.',
+    linksTitle: 'Quick Links',
+    projectsTitle: 'Featured Projects',
+    viewAll: 'View all projects',
+    ariaGithub: 'My GitHub profile',
+    ariaLinkedin: 'My LinkedIn profile',
+    ariaEmail: 'Send me an email',
+    location: 'Teresina, PI',
+    tagline: 'Back-end Developer · Java & Spring · React',
+    copyright: (ano) => `© ${ano} João Manoel Carvalho — built with Astro & Tailwind CSS.`,
   },
   naoEncontrado: {
     titulo: 'Page not found',
     texto: 'The address may have changed with the new version of the site.',
     voltar: 'Back to home',
   },
-  meses: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 };
 
 export const ui = { pt, en };
@@ -226,15 +244,5 @@ export const t = (idioma: Idioma) => ui[idioma];
 
 export const outroIdioma = (idioma: Idioma): Idioma => (idioma === 'pt' ? 'en' : 'pt');
 
-/** Rotas por idioma: o português fica na raiz, o inglês em /en. */
-export const rotas = {
-  inicio: (idioma: Idioma) => (idioma === 'pt' ? '/' : '/en/'),
-  projeto: (idioma: Idioma, slug: string) =>
-    idioma === 'pt' ? `/projetos/${slug}/` : `/en/projects/${slug}/`,
-};
-
-/** "2026-08" vira "ago 2026" / "Aug 2026". */
-export const formatarMes = (idioma: Idioma, anoMes: string) => {
-  const [ano, mes] = anoMes.split('-').map(Number);
-  return `${ui[idioma].meses[mes - 1]} ${ano}`;
-};
+/** O português fica na raiz, o inglês em /en. */
+export const inicio = (idioma: Idioma) => (idioma === 'pt' ? '/' : '/en/');

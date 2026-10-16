@@ -1,10 +1,9 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import Icone from '@/components/ui/Icone.astro';
-import RotuloSeta from '@/components/ui/RotuloSeta.astro';
-import TextoRolante from '@/components/ui/TextoRolante.astro';
-import { formatarMes, rotas, t, type Idioma } from '@/i18n/ui';
-import { getProjetos, nomeTransicao } from '@/utils/projetos';
+import TituloSecao from '@/components/ui/TituloSecao.astro';
+import { t, type Idioma } from '@/i18n/ui';
+import { getProjetos, validarIdiomas } from '@/utils/projetos';
 
 interface Props {
   idioma: Idioma;
@@ -12,96 +11,170 @@ interface Props {
 
 const { idioma } = Astro.props;
 const { projetos: textos, contato } = t(idioma);
-const [destaque, ...demais] = await getProjetos(idioma);
+await validarIdiomas();
+
+// Cada tela em duas versões: a da capa (srcset responsivo) e a grande, pra
+// tela cheia. A galeria troca a capa pelo JS a partir desses dados.
+const projetos = await Promise.all(
+  (await getProjetos(idioma)).map(async (projeto) => ({
+    ...projeto,
+    telas: await Promise.all(
+      projeto.data.imagens.map(async (imagem) => {
+        const capa = await getImage({ src: imagem.src, widths: [480, 800, 1100], format: 'webp' });
+        const grande = await getImage({ src: imagem.src, width: Math.min(imagem.src.width, 2000) });
+        return {
+          imagem,
+          legenda: imagem.legenda,
+          src: capa.src,
+          srcset: capa.srcSet.attribute,
+          grande: grande.src,
+          largura: grande.attributes.width as number,
+          altura: grande.attributes.height as number,
+        };
+      })
+    ),
+  }))
+);
 ---
 
-<section id="projetos" class="border-t border-line py-24 lg:py-32" aria-labelledby="projetos-titulo">
-  <div class="shell">
-    <h2 id="projetos-titulo" class="font-display text-title font-bold text-bone" data-reveal>
-      {textos.titulo}
-    </h2>
-    <p class="mt-5 max-w-[52ch] text-lead text-mute" data-reveal style="--d:1">
-      {textos.intro}
-    </p>
+<section class="section border-b border-white/5" id="projetos" aria-labelledby="projetos-titulo">
+  <div class="container">
+    <TituloSecao id="projetos-titulo" eyebrow={textos.eyebrow} titulo={textos.title} />
 
-    <a
-      href={rotas.projeto(idioma, destaque.slug)}
-      class="group mt-16 grid grid-cols-1 gap-8 lg:mt-20 lg:grid-cols-12 lg:gap-x-6"
-    >
-      <div
-        class="media-zoom overflow-hidden rounded-lg border border-line lg:col-span-8"
-        style={`view-transition-name: ${nomeTransicao(destaque.slug)}`}
-      >
-        <div data-reveal-media>
-          <Image
-            src={destaque.data.imagens[0].src}
-            alt={destaque.data.imagens[0].legenda}
-            widths={[640, 960, 1400]}
-            sizes="(min-width: 1024px) 64vw, 100vw"
-            class="aspect-[16/10] w-full object-cover object-top"
-          />
-        </div>
-      </div>
-      <div class="flex flex-col justify-end lg:col-span-4" data-reveal>
-        <p class="font-mono text-label text-mute uppercase">
-          {destaque.data.linguagem} / {formatarMes(idioma, destaque.data.inicio)}
-        </p>
-        <h3 class="mt-3 font-display text-title font-bold text-bone">{destaque.data.nome}</h3>
-        <dl class="mt-8 flex flex-col gap-5">
-          <div>
-            <dt class="font-mono text-label text-signal uppercase">{textos.problema}</dt>
-            <dd class="mt-2 text-mute">{destaque.data.problema}</dd>
-          </div>
-          <div>
-            <dt class="font-mono text-label text-signal uppercase">{textos.solucao}</dt>
-            <dd class="mt-2 text-mute">{destaque.data.solucao}</dd>
-          </div>
-        </dl>
-        <RotuloSeta texto={textos.verCaso} class="mt-8" />
-      </div>
-    </a>
-
-    <ul class="mt-24 grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2 lg:mt-32">
-      {demais.map((projeto, i) => (
-        <li class:list={[i % 2 === 1 && 'md:mt-28']}>
-          <a href={rotas.projeto(idioma, projeto.slug)} class="group flex flex-col gap-6">
+    <div class="space-y-20 lg:space-y-28">
+      {projetos.map((projeto, i) => {
+        const invertido = i % 2 === 1;
+        const [primeira] = projeto.telas;
+        return (
+          <article class="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-14">
             <div
-              class="media-zoom overflow-hidden rounded-lg border border-line"
-              style={`view-transition-name: ${nomeTransicao(projeto.slug)}`}
+              class:list={['lg:col-span-7', invertido && 'lg:order-2']}
+              data-reveal
+              data-galeria={JSON.stringify(
+                projeto.telas.map(({ legenda, src, srcset, grande, largura, altura }) => ({
+                  legenda,
+                  src,
+                  srcset,
+                  grande,
+                  largura,
+                  altura,
+                }))
+              )}
+              data-rotulo-ampliar={textos.galeria.ampliar('{legenda}')}
             >
-              <div data-reveal-media>
-                <Image
-                  src={projeto.data.imagens[0].src}
-                  alt={projeto.data.imagens[0].legenda}
-                  widths={[480, 800, 1100]}
-                  sizes="(min-width: 768px) 46vw, 100vw"
-                  class="aspect-[16/10] w-full object-cover object-top"
+              <button
+                type="button"
+                data-capa
+                aria-label={textos.galeria.ampliar(primeira.legenda)}
+                class="group relative block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10 bg-surface shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] transition-colors duration-300 hover:border-accent/50 focus-visible:border-accent"
+              >
+                <img
+                  src={primeira.src}
+                  srcset={primeira.srcset}
+                  sizes="(min-width: 960px) 56vw, 100vw"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width={primeira.largura}
+                  height={primeira.altura}
+                  class="absolute inset-0 h-full w-full object-cover object-top transition-[opacity,scale] duration-700 ease-out group-hover:scale-[1.015]"
                 />
+                <span
+                  class="absolute right-3 bottom-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white/90 backdrop-blur transition-opacity duration-300 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-visible:opacity-100"
+                  aria-hidden="true"
+                >
+                  <Icone nome="tela-cheia" class="size-3.5" />
+                </span>
+              </button>
+
+              <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-sm leading-6 text-white/55" aria-live="polite" data-legenda>
+                  {primeira.legenda}
+                </p>
+                {projeto.telas.length > 1 && (
+                  <div class="-mx-1 flex shrink-0 gap-2 overflow-x-auto px-1 py-1">
+                    {projeto.telas.map((tela, n) => (
+                      <button
+                        type="button"
+                        data-mostrar={n}
+                        aria-label={textos.galeria.mostrar(n + 1, tela.legenda)}
+                        aria-pressed={n === 0 ? 'true' : 'false'}
+                        class="relative aspect-[16/10] w-16 shrink-0 overflow-hidden rounded-md border border-white/10 opacity-50 transition duration-200 hover:border-white/30 hover:opacity-90 aria-pressed:border-accent aria-pressed:opacity-100"
+                      >
+                        <Image
+                          src={tela.imagem.src}
+                          alt=""
+                          width={128}
+                          class="h-full w-full object-cover object-top"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
-            <div data-reveal>
-              <div class="flex items-baseline justify-between gap-6">
-                <h3 class="font-display text-subtitle font-bold text-bone">{projeto.data.nome}</h3>
-                <p class="shrink-0 font-mono text-label text-mute uppercase">
-                  {projeto.data.linguagem} / {formatarMes(idioma, projeto.data.inicio)}
+
+            <div class:list={['lg:col-span-5', invertido && 'lg:order-1']} data-reveal style="--d:2">
+              <h3 class="font-primary text-3xl leading-tight font-bold text-white">{projeto.data.nome}</h3>
+
+              <div class="mt-5 max-w-prose space-y-3 text-base leading-relaxed text-white/70">
+                <p>
+                  <span class="font-medium text-white">{textos.problemLabel}</span> {projeto.data.problema}
+                </p>
+                <p>
+                  <span class="font-medium text-white">{textos.solutionLabel}</span> {projeto.data.solucao}
                 </p>
               </div>
-              <p class="mt-3 max-w-[52ch] text-mute">{projeto.data.problema}</p>
-              <RotuloSeta texto={textos.verCaso} class="mt-5" />
+
+              <ul class="mt-6 flex flex-wrap gap-2" aria-label={textos.techLabel}>
+                {projeto.data.stack.map((tech) => (
+                  <li class="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1 text-xs leading-5 text-white/70">
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-8 flex flex-wrap items-center gap-3 text-sm">
+                {projeto.data.demo && (
+                  <a
+                    href={projeto.data.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={textos.ariaDemo(projeto.data.nome)}
+                    class="btn flex items-center gap-x-2 px-5 py-2.5 leading-5"
+                  >
+                    <Icone nome="link-externo" />
+                    {textos.demo}
+                  </a>
+                )}
+                <a
+                  href={projeto.data.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={textos.ariaGithub(projeto.data.nome)}
+                  class="btn-outline flex items-center gap-x-2 rounded-full px-5 py-2.5 leading-5 hover:text-accent-light"
+                >
+                  <Icone nome="github" />
+                  {textos.github}
+                </a>
+              </div>
             </div>
-          </a>
-        </li>
-      ))}
-    </ul>
+          </article>
+        );
+      })}
+    </div>
 
     <a
       href={`${contato.github}?tab=repositories`}
       target="_blank"
-      rel="noopener"
-      class="group mt-20 inline-flex items-center gap-2 text-mute transition-colors hover:text-bone"
+      rel="noopener noreferrer"
+      class="btn btn-sm mt-16 inline-flex items-center"
     >
-      <Icone nome="github" />
-      <TextoRolante texto={textos.todosRepos} />
+      {textos.viewAllBtn}
     </a>
   </div>
 </section>
+
+<script>
+  import '@/scripts/galeria';
+</script>

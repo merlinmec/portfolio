@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // Um arquivo por projeto e idioma: src/content/projetos/<pt|en>/<slug>.md.
-// O corpo do Markdown é a seção de decisões técnicas da página do projeto.
+// Só frontmatter: os dados do card de cada projeto na home.
 const projetos = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projetos' }),
   schema: ({ image }) =>

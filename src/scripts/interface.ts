@@ -8,7 +8,6 @@ raiz.dataset.pronto = '';
 const reduzMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Entrada ao rolar: o CSS esconde [data-reveal] só quando <html> tem `.js`. */
-const revelaveis = document.querySelectorAll<HTMLElement>('[data-reveal], [data-reveal-media]');
 if (raiz.classList.contains('js')) {
   const observador = new IntersectionObserver(
     (entradas) => {
@@ -20,7 +19,29 @@ if (raiz.classList.contains('js')) {
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
   );
-  revelaveis.forEach((el) => observador.observe(el));
+  document.querySelectorAll('[data-reveal]').forEach((el) => observador.observe(el));
+}
+
+/* Hero: frases que se digitam e se apagam sozinhas, em loop. */
+const digitando = document.querySelector<HTMLElement>('[data-digitar]');
+if (digitando && !reduzMovimento) {
+  const frases: [string, number][] = JSON.parse(digitando.dataset.digitar ?? '[]');
+  const espera = (ms: number) => new Promise((resolver) => setTimeout(resolver, ms));
+  digitando.classList.add('digitando');
+  (async () => {
+    for (let i = 0; ; i = (i + 1) % frases.length) {
+      const [frase, pausa] = frases[i];
+      for (let n = digitando.textContent?.length ?? 0; n < frase.length; n++) {
+        digitando.textContent = frase.slice(0, n + 1);
+        await espera(45);
+      }
+      await espera(pausa);
+      for (let n = frase.length; n > 0; n--) {
+        digitando.textContent = frase.slice(0, n - 1);
+        await espera(22);
+      }
+    }
+  })();
 }
 
 /* Hero: desenho em braille gerado pelo Text-Art. */
@@ -101,15 +122,6 @@ function animarBraille(braille: HTMLElement, textoFinal: string, largura: number
   quandoVisivel.observe(braille);
 }
 
-/* Botões: o preenchimento do hover nasce de onde o cursor entrou. */
-document.querySelectorAll<HTMLElement>('[data-btn]').forEach((botao) => {
-  botao.addEventListener('pointerenter', (evento) => {
-    const caixa = botao.getBoundingClientRect();
-    botao.style.setProperty('--x', `${evento.clientX - caixa.left}px`);
-    botao.style.setProperty('--y', `${evento.clientY - caixa.top}px`);
-  });
-});
-
 /* Navbar: marca a seção que está no meio da tela. */
 const linksSecao = document.querySelectorAll<HTMLElement>('[data-secao]');
 const secoes = Array.from(linksSecao)
@@ -119,9 +131,8 @@ if (secoes.length) {
   const marcar = new IntersectionObserver(
     (entradas) => {
       for (const entrada of entradas) {
-        const id = entrada.target.id;
         linksSecao.forEach((link) => {
-          if (link.dataset.secao !== id) return;
+          if (link.dataset.secao !== entrada.target.id) return;
           if (entrada.isIntersecting) link.setAttribute('aria-current', 'location');
           else link.removeAttribute('aria-current');
         });
@@ -132,31 +143,20 @@ if (secoes.length) {
   secoes.forEach((secao) => marcar.observe(secao));
 }
 
-/* Menu mobile (popover nativo): fecha ao escolher um link. */
-document.querySelectorAll('[data-fechar-menu]').forEach((link) => {
-  link.addEventListener('click', () => document.getElementById('menu-mobile')?.hidePopover());
-});
-
-/* Tema: alterna e lembra. O valor inicial é aplicado no <head>, antes da pintura. */
-const botaoTema = document.querySelector<HTMLButtonElement>('[data-alternar-tema]');
-if (botaoTema) {
-  const corBarra = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-  const rotular = () => {
-    const claro = raiz.dataset.theme === 'light';
-    botaoTema.setAttribute(
-      'aria-label',
-      (claro ? botaoTema.dataset.rotuloEscuro : botaoTema.dataset.rotuloClaro) ?? ''
-    );
-  };
-  rotular();
-  botaoTema.addEventListener('click', () => {
-    raiz.dataset.theme = raiz.dataset.theme === 'light' ? 'dark' : 'light';
-    try {
-      localStorage.setItem('tema', raiz.dataset.theme);
-    } catch {
-      // Sem armazenamento (aba anônima, bloqueio): o tema vale só nesta página.
-    }
-    if (corBarra) corBarra.content = raiz.dataset.theme === 'light' ? '#f3f3ef' : '#0e0f0d';
-    rotular();
+/* Skills: filtro por categoria. Sem JS os botões ficam escondidos e todas
+   as skills aparecem. */
+const filtros = document.querySelector<HTMLElement>('[data-filtros]');
+if (filtros) {
+  filtros.hidden = false;
+  const botoes = filtros.querySelectorAll<HTMLButtonElement>('[data-filtro]');
+  const itens = document.querySelectorAll<HTMLElement>('[data-categoria]');
+  botoes.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const escolhida = botao.dataset.filtro;
+      botoes.forEach((b) => b.setAttribute('aria-pressed', String(b === botao)));
+      itens.forEach((item) => {
+        item.hidden = escolhida !== 'all' && item.dataset.categoria !== escolhida;
+      });
+    });
   });
 }

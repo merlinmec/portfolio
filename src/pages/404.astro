@@ -1,23 +1,25 @@
 ---
-import Botao from '@/components/ui/Botao.astro';
 import Base from '@/layouts/Base.astro';
-import { rotas, t } from '@/i18n/ui';
+import { inicio, t } from '@/i18n/ui';
 
 // Página única pros dois idiomas: a Vercel serve a mesma 404 pra qualquer rota.
 const pt = t('pt').naoEncontrado;
 const en = t('en').naoEncontrado;
 ---
 
-<Base idioma="pt" alternativo={rotas.inicio('en')} titulo={pt.titulo} semIndice>
-  <section class="shell flex min-h-[80dvh] flex-col justify-center pt-28 pb-16">
-    <p class="font-mono text-label text-signal uppercase">404</p>
-    <h1 class="mt-6 font-display text-display font-extrabold text-bone">{pt.titulo}</h1>
-    <p class="mt-6 max-w-[44ch] text-lead text-mute">{pt.texto}</p>
-    <p class="mt-2 max-w-[44ch] text-mute" lang="en">
-      {en.titulo}. {en.texto}
-    </p>
-    <div class="mt-10">
-      <Botao rotulo={pt.voltar} href={rotas.inicio('pt')} icone="arrow-left" direcao="left" />
+<Base idioma="pt" alternativo={inicio('en')} titulo={pt.titulo} semIndice>
+  <section class="relative flex min-h-[70vh] items-center overflow-hidden">
+    <div class="bg-dot-grid absolute inset-0 opacity-30" aria-hidden="true"></div>
+    <div class="relative container">
+      <span class="eyebrow">404</span>
+      <h1 class="h2 leading-tight">{pt.titulo}</h1>
+      <p class="text-white/70">{pt.texto}</p>
+      <p class="text-white/50" lang="en">
+        {en.titulo}. {en.texto}
+      </p>
+      <a href={inicio('pt')} class="btn btn-sm mt-8 inline-flex items-center">
+        {pt.voltar}
+      </a>
     </div>
   </section>
 </Base>
