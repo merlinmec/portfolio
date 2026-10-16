@@ -144,8 +144,8 @@
   .prose-projeto {
     max-width: 68ch;
     color: var(--color-mute);
-    font-size: var(--text-lead);
-    line-height: 1.65;
+    font-size: 1.0625rem;
+    line-height: 1.7;
   }
 
   .prose-projeto > * + * {
@@ -153,11 +153,11 @@
   }
 
   .prose-projeto h2 {
-    margin-top: 2.2em;
+    margin-top: 2em;
     color: var(--color-bone);
-    font-size: var(--text-subtitle);
-    line-height: var(--text-subtitle--line-height);
-    letter-spacing: var(--text-subtitle--letter-spacing);
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
   }
 
   .prose-projeto h2:first-child {

@@ -106,6 +106,61 @@ const imagemOg = new URL('/og.png', Astro.site);
       <slot />
     </main>
     <Rodape idioma={idioma} />
+    <script is:inline>
+      // Troca de idioma sem perder o lugar. As páginas pt e en têm o mesmo
+      // HTML (só o texto muda), então dá pra guardar QUAL bloco estava no topo
+      // da tela e quanto dele já tinha passado, e voltar pro mesmo bloco do
+      // outro lado. Roda no fim do <body>, antes da primeira pintura.
+      (function () {
+        var CHAVE = 'posicao-idioma';
+        var blocos = function () {
+          return document.querySelectorAll('main :is(section, header, h1, h2, h3, p, li, figure)');
+        };
+        // offsetTop ignora o deslocamento das animações de entrada (translate).
+        var topo = function (el) {
+          var y = 0;
+          for (; el; el = el.offsetParent) y += el.offsetTop;
+          return y;
+        };
+
+        document.querySelectorAll('[data-trocar-idioma]').forEach(function (link) {
+          link.addEventListener('click', function () {
+            var lista = blocos();
+            for (var i = 0; i < lista.length; i++) {
+              var t = topo(lista[i]);
+              if (t + lista[i].offsetHeight > scrollY + 80) {
+                try {
+                  sessionStorage.setItem(
+                    CHAVE,
+                    JSON.stringify({ destino: link.pathname, indice: i, recuo: scrollY - t })
+                  );
+                } catch (e) {}
+                return;
+              }
+            }
+          });
+        });
+
+        var salvo = null;
+        try {
+          salvo = JSON.parse(sessionStorage.getItem(CHAVE));
+          sessionStorage.removeItem(CHAVE);
+        } catch (e) {}
+        if (!salvo || salvo.destino !== location.pathname) return;
+
+        var rolar = function () {
+          var alvo = blocos()[salvo.indice];
+          if (alvo) scrollTo({ top: topo(alvo) + salvo.recuo, behavior: 'instant' });
+          return scrollY;
+        };
+        var posicao = rolar();
+        // As fontes podem mudar a altura do texto ao carregar: reajusta se a
+        // pessoa ainda não rolou.
+        document.fonts.ready.then(function () {
+          if (scrollY === posicao) rolar();
+        });
+      })();
+    </script>
     <script>
       import '@/scripts/interface';
     </script>

@@ -57,6 +57,7 @@ const pilula = 'rounded-full border border-line bg-ink-2/75 backdrop-blur-xl';
         lang={t(outro).htmlLang}
         class:list={['group grid h-11 place-items-center px-4 font-mono text-sm text-bone', pilula]}
         aria-label={`${nav.idiomaCurto}, ${nav.trocarIdioma}`}
+        data-trocar-idioma
       >
         <TextoRolante texto={nav.idiomaCurto} />
       </a>
