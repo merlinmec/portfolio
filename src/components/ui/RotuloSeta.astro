@@ -1,0 +1,17 @@
+---
+import Seta from './Seta.astro';
+import TextoRolante from './TextoRolante.astro';
+
+// "Ver o projeto ↗": rótulo de link dentro de um `.group` que já é o <a>.
+interface Props {
+  texto: string;
+  class?: string;
+}
+
+const { texto, class: classe } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-2 font-medium text-bone', classe]}>
+  <TextoRolante texto={texto} />
+  <Seta />
+</span>

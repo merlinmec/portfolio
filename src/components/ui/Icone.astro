@@ -1,0 +1,12 @@
+---
+import { icones, type NomeIcone } from './icones';
+
+interface Props {
+  nome: NomeIcone;
+  class?: string;
+}
+
+const { nome, class: classe } = Astro.props;
+---
+
+<span class:list={['icon inline-block size-4 shrink-0', classe]} aria-hidden="true" set:html={icones[nome]} />

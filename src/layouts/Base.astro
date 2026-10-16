@@ -1,0 +1,113 @@
+---
+import '@/styles/global.css';
+import { Font } from 'astro:assets';
+import Nav from '@/components/layout/Nav.astro';
+import Rodape from '@/components/layout/Rodape.astro';
+import { outroIdioma, t, type Idioma } from '@/i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+  /** Mesmo conteúdo no outro idioma, pro hreflang e pro seletor de idioma. */
+  alternativo: string;
+  titulo?: string;
+  descricao?: string;
+  /** Páginas que não devem ser indexadas nem ter canonical (a 404). */
+  semIndice?: boolean;
+}
+
+const { idioma, alternativo, titulo, descricao, semIndice = false } = Astro.props;
+const textos = t(idioma);
+const outro = outroIdioma(idioma);
+
+const tituloFinal = titulo ? `${titulo} | João Manoel Carvalho` : textos.meta.titulo;
+const descricaoFinal = descricao ?? textos.meta.descricao;
+const canonico = new URL(Astro.url.pathname, Astro.site);
+const urlAlternativa = new URL(alternativo, Astro.site);
+const urlPt = idioma === 'pt' ? canonico : urlAlternativa;
+const imagemOg = new URL('/og.png', Astro.site);
+---
+
+<!doctype html>
+<html lang={textos.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloFinal}</title>
+    <meta name="description" content={descricaoFinal} />
+    {semIndice ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonico} />
+        <link rel="alternate" hreflang={textos.htmlLang} href={canonico} />
+        <link rel="alternate" hreflang={t(outro).htmlLang} href={urlAlternativa} />
+        <link rel="alternate" hreflang="x-default" href={urlPt} />
+      </>
+    )}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0e0f0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="João Manoel Carvalho" />
+    <meta property="og:locale" content={textos.ogLocale} />
+    <meta property="og:url" content={canonico} />
+    <meta property="og:title" content={tituloFinal} />
+    <meta property="og:description" content={descricaoFinal} />
+    <meta property="og:image" content={imagemOg} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-display-face" preload />
+    <Font cssVariable="--font-body-face" preload />
+    <Font cssVariable="--font-mono-face" />
+    <script is:inline>
+      // Antes da primeira pintura: tema salvo (ou o do sistema) e a classe
+      // `js`, que liga as animações de entrada só pra quem não pediu menos movimento.
+      // Se o script de interface não marcar `pronto` em 3 s (falhou ou foi
+      // bloqueado), a classe sai e o conteúdo escondido pra animar aparece.
+      (function () {
+        var raiz = document.documentElement;
+        var tema = null;
+        try {
+          tema = localStorage.getItem('tema');
+        } catch (e) {}
+        if (tema !== 'light' && tema !== 'dark') {
+          tema = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        raiz.dataset.theme = tema;
+        document.querySelector('meta[name="theme-color"]').content = tema === 'light' ? '#f3f3ef' : '#0e0f0d';
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          raiz.classList.add('js');
+          setTimeout(function () {
+            if (!('pronto' in raiz.dataset)) raiz.classList.remove('js');
+          }, 3000);
+          // Chegando por transição entre páginas, a capa do projeto voa até
+          // o lugar dela: ela precisa já estar revelada, não recortada.
+          addEventListener('pagereveal', function (evento) {
+            if (!evento.viewTransition) return;
+            document.querySelectorAll('[data-reveal-media]').forEach(function (el) {
+              el.classList.add('is-in');
+            });
+          });
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a
+      href="#conteudo"
+      class="fixed top-3 left-3 z-[110] -translate-y-24 rounded-full bg-bone px-4 py-2 text-sm text-ink focus:translate-y-0"
+    >
+      {textos.pularConteudo}
+    </a>
+    <Nav idioma={idioma} alternativo={alternativo} />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Rodape idioma={idioma} />
+    <script>
+      import '@/scripts/interface';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import Icone from '@/components/ui/Icone.astro';
+import RotuloSeta from '@/components/ui/RotuloSeta.astro';
+import TextoRolante from '@/components/ui/TextoRolante.astro';
+import { formatarMes, rotas, t, type Idioma } from '@/i18n/ui';
+import { getProjetos, nomeTransicao } from '@/utils/projetos';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const { projetos: textos, contato } = t(idioma);
+const [destaque, ...demais] = await getProjetos(idioma);
+---
+
+<section id="projetos" class="border-t border-line py-24 lg:py-32" aria-labelledby="projetos-titulo">
+  <div class="shell">
+    <h2 id="projetos-titulo" class="font-display text-title font-bold text-bone" data-reveal>
+      {textos.titulo}
+    </h2>
+    <p class="mt-5 max-w-[52ch] text-lead text-mute" data-reveal style="--d:1">
+      {textos.intro}
+    </p>
+
+    <a
+      href={rotas.projeto(idioma, destaque.slug)}
+      class="group mt-16 grid grid-cols-1 gap-8 lg:mt-20 lg:grid-cols-12 lg:gap-x-6"
+    >
+      <div
+        class="media-zoom overflow-hidden rounded-lg border border-line lg:col-span-8"
+        style={`view-transition-name: ${nomeTransicao(destaque.slug)}`}
+      >
+        <div data-reveal-media>
+          <Image
+            src={destaque.data.imagens[0].src}
+            alt={destaque.data.imagens[0].legenda}
+            widths={[640, 960, 1400]}
+            sizes="(min-width: 1024px) 64vw, 100vw"
+            class="aspect-[16/10] w-full object-cover object-top"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col justify-end lg:col-span-4" data-reveal>
+        <p class="font-mono text-label text-mute uppercase">
+          {destaque.data.linguagem} / {formatarMes(idioma, destaque.data.inicio)}
+        </p>
+        <h3 class="mt-3 font-display text-title font-bold text-bone">{destaque.data.nome}</h3>
+        <dl class="mt-8 flex flex-col gap-5">
+          <div>
+            <dt class="font-mono text-label text-signal uppercase">{textos.problema}</dt>
+            <dd class="mt-2 text-mute">{destaque.data.problema}</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-label text-signal uppercase">{textos.solucao}</dt>
+            <dd class="mt-2 text-mute">{destaque.data.solucao}</dd>
+          </div>
+        </dl>
+        <RotuloSeta texto={textos.verCaso} class="mt-8" />
+      </div>
+    </a>
+
+    <ul class="mt-24 grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2 lg:mt-32">
+      {demais.map((projeto, i) => (
+        <li class:list={[i % 2 === 1 && 'md:mt-28']}>
+          <a href={rotas.projeto(idioma, projeto.slug)} class="group flex flex-col gap-6">
+            <div
+              class="media-zoom overflow-hidden rounded-lg border border-line"
+              style={`view-transition-name: ${nomeTransicao(projeto.slug)}`}
+            >
+              <div data-reveal-media>
+                <Image
+                  src={projeto.data.imagens[0].src}
+                  alt={projeto.data.imagens[0].legenda}
+                  widths={[480, 800, 1100]}
+                  sizes="(min-width: 768px) 46vw, 100vw"
+                  class="aspect-[16/10] w-full object-cover object-top"
+                />
+              </div>
+            </div>
+            <div data-reveal>
+              <div class="flex items-baseline justify-between gap-6">
+                <h3 class="font-display text-subtitle font-bold text-bone">{projeto.data.nome}</h3>
+                <p class="shrink-0 font-mono text-label text-mute uppercase">
+                  {projeto.data.linguagem} / {formatarMes(idioma, projeto.data.inicio)}
+                </p>
+              </div>
+              <p class="mt-3 max-w-[52ch] text-mute">{projeto.data.problema}</p>
+              <RotuloSeta texto={textos.verCaso} class="mt-5" />
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href={`${contato.github}?tab=repositories`}
+      target="_blank"
+      rel="noopener"
+      class="group mt-20 inline-flex items-center gap-2 text-mute transition-colors hover:text-bone"
+    >
+      <Icone nome="github" />
+      <TextoRolante texto={textos.todosRepos} />
+    </a>
+  </div>
+</section>

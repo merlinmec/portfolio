@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Seta from './Seta.astro';
+import TextoRolante from './TextoRolante.astro';
+import type { NomeIcone } from './icones';
+
+type Variante = 'signal' | 'contorno';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'class'> {
+  rotulo: string;
+  href: string;
+  variante?: Variante;
+  icone?: NomeIcone | false;
+  direcao?: 'diagonal' | 'down' | 'left';
+  class?: string;
+}
+
+const {
+  rotulo,
+  href,
+  variante = 'signal',
+  icone = 'arrow-up-right',
+  direcao = 'diagonal',
+  class: classe,
+  ...resto
+} = Astro.props;
+
+const estilos: Record<Variante, { base: string; preenchimento: string }> = {
+  signal: { base: 'bg-signal text-ink', preenchimento: 'bg-bone' },
+  contorno: { base: 'border border-line-strong text-bone hover:text-ink', preenchimento: 'bg-bone' },
+};
+---
+
+<a href={href} class:list={['btn group', estilos[variante].base, classe]} data-btn {...resto}>
+  <span class:list={['btn-fill', estilos[variante].preenchimento]} aria-hidden="true"></span>
+  <TextoRolante texto={rotulo} />
+  {icone && <Seta nome={icone} direcao={direcao} />}
+</a>

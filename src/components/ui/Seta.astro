@@ -1,0 +1,20 @@
+---
+import Icone from './Icone.astro';
+import type { NomeIcone } from './icones';
+
+// Duas cópias do ícone empilhadas: no hover do `.group` pai, uma sai e a
+// outra entra na direção da seta (CSS em .btn-icon, global.css).
+interface Props {
+  nome?: NomeIcone;
+  direcao?: 'diagonal' | 'up' | 'down' | 'left';
+  class?: string;
+  classeIcone?: string;
+}
+
+const { nome = 'arrow-up-right', direcao = 'diagonal', class: classe, classeIcone } = Astro.props;
+---
+
+<span class:list={['btn-icon', classe]} data-dir={direcao === 'diagonal' ? undefined : direcao}>
+  <Icone nome={nome} class={classeIcone} />
+  <Icone nome={nome} class={classeIcone} />
+</span>

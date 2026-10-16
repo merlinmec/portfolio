@@ -1,0 +1,110 @@
+---
+import Icone from '@/components/ui/Icone.astro';
+import TextoRolante from '@/components/ui/TextoRolante.astro';
+import { outroIdioma, rotas, t, type Idioma } from '@/i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+  alternativo: string;
+}
+
+const { idioma, alternativo } = Astro.props;
+const { nav } = t(idioma);
+const inicio = rotas.inicio(idioma);
+const outro = outroIdioma(idioma);
+
+const links = [
+  { id: 'projetos', rotulo: nav.projetos },
+  { id: 'trajetoria', rotulo: nav.trajetoria },
+  { id: 'contato', rotulo: nav.contato },
+];
+
+const pilula = 'rounded-full border border-line bg-ink-2/75 backdrop-blur-xl';
+---
+
+<header class="pointer-events-none fixed inset-x-0 top-0 z-[70]">
+  <div class="shell flex h-20 items-center justify-between gap-4">
+    <a
+      href={inicio}
+      class:list={['group pointer-events-auto flex h-11 items-center px-5', pilula]}
+      aria-label={`mec, ${nav.inicio}`}
+    >
+      <span class="font-display text-2xl leading-none font-extrabold tracking-[-0.05em]" aria-hidden="true">
+        me<span class="text-signal">c</span>
+      </span>
+    </a>
+
+    <nav aria-label={nav.principal} class="pointer-events-auto hidden md:block">
+      <ul class:list={['flex items-center p-1', pilula]}>
+        {links.map((link) => (
+          <li>
+            <a
+              href={`${inicio}#${link.id}`}
+              class="group flex h-9 items-center rounded-full px-4 text-sm font-medium text-mute transition-colors duration-300 hover:text-bone aria-[current=location]:bg-bone/10 aria-[current=location]:text-bone"
+              data-secao={link.id}
+            >
+              <TextoRolante texto={link.rotulo} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="pointer-events-auto flex items-center gap-2">
+      <a
+        href={alternativo}
+        hreflang={t(outro).htmlLang}
+        lang={t(outro).htmlLang}
+        class:list={['group grid h-11 place-items-center px-4 font-mono text-sm text-bone', pilula]}
+        aria-label={`${nav.idiomaCurto}, ${nav.trocarIdioma}`}
+      >
+        <TextoRolante texto={nav.idiomaCurto} />
+      </a>
+      <button
+        type="button"
+        class:list={['grid size-11 place-items-center text-bone', pilula]}
+        data-alternar-tema
+        data-rotulo-claro={nav.temaClaro}
+        data-rotulo-escuro={nav.temaEscuro}
+        aria-label={nav.temaClaro}
+      >
+        <span class="tema-escuro grid">
+          <Icone nome="sol" class="size-[1.125rem]" />
+        </span>
+        <span class="tema-claro grid">
+          <Icone nome="lua" class="size-[1.125rem]" />
+        </span>
+      </button>
+      <button
+        type="button"
+        popovertarget="menu-mobile"
+        class:list={['grid size-11 place-items-center text-bone md:hidden', pilula]}
+        aria-label={nav.menu}
+      >
+        <Icone nome="menu" class="size-[1.125rem]" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<div
+  id="menu-mobile"
+  popover
+  class="m-0 mt-20 ml-auto mr-4 w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-line bg-ink-2 p-2 text-bone shadow-2xl backdrop:bg-ink/40"
+>
+  <nav aria-label={nav.principal}>
+    <ul class="flex flex-col">
+      {links.map((link) => (
+        <li>
+          <a
+            href={`${inicio}#${link.id}`}
+            class="block rounded-xl px-4 py-3 font-display text-2xl font-bold tracking-[-0.02em] hover:bg-bone/5"
+            data-fechar-menu
+          >
+            {link.rotulo}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>

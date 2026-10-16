@@ -1,0 +1,20 @@
+---
+import PaginaProjeto from '@/components/projeto/PaginaProjeto.astro';
+import Base from '@/layouts/Base.astro';
+import { caminhosProjeto } from '@/utils/paginasProjeto';
+import type { Projeto } from '@/utils/projetos';
+
+export const getStaticPaths = () => caminhosProjeto('en');
+
+interface Props {
+  projeto: Projeto;
+  proximo: Projeto;
+  alternativo: string;
+}
+
+const { projeto, proximo, alternativo } = Astro.props;
+---
+
+<Base idioma="en" alternativo={alternativo} titulo={projeto.data.nome} descricao={projeto.data.solucao}>
+  <PaginaProjeto idioma="en" projeto={projeto} proximo={proximo} />
+</Base>
