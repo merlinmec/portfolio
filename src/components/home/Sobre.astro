@@ -58,8 +58,8 @@ const colunas = Math.max(...arte.split('\n').map((linha) => Array.from(linha).le
           {sobre.cta}
         </a>
         <a
-          href="/curriculo.pdf"
-          download="curriculo_Joao_Manoel.pdf"
+          href={sobre.cvArquivo}
+          download={sobre.cvDownload}
           class="btn-outline flex h-[48px] items-center justify-center gap-x-2 rounded-full px-6 font-primary text-sm"
         >
           <Icone nome="download" />
